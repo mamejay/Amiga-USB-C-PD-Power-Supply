@@ -46,7 +46,7 @@ with open(f'{OUT}/{N} - BOM.csv', 'w', newline='') as f:
 
 # JLC rotation corrections (their part models vs KiCad zero orientation), checked in JLC's 3D preview 2026-11-03:
 # U1/U4/U5 -90 (set by the user), Q1 +180 (SOT-23 model had its two legs on the wrong side). U2, U3, J1, D1-D8 raw.
-JLC_ROT_FIX = {'U1': -90, 'U4': -90, 'U5': -90, 'Q1': 180}
+JLC_ROT_FIX = {'U1': -90, 'U2': -90, 'U4': -90, 'U5': -90, 'Q1': 180}   # U2 (SY8205 SO-8E, rev 1.2) -90 set by the user 2026-11-03
 raw = f'{OUT}/pos_raw.csv'
 run('kicad-cli', 'pcb', 'export', 'pos', '-o', raw, '--format', 'csv', '--units', 'mm', '--side', 'both', PCB)
 with open(raw) as f, open(f'{OUT}/{N} - CPL.csv', 'w', newline='') as g:
