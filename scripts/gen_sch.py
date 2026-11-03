@@ -3,7 +3,7 @@
 Original design (2026-11-03). Spec targets only were taken from public Amiga PSU ratings and the
 SnCMuseum/PCBWay "V2" board (5 V 4.5 A cont., +12 V 0.5-1.1 A, -12 V 0.15-0.5 A); no circuitry was copied.
   USB-C -> CH224A (asks for 15 V) -> both bucks enabled only after the PD contract (CH224A PG low, Q1) AND VBUS > ~12 V.
-  +5 V : TPS56637 6 A buck (FCCM) -> TPS259470A eFuse (OVLO 5.64 V, ~6 A limit, soft start, fault LED) -> wire pads
+  +5 V : Silergy SY8205 5 A buck -> TPS259470A eFuse (OVLO 5.64 V, ~5.4 A limit, soft start, fault LED) -> wire pads (4.5 A rating)
   +12 V: LMR51430 3 A buck (12.36 V)
   -12 V: LMR51430 in inverting buck-boost, fed from +12 V (-12.36 V, >1 A capable)
 usage: python3 -I gen_sch.py <project dir>
@@ -41,7 +41,7 @@ SOURCES = {
     '2N7002': (f'{STD}/Transistor_FET.kicad_sym', '2N7002'),
     'USB_C_Receptacle_USB2.0_16P': (f'{STD}/Connector.kicad_sym', 'USB_C_Receptacle_USB2.0_16P'),
     'Conn_01x06': (f'{STD}/Connector_Generic.kicad_sym', 'Conn_01x06'),
-    'TPS56637': (None, None),
+    'SY8205': (None, None),
     'TPS25947': (None, None),
     'D_Zener': (f'{STD}/Device.kicad_sym', 'D_Zener'),         # unidirectional TVS
     'D_Schottky': (f'{STD}/Device.kicad_sym', 'D_Schottky'),
@@ -71,12 +71,12 @@ def _ic(name, desc, pins):
             f'(symbol "{name}_0_1" (rectangle (start -7.62 7.62) (end 7.62 -7.62) (stroke (width 0.254) (type default)) (fill (type background)))) '
             f'(symbol "{name}_1_1" ' + ' '.join(_pin(*p) for p in pins) + '))')
 INLINE = {
-    'TPS56637': _ic('TPS56637', 'TI TPS56637 4.5-28 V 6 A synchronous buck, D-CAP3, VQFN-HR-10 (RPA)',
-                    [('power_in', -10.16, 5.08, 0, 'VIN', '8'), ('input', -10.16, 0, 0, 'EN', '1'),
-                     ('input', -10.16, -2.54, 0, 'MODE', '10'), ('passive', -10.16, -5.08, 0, 'NC', '5'),
-                     ('passive', 10.16, 5.08, 180, 'BOOT', '7'), ('power_out', 10.16, 2.54, 180, 'SW', '6'),
-                     ('input', 10.16, -2.54, 180, 'FB', '2'), ('open_collector', 10.16, -5.08, 180, 'PG', '4'),
-                     ('power_in', -2.54, -10.16, 90, 'AGND', '3'), ('power_in', 2.54, -10.16, 90, 'PGND', '9')]),
+    'SY8205': _ic('SY8205', 'Silergy SY8205 4.5-30 V 5 A synchronous buck, SO-8E (exposed pad = GND)',
+                  [('power_in', -10.16, 5.08, 0, 'IN', '7'), ('power_in', -10.16, 2.54, 0, 'IN', '8'),
+                   ('input', -10.16, 0, 0, 'EN', '3'), ('passive', -10.16, -5.08, 0, 'SS', '4'),
+                   ('passive', 10.16, 5.08, 180, 'BS', '1'), ('power_out', 10.16, 2.54, 180, 'LX', '2'),
+                   ('input', 10.16, -2.54, 180, 'FB', '5'), ('power_out', 10.16, -5.08, 180, 'VCC', '6'),
+                   ('power_in', 0, -10.16, 90, 'GND', '9')]),
     'TPS25947': _ic('TPS25947', 'TI TPS25947 eFuse, 2.7-23 V, 0.5-6 A, adjustable OVLO',
                     [('power_in', -10.16, 5.08, 0, 'IN', '5'), ('input', -10.16, 0, 0, 'EN/UVLO', '1'),
                      ('input', -10.16, -2.54, 0, 'OVLO', '2'), ('passive', -10.16, -5.08, 0, 'DVDT', '7'),
@@ -128,7 +128,7 @@ PWR = {'GND', '+5V', '+12V', '-12V', 'VBUS'}
 two = lambda a, b: {'1': a, '2': b}
 R0603, C0603, C0805, C1206 = FP('R_0603_1608Metric'), FP('C_0603_1608Metric'), FP('C_0805_2012Metric'), FP('C_1206_3216Metric')
 # JLC Basic parts for every passive
-LCSC = {'560R': 'C23204', '1k': 'C21190', '4.7k': 'C23162', '5.1k': 'C23186', '10k': 'C25804', '12k': 'C22790',
+LCSC = {'620R': 'C23220', '1k': 'C21190', '4.7k': 'C23162', '5.1k': 'C23186', '10k': 'C25804', '12k': 'C22790',
         '20k': 'C4184', '27k': 'C22967', '47k': 'C25819', '56k': 'C23206', '75k': 'C23242', '100k': 'C25803',
         '100pF': 'C14858', '2.2nF': 'C1604', '100nF/50V': 'C14663', '1uF/50V': 'C15849', '10uF/25V': 'C15850',
         '22uF/25V': 'C7419435', '10uF/50V': 'C13585'}
@@ -165,35 +165,36 @@ PARTS = [
     ('Q1', '2N7002', '2N7002', FP('SOT-23'), (73.66, 144.78), {'1': 'PG', '2': 'GND', '3': 'EN'},
      {'LCSC': 'C8545', 'Description': 'holds EN low until the PD contract is made (CH224A PG pulls the gate low)'}),
     R('R2', '100k', (58.42, 132.08), 'VBUS', 'PG', 'Q1 gate pull-up (PG is open drain, 32 V tolerant)'),
-    R('R3', '100k', (93.98, 132.08), 'VBUS', 'EN', 'EN/UVLO top: start 11.0 V (TPS56637) / 11.5 V (LMR51430), stop ~10 V'),
+    R('R3', '100k', (93.98, 132.08), 'VBUS', 'EN', 'EN/UVLO top: start ~12.1 V (SY8205 1.3 V) / 11.5 V (LMR51430), stop ~10-11 V'),
     R('R4', '12k', (104.14, 157.48), 'EN', 'GND', 'EN/UVLO bottom'),
-    # ---- +5 V: TPS56637, 500 kHz, FCCM (MODE open), Vout = 0.6 x (1 + 75k/10k) = 5.10 V
-    ('U2', 'TPS56637', 'TPS56637RPAR', FP('TI_RPA0010A_VQFN-HR-10_3x3mm'), (195.58, 76.2),
-     {'8': 'VBUS', '1': 'EN', '7': 'BOOT5', '6': 'SW5', '2': 'FB5', '3': 'GND', '9': 'GND'},   # MODE open = FCCM, PG/NC unused
-     {'LCSC': 'C841386', 'Description': 'TI TPS56637 6 A 28 V synchronous buck (D-CAP3), +5 V rail'}),
+    # ---- +5 V: SY8205 5 A, 500 kHz, Vout = 0.6 x (1 + 75k/10k) = 5.10 V
+    ('U2', 'SY8205', 'SY8205FCC', FP('SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.41x3.3mm_ThermalVias'), (195.58, 76.2),
+     {'7': 'VBUS', '8': 'VBUS', '3': 'EN', '1': 'BOOT5', '2': 'SW5', '5': 'FB5', '4': 'SS5', '6': 'VCC5', '9': 'GND'},
+     {'LCSC': 'C111875', 'Description': 'Silergy SY8205FCC 5 A 30 V synchronous buck, SO-8E, +5 V rail (board rated 4.5 A)'}),
+    C('C27', '100nF/50V', (182.88, 104.14), 'SS5', 'GND', 'U2 soft start: 100 nF x 0.6 V / 10 uA = 6 ms'),
+    C('C28', '1uF/50V', (172.72, 104.14), 'VCC5', 'GND', 'U2 internal 3.3 V LDO bypass'),
     C('C2', '10uF/50V', (147.32, 76.2), 'VBUS', 'GND', 'U2 input (1206 50 V keeps ~6 uF at 15 V)'),
     C('C3', '10uF/50V', (157.48, 76.2), 'VBUS', 'GND', 'U2 input'),
     C('C4', '100nF/50V', (167.64, 76.2), 'VBUS', 'GND', 'U2 input HF, right at VIN/PGND'),
     C('C5', '100nF/50V', (220.98, 55.88), 'BOOT5', 'SW5', 'U2 bootstrap'),
-    ('L1', 'L', '3.3uH', FP('L_Chilisin_CMLO0650H'), (226.06, 76.2), two('SW5', '5V_BUCK'),
-     {'LCSC': 'C439008', 'Description': 'Chilisin CMLO0650H3R3MTT 3.3 uH, 8.5 A rated / 9 A sat, 14 mOhm (TI table: 3.3 uH for 5 V)'}),
+    ('L1', 'L', '4.7uH', FP('L_Chilisin_CMLO0650H'), (226.06, 76.2), two('SW5', '5V_BUCK'),
+     {'LCSC': 'C439009', 'Description': 'Chilisin CMLO0650H4R7MTT 4.7 uH, 6.5 A rated / 8 A sat, 24 mOhm (SY8205: >= 3.4 uH for 40 % ripple at 5 A)'}),
     C('C6', '22uF/25V', (246.38, 91.44), '5V_BUCK', 'GND', 'U2 output'),
     C('C7', '22uF/25V', (256.54, 91.44), '5V_BUCK', 'GND', 'U2 output'),
     C('C8', '22uF/25V', (266.7, 91.44), '5V_BUCK', 'GND', 'U2 output'),
     C('C9', '22uF/25V', (276.86, 91.44), '5V_BUCK', 'GND', 'U2 output (4 x 22 uF ~ 40 uF effective at 5 V; TI range 20-100 uF)'),
     R('R5', '75k', (231.14, 104.14), '5V_BUCK', 'FB5', 'FB top: 0.6 x (1 + 75k/10k) = 5.10 V'),
     R('R6', '10k', (231.14, 124.46), 'FB5', 'GND', 'FB bottom'),
-    C('C10', '100pF', (213.36, 104.14), '5V_BUCK', 'FF5', 'feed-forward (TI table: 100-220 pF + 20k) for load-step response'),
-    R('R7', '20k', (213.36, 124.46), 'FF5', 'FB5', 'feed-forward series resistor'),
-    # ---- 5 V eFuse: OVLO 1.2 V x 127/27 = 5.64 V; ILM 560R = 5.95 A typ (5.3 A min); 2.2 nF dVdt ~1 V/ms soft start
+    C('C10', '100pF', (213.36, 104.14), '5V_BUCK', 'FB5', 'feed-forward across R5 (SY8205 datasheet: 100 pF for faster load transients)'),
+    # ---- 5 V eFuse: OVLO 1.2 V x 127/27 = 5.64 V; ILM 620R = 5.4 A typ (4.8 A min); 2.2 nF dVdt ~1 V/ms soft start
     ('U3', 'TPS25947', 'TPS259470ARPWR', FP('TI_RPW0010A_VQFN-10-HR_2x2mm'), (320.04, 76.2),
      {'5': '5V_BUCK', '6': '+5V', '1': 'EF_EN', '2': 'EF_OVLO', '9': 'EF_ILM', '7': 'EF_DVDT', '4': 'FLT', '8': 'GND'},
-     {'LCSC': 'C3662799', 'Description': 'TI TPS259470A eFuse: disconnects the Amiga +5 V above 5.64 V, ~6 A current limit, soft start, auto-retry'}),
+     {'LCSC': 'C3662799', 'Description': 'TI TPS259470A eFuse: disconnects the Amiga +5 V above 5.64 V, ~5.4 A current limit, soft start, auto-retry'}),
     R('R8', '100k', (297.18, 104.14), '5V_BUCK', 'EF_EN', 'eFuse EN/UVLO top: on above ~3.75 V'),
     R('R9', '47k', (297.18, 124.46), 'EF_EN', 'GND', 'eFuse EN/UVLO bottom'),
     R('R10', '100k', (307.34, 104.14), '5V_BUCK', 'EF_OVLO', 'eFuse OVLO top: trips at 5.64 V'),
     R('R11', '27k', (307.34, 124.46), 'EF_OVLO', 'GND', 'eFuse OVLO bottom'),
-    R('R12', '560R', (342.9, 104.14), 'EF_ILM', 'GND', 'eFuse current limit 560R: ~5.95 A typ, 5.3 A min'),
+    R('R12', '620R', (342.9, 104.14), 'EF_ILM', 'GND', 'eFuse current limit 620R: ~5.4 A typ, 4.8 A min (board rated 4.5 A)'),
     C('C11', '2.2nF', (317.5, 109.22), 'EF_DVDT', 'GND', 'eFuse dVdt: ~1 V/ms, limits inrush into the Amiga 5 V bulk caps'),
     C('C12', '22uF/25V', (365.76, 91.44), '+5V', 'GND', '+5 V output'),
     TVS('D1', 'SMF5.0A', 'C19077497', (375.92, 91.44), '+5V', 'GND', 'SMF5.0A TVS (JLC Preferred) on +5 V'),
@@ -369,19 +370,19 @@ for i, net in enumerate(['VBUS', 'GND', '5V_BUCK', '-12V', '+12V']):   # +5V is 
                       ['stroke', ['width', 0], ['type', 'default']], ['uuid', uid()]])
         label(net, x, y + 2.54, (0, 1))
 
-NOTE = ('Amiga USB-C PD Power Supply v1.1  -  Amiga 500 / 600 / 1200 (and other +5/+12/-12 V machines)\n'
+NOTE = ('Amiga USB-C PD Power Supply v1.2  -  Amiga 500 / 600 / 1200 (and other +5/+12/-12 V machines)\n'
         'Needs a USB-C PD charger that offers 15 V at 3 A (45 W or more). U1 (CH224A) requests 15 V via R1 = 56k.\n'
         'U2/U4 run only while the PD contract holds (PG low -> Q1 off) and VBUS > ~11.5 V (R3/R4).\n'
-        '+5 V: U2 TPS56637 -> U3 eFuse (5.64 V OVLO, ~6 A limit): 5 A continuous.  +12 V: U4, 12.36 V.  -12 V: U5 inverting, from +12 V.\n'
-        'Budget: 45 W in, about 40 W out, e.g. 5 V 5 A + 12 V 1 A + -12 V 0.2 A.\n'
+        '+5 V: U2 SY8205 -> U3 eFuse (5.64 V OVLO, ~5.4 A limit): 4.5 A continuous.  +12 V: U4, 12.36 V.  -12 V: U5 inverting, from +12 V.\n'
+        'Budget: 45 W in, about 37 W out, e.g. 5 V 4.5 A + 12 V 1 A + -12 V 0.2 A.\n'
         'Original design. Spec targets only from Commodore PSU ratings and the SnCMuseum V2 board; no circuitry copied.')
 items.append(['text', Q(NOTE), ['exclude_from_sim', 'no'], ['at', 25.4, 22.86, 0],
               ['effects', ['font', ['size', 1.27, 1.27]], ['justify', 'left', 'bottom']], ['uuid', uid()]])
 
 sch = ['kicad_sch', ['version', 20250114], ['generator', Q('eeschema')], ['generator_version', Q('10.0')],
        ['uuid', Q(ROOT)], ['paper', Q('A3')],
-       ['title_block', ['title', Q(NAME)], ['date', Q('2026-11-03')], ['rev', Q('1.1')],
-        ['comment', 1, Q('USB-C PD 15 V -> Amiga +5 V 5 A (eFuse protected), +12 V, -12 V')]],
+       ['title_block', ['title', Q(NAME)], ['date', Q('2026-11-03')], ['rev', Q('1.2')],
+        ['comment', 1, Q('USB-C PD 15 V -> Amiga +5 V 4.5 A (eFuse protected), +12 V, -12 V')]],
        ['lib_symbols'] + [[s[0], Q(LIBNICK + ':' + s[1])] + s[2:] for s in libsyms.values()]] + items + \
       [['sheet_instances', ['path', Q('/'), ['page', Q('1')]]], ['embedded_fonts', 'no']]
 open(os.path.join(OUT, NAME + '.kicad_sch'), 'w').write(dump(sch) + '\n')

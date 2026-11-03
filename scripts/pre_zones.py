@@ -19,10 +19,14 @@ def zone(net, pts, prio, ko=True, clr=0.15):
     z = pcbnew.ZONE(b); z.SetLayer(pcbnew.F_Cu); z.SetNet(b.FindNet(net)); poly(z.Outline(), pts)
     z.SetLocalClearance(mm(clr)); z.SetMinThickness(mm(0.2)); z.SetPadConnection(pcbnew.ZONE_CONNECTION_FULL)
     z.SetIslandRemovalMode(pcbnew.ISLAND_REMOVAL_MODE_ALWAYS); z.SetAssignedPriority(prio); b.Add(z)
-u2 = next(f for f in b.GetFootprints() if f.GetReference() == 'U2').GetPosition()
-dy = u2.y / 1e6 - 107.0      # polygon drawn for U2 at y = 107.0 (rev 1.0); follows U2 vertically
-zone('/SW5', [(x, y + dy) for x, y in [(120.42, 101.8), (127.3, 101.8), (127.3, 107.8), (124.9, 107.8), (124.9, 104.9),
-              (120.85, 104.9), (120.85, 105.6), (120.42, 105.6)]], 4)
+bbox = lambda r, n: next(q for f in b.GetFootprints() if f.GetReference() == r for q in f.Pads() if q.GetNumber() == n).GetBoundingBox()
+E = lambda v: v / 1e6
+lx, l1, c5 = bbox('U2', '2'), bbox('L1', '1'), bbox('C5', '2')       # SY8205 LX pin, L1 pin 1, boot cap SW pad
+ym = E(lx.GetTop() + lx.GetBottom()) / 2
+zone('/SW5', [(E(lx.GetLeft()) + 0.3, ym - 0.42), (E(l1.GetLeft()) - 0.3, ym - 0.42), (E(l1.GetLeft()) - 0.3, E(l1.GetTop()) - 0.25),
+              (E(l1.GetRight()) + 0.25, E(l1.GetTop()) - 0.25), (E(l1.GetRight()) + 0.25, E(l1.GetBottom()) + 0.25),
+              (E(c5.GetRight()) + 0.2, E(l1.GetBottom()) + 0.25), (E(c5.GetRight()) + 0.2, E(c5.GetBottom()) + 0.2),
+              (E(c5.GetLeft()) - 0.2, E(c5.GetBottom()) + 0.2), (E(c5.GetLeft()) - 0.2, ym + 0.42), (E(lx.GetLeft()) + 0.3, ym + 0.42)], 4)
 # +5 V: eFuse OUT stub (above U3) -> C12 / D1 -> corridor -> cable pads 1/2 (R13 +5 V pad sits on the corridor edge)
 zone('+5V', [(146.4, 100.3), (158.0, 100.3), (158.0, 100.3), (169.8, 100.3), (169.8, 108.6), (174.6, 108.6), (174.6, 113.3),
              (158.0, 113.3), (158.0, 104.5), (150.2, 104.5), (150.2, 102.9), (146.4, 102.9)], 4)
@@ -41,10 +45,14 @@ for y in vb:
 trk([(111.0, min(vb + [c2.y / 1e6])), (111.0, max(vb) + 0.3), (113.4, max(vb) + 2.7), (113.4, c13.y / 1e6), (c13.x / 1e6, c13.y / 1e6)], 'VBUS', 1.0)
 trk([(c2.x / 1e6, c2.y / 1e6), (111.0, c2.y / 1e6)], 'VBUS', 1.0)
 u18 = pad('U1', '8')
-trk([(u18.x / 1e6, u18.y / 1e6), (118.4, u18.y / 1e6)], 'VBUS', 0.4)     # CH224A VBUS pin -> VBUS pour
+u27 = pad('U2', '7')
+trk([(u18.x / 1e6, u18.y / 1e6), (u27.x / 1e6 - 1.7, u18.y / 1e6), (u27.x / 1e6 - 0.9, u27.y / 1e6), (u27.x / 1e6, u27.y / 1e6)], 'VBUS', 0.4)   # CH224A VBUS pin -> SY8205 IN pin
 # LMR51430 switch nodes: SW pin (U4/U5 rotated 180 deg, SW faces the inductor) straight to the inductor pad
 for u, l, net in (('U4', 'L2', '/SW12'), ('U5', 'L3', '/SWN')):
     s, e = pad(u, '2'), pad(l, '1')
     trk([(s.x / 1e6, s.y / 1e6), (e.x / 1e6 - 0.6, s.y / 1e6)], net, 0.6)
+# -12 V boot cap (C23) switch pad straight across to L3 pin 1 (both SWN)
+c23, l3 = pad('C23', '2'), bbox('L3', '1')
+trk([(c23.x / 1e6, c23.y / 1e6), (E(l3.GetLeft()) + 0.6, c23.y / 1e6)], '/SWN', 0.4)
 pcbnew.ZONE_FILLER(b).Fill(b.Zones())
 b.Save(sys.argv[1]); print('pre-route zones added'); sys.stdout.flush(); os._exit(0)

@@ -1913,7 +1913,7 @@
 			)
 		)
 	)
-	(symbol "TPS56637"
+	(symbol "SY8205"
 		(pin_names
 			(offset 1.016)
 		)
@@ -1928,7 +1928,7 @@
 				)
 			)
 		)
-		(property "Value" "TPS56637"
+		(property "Value" "SY8205"
 			(at 2.54 10.16 0)
 			(effects
 				(font
@@ -1954,7 +1954,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "TI TPS56637 4.5-28 V 6 A synchronous buck, D-CAP3, VQFN-HR-10 (RPA)"
+		(property "Description" "Silergy SY8205 4.5-30 V 5 A synchronous buck, SO-8E (exposed pad = GND)"
 			(at 0 0 0)
 			(effects
 				(font
@@ -1963,7 +1963,7 @@
 				(hide yes)
 			)
 		)
-		(symbol "TPS56637_0_1"
+		(symbol "SY8205_0_1"
 			(rectangle
 				(start -7.62 7.62)
 				(end 7.62 -7.62)
@@ -1976,11 +1976,29 @@
 				)
 			)
 		)
-		(symbol "TPS56637_1_1"
+		(symbol "SY8205_1_1"
 			(pin power_in line
 				(at -10.16 5.08 0)
 				(length 2.54)
-				(name "VIN"
+				(name "IN"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "7"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin power_in line
+				(at -10.16 2.54 0)
+				(length 2.54)
+				(name "IN"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -2005,25 +2023,7 @@
 						)
 					)
 				)
-				(number "1"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-			(pin input line
-				(at -10.16 -2.54 0)
-				(length 2.54)
-				(name "MODE"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "10"
+				(number "3"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -2034,14 +2034,14 @@
 			(pin passive line
 				(at -10.16 -5.08 0)
 				(length 2.54)
-				(name "NC"
+				(name "SS"
 					(effects
 						(font
 							(size 1.27 1.27)
 						)
 					)
 				)
-				(number "5"
+				(number "4"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -2052,14 +2052,14 @@
 			(pin passive line
 				(at 10.16 5.08 180)
 				(length 2.54)
-				(name "BOOT"
+				(name "BS"
 					(effects
 						(font
 							(size 1.27 1.27)
 						)
 					)
 				)
-				(number "7"
+				(number "1"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -2070,14 +2070,14 @@
 			(pin power_out line
 				(at 10.16 2.54 180)
 				(length 2.54)
-				(name "SW"
+				(name "LX"
 					(effects
 						(font
 							(size 1.27 1.27)
 						)
 					)
 				)
-				(number "6"
+				(number "2"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -2095,7 +2095,7 @@
 						)
 					)
 				)
-				(number "2"
+				(number "5"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -2103,35 +2103,17 @@
 					)
 				)
 			)
-			(pin open_collector line
+			(pin power_out line
 				(at 10.16 -5.08 180)
 				(length 2.54)
-				(name "PG"
+				(name "VCC"
 					(effects
 						(font
 							(size 1.27 1.27)
 						)
 					)
 				)
-				(number "4"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-			(pin power_in line
-				(at -2.54 -10.16 90)
-				(length 2.54)
-				(name "AGND"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "3"
+				(number "6"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -2140,9 +2122,9 @@
 				)
 			)
 			(pin power_in line
-				(at 2.54 -10.16 90)
+				(at 0 -10.16 90)
 				(length 2.54)
-				(name "PGND"
+				(name "GND"
 					(effects
 						(font
 							(size 1.27 1.27)

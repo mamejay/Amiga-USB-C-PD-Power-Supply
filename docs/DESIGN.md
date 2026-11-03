@@ -1,4 +1,4 @@
-# Design notes – Amiga USB-C PD Power Supply rev 1.1
+# Design notes – Amiga USB-C PD Power Supply rev 1.2
 
 ## Block diagram
 
@@ -7,7 +7,7 @@ USB-C ─┬─ CH224A (R1 56k = request 15 V) ── PG ──> Q1 2N7002 ─�
        │                                                       │
  VBUS ─┼──── R3/R4 100k/12k ── EN ─────────────────────────────┤ (EN/UVLO: on ≥ ~11.5 V)
        │                                                       │
-       ├── U2 TPS56637 ── L1 3.3 µH ── 5V_BUCK ── U3 TPS259470A eFuse ── +5 V ─┐
+       ├── U2 SY8205 ─── L1 4.7 µH ── 5V_BUCK ── U3 TPS259470A eFuse ── +5 V ─┐
        └── U4 LMR51430 ── L2 12 µH ── +12 V ──────────────────────────────────┤──> J2 cable pads
                            └── U5 LMR51430 inverting ── L3 12 µH ── −12 V ────┘
 ```
@@ -22,7 +22,7 @@ USB-C ─┬─ CH224A (R1 56k = request 15 V) ── PG ──> Q1 2N7002 ─�
 
   | Part | Start | Stop |
   |---|---|---|
-  | TPS56637 (EN on 1.18 V typ) | 11.0 V | 1.04–1.12 V → 9.7–10.5 V |
+  | SY8205 (EN on 1.3 V, off 1.1–1.3 V) | 12.1 V | 10.3–12.1 V |
   | LMR51430 (1.227 V typ, 1.36 V max) | 11.5 V typ, 12.7 V max | 1.08 V → 10.1 V |
 
   With 15 V PD at −5 % (14.25 V) both still start in the worst case.
@@ -30,19 +30,21 @@ USB-C ─┬─ CH224A (R1 56k = request 15 V) ── PG ──> Q1 2N7002 ─�
   That is above the USB Type-C 10 µF attach guideline, as on most PD trigger boards. Check this on the bring-up
   chargers (see the checklist).
 
-### +5 V – U2 TPS56637 (datasheet SLVSEG1A, Table 4 "5 V" row)
-* FB: 75 k / 10 k → 0.6 × 8.5 = 5.10 V. Feed-forward: 100 pF + 20 k (TI: 100–220 pF + 20 k).
-* L1: 3.3 µH (TI table), CMLO0650H3R3MTT, 8.5 A rated / 9 A sat, 14 mΩ.
-  Ripple at 15 V in: (15 − 5.1) × 0.34 / (3.3 µH × 500 kHz) ≈ 2.0 A p-p. Peak at 6 A ≈ 7 A < 9 A.
-* COUT: 4 × 22 µF/25 V 0805 ≈ 40 µF effective at 5 V (TI: 20–100 µF).
-  CIN: 2 × 10 µF/50 V 1206 + 100 nF. The 1206 parts keep about 6 µF each at 15 V.
-* MODE floating = FCCM (fixed frequency, no audible light-load bursts).
-* Valley current limit 6.3 A min, so the eFuse (≤ 6.47 A) is always the limiting element.
+### +5 V – U2 SY8205 (Silergy AN_SY8205), rev 1.2 cost-down from the TPS56637
+* 5 A synchronous buck, 500 kHz, SO-8E. Bottom-FET current limit 5 A min, so the board is rated **4.5 A continuous**
+  (the same as the original Commodore A500 supply).
+* FB: 75 k / 10 k → 0.6 × 8.5 = 5.10 V, with 100 pF (C10) across R5 as the datasheet recommends for load steps.
+* L1: CMLO0650H4R7MTT, 4.7 µH, 6.5 A rated / 8 A sat, 24 mΩ. The datasheet formula for 40 % ripple at 5 A from 15.75 V
+  gives ≥ 3.4 µH. Ripple = 3.41 / (500 kHz × 4.7 µH) ≈ 1.45 A p-p, peak at 5 A ≈ 5.7 A < 8 A.
+* COUT: 4 × 22 µF/25 V 0805 = 88 µF nominal (datasheet: > 47 µF X5R). CIN: 2 × 10 µF/50 V 1206 + 100 nF right at the IN pins.
+* SS: 100 nF → 6 ms. VCC (internal 3.3 V LDO): 1 µF.
+* EN: shared EN node; SY8205 rising threshold 1.3 V → starts at VBUS ≈ 12.1 V.
 
 ### 5 V eFuse – U3 TPS259470A
 * OVLO: 100 k / 27 k → 1.20 V × 127/27 = **5.64 V trip**, 5.13 V release. If U2's high-side FET fails short,
   the Amiga sees at most 5.64 V for the OVLO response time, then 0 V. U3 is rated 23 V at IN, so it survives 15 V.
-* ILM 560 Ω → about 5.95 A typ (5.3 A min). The datasheet table gives 549 Ω = 5.40 / 6.07 / 6.60 A (min / typ / max).
+* ILM 620 Ω → about 5.4 A typ (4.8 A min, 5.85 A max), scaled from the datasheet table (549 Ω = 5.40 / 6.07 / 6.60 A,
+  750 Ω = 3.96 / 4.45 / 4.84 A). The SY8205's own 5 A valley limit backs it up.
 * dVdt 2.2 nF → ~0.9 V/ms (Eq. 4: C[pF] ≈ 2000 / SR[V/ms]), about 5.6 ms rise.
   A 1000 µF Amiga bulk cap then draws about 0.9 A of inrush.
 * EN/UVLO 100 k / 47 k from 5V_BUCK: on above ~3.75 V. At 15 V fault input, EN stays at 4.8 V (< 5 V).
@@ -73,10 +75,11 @@ The **extended** parts below each cost about $3 per order:
 |---|---|---|
 | CH224A | C42459160 | PD sink |
 | HRO TYPE-C-31-M-12 | C165948 | USB-C |
-| TPS56637RPAR | C841386 | 5 V buck |
+| SY8205FCC | C111875 | 5 V buck |
 | TPS259470ARPWR | C3662799 | 5 V eFuse |
 | LMR51430XDDCR | C5185863 | +12 V and −12 V (one part number) |
-| CMLO0650H3R3MTT | C439008 | L1 |
+| CMLO0650H4R7MTT | C439009 | L1 |
+| FCC0805X226M250FT | C7419435 | all 22 µF caps (cheaper than the Basic part even with the fee) |
 | FNR6045S120MT | C168077 | L2 and L3 (one part number) |
 
 Run `scripts/bom_cost.py "fab/Amiga USB-C PD Power Supply - BOM.csv" <boards>` for current stock and prices.
@@ -91,14 +94,14 @@ Run `scripts/bom_cost.py "fab/Amiga USB-C PD Power Supply - BOM.csv" <boards>` f
    With USB PD, PG gating keeps them off below 15 V.
 3. USB-C chargers: test several (Apple, Anker, UGREEN, a cheap one). Confirm the 15 V contract on a USB-C meter
    and that no charger trips at attach (input capacitance note above).
-4. Load test with electronic loads: 5 V at 5 A for 30 min, then 12 V at 1 A and −12 V at 0.2 A at the same time.
-   Check U2, L1, U3 and U4 temperatures (U3 dissipates ~0.7 W at 5 A).
+4. Load test with electronic loads: 5 V at 4.5 A for 30 min, then 12 V at 1 A and −12 V at 0.2 A at the same time.
+   Check U2, L1, U3 and U4 temperatures (U2 dissipates ~1.5 W and U3 ~0.6 W at 4.5 A).
 5. eFuse: short +5 V (via a 1 Ω resistor first, then hard). U3 must limit and retry, and the red LED must light.
 6. Only then connect the Amiga. **Meter the DIN cable pinout against the Amiga socket first.**
 
 ## Open items
 * JLC CPL rotations were checked in JLC's 3D preview (rev 1.0, same footprints and rotations in rev 1.1): U1/U4/U5 −90,
   Q1 +180, in `scripts/make_fab.py` `JLC_ROT_FIX`.
-* The TPS56637 RPA land pattern comes from EasyEDA (LCSC C841386). Compare it with TI's RPA0010A drawing before the first order.
+* U2 (SY8205, SO-8E) is new in rev 1.2: check its rotation in JLC's preview (pin 1 = BS, bottom-right in the board view).
 * Case: not designed yet. Board 76 × 32 mm; the four M3 holes are at (3.5, 3.5), (3.5, 28.5), (72.5, 3.5), (72.5, 28.5) mm
   from the board's top-left corner.

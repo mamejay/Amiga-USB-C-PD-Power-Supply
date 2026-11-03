@@ -7,8 +7,8 @@
 	(title_block
 		(title "Amiga USB-C PD Power Supply")
 		(date "2026-11-03")
-		(rev "1.1")
-		(comment 1 "USB-C PD 15 V -> Amiga +5 V 5 A (eFuse protected), +12 V, -12 V")
+		(rev "1.2")
+		(comment 1 "USB-C PD 15 V -> Amiga +5 V 4.5 A (eFuse protected), +12 V, -12 V")
 	)
 	(lib_symbols
 		(symbol "AMIGA_PD_PSU:USB_C_Receptacle_USB2.0_16P"
@@ -1922,7 +1922,7 @@
 				)
 			)
 		)
-		(symbol "AMIGA_PD_PSU:TPS56637"
+		(symbol "AMIGA_PD_PSU:SY8205"
 			(pin_names
 				(offset 1.016)
 			)
@@ -1937,7 +1937,7 @@
 					)
 				)
 			)
-			(property "Value" "TPS56637"
+			(property "Value" "SY8205"
 				(at 2.54 10.16 0)
 				(effects
 					(font
@@ -1963,7 +1963,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "TI TPS56637 4.5-28 V 6 A synchronous buck, D-CAP3, VQFN-HR-10 (RPA)"
+			(property "Description" "Silergy SY8205 4.5-30 V 5 A synchronous buck, SO-8E (exposed pad = GND)"
 				(at 0 0 0)
 				(effects
 					(font
@@ -1972,7 +1972,7 @@
 					(hide yes)
 				)
 			)
-			(symbol "TPS56637_0_1"
+			(symbol "SY8205_0_1"
 				(rectangle
 					(start -7.62 7.62)
 					(end 7.62 -7.62)
@@ -1985,11 +1985,29 @@
 					)
 				)
 			)
-			(symbol "TPS56637_1_1"
+			(symbol "SY8205_1_1"
 				(pin power_in line
 					(at -10.16 5.08 0)
 					(length 2.54)
-					(name "VIN"
+					(name "IN"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at -10.16 2.54 0)
+					(length 2.54)
+					(name "IN"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2014,25 +2032,7 @@
 							)
 						)
 					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at -10.16 -2.54 0)
-					(length 2.54)
-					(name "MODE"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "10"
+					(number "3"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2043,14 +2043,14 @@
 				(pin passive line
 					(at -10.16 -5.08 0)
 					(length 2.54)
-					(name "NC"
+					(name "SS"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "5"
+					(number "4"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2061,14 +2061,14 @@
 				(pin passive line
 					(at 10.16 5.08 180)
 					(length 2.54)
-					(name "BOOT"
+					(name "BS"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "7"
+					(number "1"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2079,14 +2079,14 @@
 				(pin power_out line
 					(at 10.16 2.54 180)
 					(length 2.54)
-					(name "SW"
+					(name "LX"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "6"
+					(number "2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2104,7 +2104,7 @@
 							)
 						)
 					)
-					(number "2"
+					(number "5"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2112,35 +2112,17 @@
 						)
 					)
 				)
-				(pin open_collector line
+				(pin power_out line
 					(at 10.16 -5.08 180)
 					(length 2.54)
-					(name "PG"
+					(name "VCC"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -2.54 -10.16 90)
-					(length 2.54)
-					(name "AGND"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
+					(number "6"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2149,9 +2131,9 @@
 					)
 				)
 				(pin power_in line
-					(at 2.54 -10.16 90)
+					(at 0 -10.16 90)
 					(length 2.54)
-					(name "PGND"
+					(name "GND"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -6290,7 +6272,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "EN/UVLO top: start 11.0 V (TPS56637) / 11.5 V (LMR51430), stop ~10 V"
+		(property "Description" "EN/UVLO top: start ~12.1 V (SY8205 1.3 V) / 11.5 V (LMR51430), stop ~10-11 V"
 			(at 93.98 132.08 0)
 			(effects
 				(font
@@ -6596,7 +6578,7 @@
 		)
 	)
 	(symbol
-		(lib_id "AMIGA_PD_PSU:TPS56637")
+		(lib_id "AMIGA_PD_PSU:SY8205")
 		(at 195.58 76.2 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -6612,7 +6594,7 @@
 				)
 			)
 		)
-		(property "Value" "TPS56637RPAR"
+		(property "Value" "SY8205FCC"
 			(at 195.58 90.17 0)
 			(effects
 				(font
@@ -6620,7 +6602,7 @@
 				)
 			)
 		)
-		(property "Footprint" "AMIGA_PD_PSU:TI_RPA0010A_VQFN-HR-10_3x3mm"
+		(property "Footprint" "AMIGA_PD_PSU:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.41x3.3mm_ThermalVias"
 			(at 195.58 76.2 0)
 			(effects
 				(font
@@ -6638,7 +6620,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "TI TPS56637 6 A 28 V synchronous buck (D-CAP3), +5 V rail"
+		(property "Description" "Silergy SY8205FCC 5 A 30 V synchronous buck, SO-8E, +5 V rail (board rated 4.5 A)"
 			(at 195.58 76.2 0)
 			(effects
 				(font
@@ -6647,7 +6629,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C841386"
+		(property "LCSC" "C111875"
 			(at 195.58 76.2 0)
 			(effects
 				(font
@@ -6655,36 +6637,33 @@
 				)
 				(hide yes)
 			)
-		)
-		(pin "8"
-			(uuid "34333a5f-ddad-5197-813e-e67a66fbde95")
-		)
-		(pin "1"
-			(uuid "3aef6815-52f4-5965-907f-be5936b26efb")
-		)
-		(pin "10"
-			(uuid "ec583fb7-f532-5c14-9315-614e823cb11c")
-		)
-		(pin "5"
-			(uuid "64da05cd-0ba9-533c-9be1-88be81fb0a3c")
 		)
 		(pin "7"
-			(uuid "c549675e-1490-5793-8bc4-74b6d6fc3650")
+			(uuid "34333a5f-ddad-5197-813e-e67a66fbde95")
 		)
-		(pin "6"
-			(uuid "47d2e3da-efd7-5ef5-91ea-f1130d206848")
-		)
-		(pin "2"
-			(uuid "d03f0757-cc0a-5d11-ad65-b2691965ec77")
-		)
-		(pin "4"
-			(uuid "81af574a-facc-5377-9a37-8e55aaab6f63")
+		(pin "8"
+			(uuid "3aef6815-52f4-5965-907f-be5936b26efb")
 		)
 		(pin "3"
-			(uuid "0543159a-7855-50c2-be1e-95fd1b0e4637")
+			(uuid "ec583fb7-f532-5c14-9315-614e823cb11c")
+		)
+		(pin "4"
+			(uuid "64da05cd-0ba9-533c-9be1-88be81fb0a3c")
+		)
+		(pin "1"
+			(uuid "c549675e-1490-5793-8bc4-74b6d6fc3650")
+		)
+		(pin "2"
+			(uuid "47d2e3da-efd7-5ef5-91ea-f1130d206848")
+		)
+		(pin "5"
+			(uuid "d03f0757-cc0a-5d11-ad65-b2691965ec77")
+		)
+		(pin "6"
+			(uuid "81af574a-facc-5377-9a37-8e55aaab6f63")
 		)
 		(pin "9"
-			(uuid "68dd3d6c-215e-5d90-987d-f927290bf3f4")
+			(uuid "0543159a-7855-50c2-be1e-95fd1b0e4637")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -6704,7 +6683,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "bbc6ea4a-ce8a-5df8-b694-4536c557479b")
+		(uuid "68dd3d6c-215e-5d90-987d-f927290bf3f4")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:VBUS")
@@ -6714,7 +6693,7 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "5907d4b8-4c99-5e5a-b61c-aec8a8d8634c")
+		(uuid "bbc6ea4a-ce8a-5df8-b694-4536c557479b")
 		(property "Reference" "#PWR20"
 			(at 180.34 66.04 0)
 			(effects
@@ -6760,12 +6739,88 @@
 			)
 		)
 		(pin "1"
-			(uuid "b44bb8ea-64d9-555a-adb9-6593d64c0f24")
+			(uuid "5907d4b8-4c99-5e5a-b61c-aec8a8d8634c")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
 					(reference "#PWR20")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 185.42 73.66)
+			(xy 172.72 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b44bb8ea-64d9-555a-adb9-6593d64c0f24")
+	)
+	(symbol
+		(lib_id "AMIGA_PD_PSU:VBUS")
+		(at 172.72 73.66 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "d3b8d90f-10e7-5163-b073-74dcd3ca9714")
+		(property "Reference" "#PWR21"
+			(at 175.26 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "VBUS"
+			(at 167.64 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 172.72 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 172.72 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 172.72 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "dd6f3a6c-c733-51cc-bc15-ed72ab2d10c4")
+		)
+		(instances
+			(project "Amiga USB-C PD Power Supply"
+				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
+					(reference "#PWR21")
 					(unit 1)
 				)
 			)
@@ -6780,7 +6835,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "d3b8d90f-10e7-5163-b073-74dcd3ca9714")
+		(uuid "4906c5e8-0164-59c3-b6b1-63dbb9b2757c")
 	)
 	(label "EN"
 		(at 182.88 76.2 180)
@@ -6790,15 +6845,28 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "dd6f3a6c-c733-51cc-bc15-ed72ab2d10c4")
-	)
-	(no_connect
-		(at 185.42 78.74)
-		(uuid "4906c5e8-0164-59c3-b6b1-63dbb9b2757c")
-	)
-	(no_connect
-		(at 185.42 81.28)
 		(uuid "1fbcb636-6bc2-5cfe-a93e-24d0da27970a")
+	)
+	(wire
+		(pts
+			(xy 185.42 81.28)
+			(xy 182.88 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2b69713e-6f2a-5935-93c0-0e104f48c133")
+	)
+	(label "SS5"
+		(at 182.88 81.28 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "5dd31737-04ec-5f5e-ace5-900aa7b1feb6")
 	)
 	(wire
 		(pts
@@ -6809,31 +6877,10 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "2b69713e-6f2a-5935-93c0-0e104f48c133")
+		(uuid "900379b1-4b99-5983-b166-62b6742727c3")
 	)
 	(label "BOOT5"
 		(at 208.28 71.12 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "5dd31737-04ec-5f5e-ace5-900aa7b1feb6")
-	)
-	(wire
-		(pts
-			(xy 205.74 73.66)
-			(xy 208.28 73.66)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "900379b1-4b99-5983-b166-62b6742727c3")
-	)
-	(label "SW5"
-		(at 208.28 73.66 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6844,6 +6891,27 @@
 	)
 	(wire
 		(pts
+			(xy 205.74 73.66)
+			(xy 208.28 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "30564f74-c8f9-5170-9da4-4ec01f33cb63")
+	)
+	(label "SW5"
+		(at 208.28 73.66 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "b4711402-0358-567f-8a97-3b6cb731a42a")
+	)
+	(wire
+		(pts
 			(xy 205.74 78.74)
 			(xy 208.28 78.74)
 		)
@@ -6851,7 +6919,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "30564f74-c8f9-5170-9da4-4ec01f33cb63")
+		(uuid "e22098aa-d2f4-5d73-8d2e-d373d4254604")
 	)
 	(label "FB5"
 		(at 208.28 78.74 0)
@@ -6861,92 +6929,33 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "b4711402-0358-567f-8a97-3b6cb731a42a")
-	)
-	(no_connect
-		(at 205.74 81.28)
-		(uuid "e22098aa-d2f4-5d73-8d2e-d373d4254604")
+		(uuid "92dc6205-5469-574d-b00a-b562beac0052")
 	)
 	(wire
 		(pts
-			(xy 193.04 86.36)
-			(xy 193.04 88.9)
+			(xy 205.74 81.28)
+			(xy 208.28 81.28)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "92dc6205-5469-574d-b00a-b562beac0052")
-	)
-	(symbol
-		(lib_id "AMIGA_PD_PSU:GND")
-		(at 193.04 88.9 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board no)
-		(dnp no)
 		(uuid "c50613bb-8734-5f08-9f6d-a37e97b9fb58")
-		(property "Reference" "#PWR21"
-			(at 195.58 83.82 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
+	)
+	(label "VCC5"
+		(at 208.28 81.28 0)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+			(justify left bottom)
 		)
-		(property "Value" "GND"
-			(at 193.04 92.71 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 193.04 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 193.04 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 193.04 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "62f7ff52-f476-5670-becc-9b143cac4aa2")
-		)
-		(instances
-			(project "Amiga USB-C PD Power Supply"
-				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR21")
-					(unit 1)
-				)
-			)
-		)
+		(uuid "62f7ff52-f476-5670-becc-9b143cac4aa2")
 	)
 	(wire
 		(pts
-			(xy 198.12 86.36)
-			(xy 198.12 88.9)
+			(xy 195.58 86.36)
+			(xy 195.58 88.9)
 		)
 		(stroke
 			(width 0)
@@ -6956,7 +6965,7 @@
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:GND")
-		(at 198.12 88.9 0)
+		(at 195.58 88.9 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom no)
@@ -6964,7 +6973,7 @@
 		(dnp no)
 		(uuid "5fa3ca76-5c8c-5a97-a96c-fd23c333cd8f")
 		(property "Reference" "#PWR22"
-			(at 200.66 83.82 0)
+			(at 198.12 83.82 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6973,7 +6982,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 198.12 92.71 0)
+			(at 195.58 92.71 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6981,7 +6990,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 198.12 88.9 0)
+			(at 195.58 88.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6990,7 +6999,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 198.12 88.9 0)
+			(at 195.58 88.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6999,7 +7008,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 198.12 88.9 0)
+			(at 195.58 88.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7021,13 +7030,363 @@
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:C")
-		(at 147.32 76.2 0)
+		(at 182.88 104.14 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "02992608-cb39-520c-b670-c2935ca906f2")
+		(property "Reference" "C27"
+			(at 185.42 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100nF/50V"
+			(at 185.42 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "AMIGA_PD_PSU:C_0603_1608Metric"
+			(at 182.88 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 182.88 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "U2 soft start: 100 nF x 0.6 V / 10 uA = 6 ms"
+			(at 182.88 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C14663"
+			(at 182.88 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "f3e5733b-b262-5807-870a-e39759060774")
+		)
+		(pin "2"
+			(uuid "13b109bb-8e4a-537b-97b7-2ec36ba5b2ed")
+		)
+		(instances
+			(project "Amiga USB-C PD Power Supply"
+				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
+					(reference "C27")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 182.88 100.33)
+			(xy 182.88 97.79)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e1181eee-6481-5e7f-8152-51ab24f52d78")
+	)
+	(label "SS5"
+		(at 182.88 97.79 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "75a43d1d-f722-59d6-b9f8-ecd64c7a03c0")
+	)
+	(wire
+		(pts
+			(xy 182.88 107.95)
+			(xy 182.88 110.49)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "82caf8f6-b082-5bc4-8577-dd5c5fc1bee1")
+	)
+	(symbol
+		(lib_id "AMIGA_PD_PSU:GND")
+		(at 182.88 110.49 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "b922465c-6032-5b35-9b86-a1cbb2dd95fd")
+		(property "Reference" "#PWR23"
+			(at 185.42 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 182.88 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 182.88 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 182.88 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 182.88 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "4cf6f444-03d7-5d05-9c0e-e8eb8e49163f")
+		)
+		(instances
+			(project "Amiga USB-C PD Power Supply"
+				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
+					(reference "#PWR23")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "AMIGA_PD_PSU:C")
+		(at 172.72 104.14 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "6a527deb-77ec-5835-a5dc-8787cad8be30")
+		(property "Reference" "C28"
+			(at 175.26 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "1uF/50V"
+			(at 175.26 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "AMIGA_PD_PSU:C_0603_1608Metric"
+			(at 172.72 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 172.72 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "U2 internal 3.3 V LDO bypass"
+			(at 172.72 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C15849"
+			(at 172.72 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "17c8176e-dfb6-58d6-a392-9d1feeb89aa7")
+		)
+		(pin "2"
+			(uuid "cb05a471-e04f-5169-88af-85de8a364c5f")
+		)
+		(instances
+			(project "Amiga USB-C PD Power Supply"
+				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
+					(reference "C28")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 172.72 100.33)
+			(xy 172.72 97.79)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "08620026-0ba8-5093-83f3-9e696f675272")
+	)
+	(label "VCC5"
+		(at 172.72 97.79 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "0a03ca77-78dc-5e39-9d3a-42c7d4875e32")
+	)
+	(wire
+		(pts
+			(xy 172.72 107.95)
+			(xy 172.72 110.49)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9499e6c7-3180-59bb-a281-4415a0ceb25c")
+	)
+	(symbol
+		(lib_id "AMIGA_PD_PSU:GND")
+		(at 172.72 110.49 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "a6348978-29f1-569e-aeeb-9c7213ea15a0")
+		(property "Reference" "#PWR24"
+			(at 175.26 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 172.72 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 172.72 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 172.72 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 172.72 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "bf5221d1-7e07-5b18-8f6b-caa248a2e931")
+		)
+		(instances
+			(project "Amiga USB-C PD Power Supply"
+				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
+					(reference "#PWR24")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "AMIGA_PD_PSU:C")
+		(at 147.32 76.2 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "353c19b5-9b12-5821-84dc-8c8c90c17b6c")
 		(property "Reference" "C2"
 			(at 149.86 74.93 0)
 			(effects
@@ -7083,10 +7442,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "f3e5733b-b262-5807-870a-e39759060774")
+			(uuid "e9499729-2d5c-5701-ae85-50def6d25718")
 		)
 		(pin "2"
-			(uuid "13b109bb-8e4a-537b-97b7-2ec36ba5b2ed")
+			(uuid "938ff72b-6cd8-517e-98c2-01663ddaefd0")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -7106,7 +7465,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "e1181eee-6481-5e7f-8152-51ab24f52d78")
+		(uuid "dd13fe16-27c3-59c5-84e1-7965b893c25d")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:VBUS")
@@ -7116,8 +7475,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "75a43d1d-f722-59d6-b9f8-ecd64c7a03c0")
-		(property "Reference" "#PWR23"
+		(uuid "27d8a499-7ec6-535e-9c10-3e14c97d3bfd")
+		(property "Reference" "#PWR25"
 			(at 149.86 64.77 0)
 			(effects
 				(font
@@ -7162,12 +7521,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "82caf8f6-b082-5bc4-8577-dd5c5fc1bee1")
+			(uuid "239d307e-1cf7-5360-8f88-46085e6a96ca")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR23")
+					(reference "#PWR25")
 					(unit 1)
 				)
 			)
@@ -7182,7 +7541,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "b922465c-6032-5b35-9b86-a1cbb2dd95fd")
+		(uuid "4378c1c0-022f-5f9d-89ce-0335852e9384")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:GND")
@@ -7192,8 +7551,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "4cf6f444-03d7-5d05-9c0e-e8eb8e49163f")
-		(property "Reference" "#PWR24"
+		(uuid "bbc786e4-f35f-55f5-8280-05ebb2815558")
+		(property "Reference" "#PWR26"
 			(at 149.86 77.47 0)
 			(effects
 				(font
@@ -7238,12 +7597,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "6a527deb-77ec-5835-a5dc-8787cad8be30")
+			(uuid "626723c7-e810-5c8a-92fb-6464c993648c")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR24")
+					(reference "#PWR26")
 					(unit 1)
 				)
 			)
@@ -7257,7 +7616,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "17c8176e-dfb6-58d6-a392-9d1feeb89aa7")
+		(uuid "dc962849-3130-5bef-bfe6-3f845609293f")
 		(property "Reference" "C3"
 			(at 160.02 74.93 0)
 			(effects
@@ -7313,10 +7672,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "cb05a471-e04f-5169-88af-85de8a364c5f")
+			(uuid "125ad465-fedd-5ea3-a75f-6eb3191fdffa")
 		)
 		(pin "2"
-			(uuid "08620026-0ba8-5093-83f3-9e696f675272")
+			(uuid "00595dbc-94d6-597b-bdfd-9aef6fbb76f1")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -7336,7 +7695,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "0a03ca77-78dc-5e39-9d3a-42c7d4875e32")
+		(uuid "411d3a8d-7613-5ebf-8326-62710fd02ee9")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:VBUS")
@@ -7346,8 +7705,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "9499e6c7-3180-59bb-a281-4415a0ceb25c")
-		(property "Reference" "#PWR25"
+		(uuid "14d1b6be-a40d-54c2-84e9-eec9a7ad2fd5")
+		(property "Reference" "#PWR27"
 			(at 160.02 64.77 0)
 			(effects
 				(font
@@ -7392,12 +7751,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "a6348978-29f1-569e-aeeb-9c7213ea15a0")
+			(uuid "a528c129-89f5-517c-99dc-7d2c83bf30e0")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR25")
+					(reference "#PWR27")
 					(unit 1)
 				)
 			)
@@ -7412,7 +7771,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "bf5221d1-7e07-5b18-8f6b-caa248a2e931")
+		(uuid "6fa77e00-0310-5606-9512-97458a3923f6")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:GND")
@@ -7422,8 +7781,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "353c19b5-9b12-5821-84dc-8c8c90c17b6c")
-		(property "Reference" "#PWR26"
+		(uuid "42708e73-4269-51d1-a167-6420de1cd996")
+		(property "Reference" "#PWR28"
 			(at 160.02 77.47 0)
 			(effects
 				(font
@@ -7468,12 +7827,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "e9499729-2d5c-5701-ae85-50def6d25718")
+			(uuid "0bda40e9-7380-5a05-a36e-e0bc6c43be70")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR26")
+					(reference "#PWR28")
 					(unit 1)
 				)
 			)
@@ -7487,7 +7846,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "938ff72b-6cd8-517e-98c2-01663ddaefd0")
+		(uuid "ab1737ca-ff12-5553-a73b-43e92bf6bb05")
 		(property "Reference" "C4"
 			(at 170.18 74.93 0)
 			(effects
@@ -7543,10 +7902,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "dd13fe16-27c3-59c5-84e1-7965b893c25d")
+			(uuid "1f90386e-2b85-5eb6-ac8d-0fc65feb66be")
 		)
 		(pin "2"
-			(uuid "27d8a499-7ec6-535e-9c10-3e14c97d3bfd")
+			(uuid "f967bd9a-6c12-586d-ab32-e42ef3c19af3")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -7566,7 +7925,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "239d307e-1cf7-5360-8f88-46085e6a96ca")
+		(uuid "caa8648b-f735-5fc0-9a00-0d3bb1a106f4")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:VBUS")
@@ -7576,8 +7935,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "4378c1c0-022f-5f9d-89ce-0335852e9384")
-		(property "Reference" "#PWR27"
+		(uuid "f52a91a0-e047-5145-b13c-55d09db1f38e")
+		(property "Reference" "#PWR29"
 			(at 170.18 64.77 0)
 			(effects
 				(font
@@ -7622,12 +7981,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "bbc786e4-f35f-55f5-8280-05ebb2815558")
+			(uuid "89f77ea0-c6e2-52c3-9299-fa71f46d56ca")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR27")
+					(reference "#PWR29")
 					(unit 1)
 				)
 			)
@@ -7642,7 +8001,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "626723c7-e810-5c8a-92fb-6464c993648c")
+		(uuid "35c7d521-d9e6-5676-b261-019dd5f7512e")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:GND")
@@ -7652,8 +8011,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "dc962849-3130-5bef-bfe6-3f845609293f")
-		(property "Reference" "#PWR28"
+		(uuid "dd4234cc-3894-5d84-baf5-fd79b669b8f7")
+		(property "Reference" "#PWR30"
 			(at 170.18 77.47 0)
 			(effects
 				(font
@@ -7698,12 +8057,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "125ad465-fedd-5ea3-a75f-6eb3191fdffa")
+			(uuid "7dafbf39-fcd4-51a5-b76b-bd13e97e9640")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR28")
+					(reference "#PWR30")
 					(unit 1)
 				)
 			)
@@ -7717,7 +8076,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "00595dbc-94d6-597b-bdfd-9aef6fbb76f1")
+		(uuid "2e90fe9b-b86b-5e6a-84b8-a0840155031d")
 		(property "Reference" "C5"
 			(at 223.52 54.61 0)
 			(effects
@@ -7773,10 +8132,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "411d3a8d-7613-5ebf-8326-62710fd02ee9")
+			(uuid "361d2f80-6a46-57ec-a233-bf27d76363a8")
 		)
 		(pin "2"
-			(uuid "14d1b6be-a40d-54c2-84e9-eec9a7ad2fd5")
+			(uuid "7741db7a-ca3b-5da5-ad4c-d009821cb3ef")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -7796,7 +8155,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "a528c129-89f5-517c-99dc-7d2c83bf30e0")
+		(uuid "b7078107-809e-5a4f-b971-7f13aa8c5a92")
 	)
 	(label "BOOT5"
 		(at 220.98 49.53 90)
@@ -7806,7 +8165,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "6fa77e00-0310-5606-9512-97458a3923f6")
+		(uuid "a71616c5-471e-5b49-884f-fb01890c8009")
 	)
 	(wire
 		(pts
@@ -7817,7 +8176,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "42708e73-4269-51d1-a167-6420de1cd996")
+		(uuid "eb996562-a71c-5b06-aed5-5e84753ee753")
 	)
 	(label "SW5"
 		(at 220.98 62.23 270)
@@ -7827,7 +8186,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "0bda40e9-7380-5a05-a36e-e0bc6c43be70")
+		(uuid "4affed9c-9903-5aff-947d-bad7a4e3d1c8")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:L")
@@ -7837,7 +8196,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "ab1737ca-ff12-5553-a73b-43e92bf6bb05")
+		(uuid "ad4e8a64-fa47-59a0-b37a-59b100a8df65")
 		(property "Reference" "L1"
 			(at 228.6 74.93 0)
 			(effects
@@ -7847,7 +8206,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "3.3uH"
+		(property "Value" "4.7uH"
 			(at 228.6 77.47 0)
 			(effects
 				(font
@@ -7874,7 +8233,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Chilisin CMLO0650H3R3MTT 3.3 uH, 8.5 A rated / 9 A sat, 14 mOhm (TI table: 3.3 uH for 5 V)"
+		(property "Description" "Chilisin CMLO0650H4R7MTT 4.7 uH, 6.5 A rated / 8 A sat, 24 mOhm (SY8205: >= 3.4 uH for 40 % ripple at 5 A)"
 			(at 226.06 76.2 0)
 			(effects
 				(font
@@ -7883,7 +8242,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C439008"
+		(property "LCSC" "C439009"
 			(at 226.06 76.2 0)
 			(effects
 				(font
@@ -7893,10 +8252,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "1f90386e-2b85-5eb6-ac8d-0fc65feb66be")
+			(uuid "c53b1e83-829d-512a-a1c9-cba43e8202f0")
 		)
 		(pin "2"
-			(uuid "f967bd9a-6c12-586d-ab32-e42ef3c19af3")
+			(uuid "9002f7f6-27b8-57f4-b9ee-d1bb5797f04d")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -7916,7 +8275,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "caa8648b-f735-5fc0-9a00-0d3bb1a106f4")
+		(uuid "9ef96e5a-d4de-500a-8bbb-dfa2a2f06dba")
 	)
 	(label "SW5"
 		(at 226.06 69.85 90)
@@ -7926,7 +8285,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "f52a91a0-e047-5145-b13c-55d09db1f38e")
+		(uuid "98fd63ee-1138-5c2a-80a0-d72f5d709f5c")
 	)
 	(wire
 		(pts
@@ -7937,7 +8296,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "89f77ea0-c6e2-52c3-9299-fa71f46d56ca")
+		(uuid "abc363ec-b5b3-5682-bc4c-63a1e4d677c9")
 	)
 	(label "5V_BUCK"
 		(at 226.06 82.55 270)
@@ -7947,7 +8306,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "35c7d521-d9e6-5676-b261-019dd5f7512e")
+		(uuid "3eff0a2d-df66-5cf3-9842-8df98b49f65f")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:C")
@@ -7957,7 +8316,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "dd4234cc-3894-5d84-baf5-fd79b669b8f7")
+		(uuid "e8f28b26-2e58-57ae-899b-97d13ff45bbd")
 		(property "Reference" "C6"
 			(at 248.92 90.17 0)
 			(effects
@@ -8013,10 +8372,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "7dafbf39-fcd4-51a5-b76b-bd13e97e9640")
+			(uuid "312cb0fc-5704-52a5-a432-8ac0b0373711")
 		)
 		(pin "2"
-			(uuid "2e90fe9b-b86b-5e6a-84b8-a0840155031d")
+			(uuid "4d92bece-d17f-5149-9f47-f3897c9c5d3f")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -8036,7 +8395,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "361d2f80-6a46-57ec-a233-bf27d76363a8")
+		(uuid "de1b3926-d042-5be4-a45d-069f9e7d3d05")
 	)
 	(label "5V_BUCK"
 		(at 246.38 85.09 90)
@@ -8046,7 +8405,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "7741db7a-ca3b-5da5-ad4c-d009821cb3ef")
+		(uuid "9355bee4-2a74-5ad8-9fb3-eee94e6d607b")
 	)
 	(wire
 		(pts
@@ -8057,7 +8416,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "b7078107-809e-5a4f-b971-7f13aa8c5a92")
+		(uuid "b1e58bc8-815e-57c8-a0f0-e4b0184d9fb7")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:GND")
@@ -8067,8 +8426,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "a71616c5-471e-5b49-884f-fb01890c8009")
-		(property "Reference" "#PWR29"
+		(uuid "c8bcb00f-5614-5398-9e2f-8526a03170f1")
+		(property "Reference" "#PWR31"
 			(at 248.92 92.71 0)
 			(effects
 				(font
@@ -8113,12 +8472,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "eb996562-a71c-5b06-aed5-5e84753ee753")
+			(uuid "f4d3e3db-79c9-5a50-a95b-70517142b791")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR29")
+					(reference "#PWR31")
 					(unit 1)
 				)
 			)
@@ -8132,7 +8491,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "4affed9c-9903-5aff-947d-bad7a4e3d1c8")
+		(uuid "0b1a8e5f-8108-5d1a-aca7-ecbb120cfbc7")
 		(property "Reference" "C7"
 			(at 259.08 90.17 0)
 			(effects
@@ -8188,10 +8547,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "ad4e8a64-fa47-59a0-b37a-59b100a8df65")
+			(uuid "615d95c7-6ce0-5bb9-bede-1f1ae2a5ca0b")
 		)
 		(pin "2"
-			(uuid "c53b1e83-829d-512a-a1c9-cba43e8202f0")
+			(uuid "eddf958e-458b-54ed-bd10-897be6e00113")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -8211,7 +8570,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "9002f7f6-27b8-57f4-b9ee-d1bb5797f04d")
+		(uuid "6d04f113-47e8-50a4-8497-5d84967b93ed")
 	)
 	(label "5V_BUCK"
 		(at 256.54 85.09 90)
@@ -8221,7 +8580,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "9ef96e5a-d4de-500a-8bbb-dfa2a2f06dba")
+		(uuid "13e03a6e-a86a-592a-a516-340fe6c4f8e6")
 	)
 	(wire
 		(pts
@@ -8232,7 +8591,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "98fd63ee-1138-5c2a-80a0-d72f5d709f5c")
+		(uuid "4ea4b7ce-499b-5f6d-b51f-4677da48ec0a")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:GND")
@@ -8242,8 +8601,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "abc363ec-b5b3-5682-bc4c-63a1e4d677c9")
-		(property "Reference" "#PWR30"
+		(uuid "8c4c59eb-0be1-57e9-99d9-218b7d20f311")
+		(property "Reference" "#PWR32"
 			(at 259.08 92.71 0)
 			(effects
 				(font
@@ -8288,12 +8647,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "3eff0a2d-df66-5cf3-9842-8df98b49f65f")
+			(uuid "a7438e62-0b13-5b9c-bc88-7a26fddb02f9")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR30")
+					(reference "#PWR32")
 					(unit 1)
 				)
 			)
@@ -8307,7 +8666,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "e8f28b26-2e58-57ae-899b-97d13ff45bbd")
+		(uuid "1377c81a-5b94-5f1f-8553-cec13c3ec7ed")
 		(property "Reference" "C8"
 			(at 269.24 90.17 0)
 			(effects
@@ -8363,10 +8722,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "312cb0fc-5704-52a5-a432-8ac0b0373711")
+			(uuid "2e6e747e-df61-56d7-b259-9c00ae13db5b")
 		)
 		(pin "2"
-			(uuid "4d92bece-d17f-5149-9f47-f3897c9c5d3f")
+			(uuid "6e7a0706-e5d3-583d-a708-1f655b5c8e3e")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -8386,7 +8745,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "de1b3926-d042-5be4-a45d-069f9e7d3d05")
+		(uuid "6cab1436-361d-5a8c-9b51-5653735dfd6e")
 	)
 	(label "5V_BUCK"
 		(at 266.7 85.09 90)
@@ -8396,7 +8755,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "9355bee4-2a74-5ad8-9fb3-eee94e6d607b")
+		(uuid "3b1b60d0-238c-5ea4-ab6b-0dd3f90d5d34")
 	)
 	(wire
 		(pts
@@ -8407,7 +8766,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "b1e58bc8-815e-57c8-a0f0-e4b0184d9fb7")
+		(uuid "165f7108-2e86-5b66-a737-9c969db9698f")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:GND")
@@ -8417,8 +8776,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "c8bcb00f-5614-5398-9e2f-8526a03170f1")
-		(property "Reference" "#PWR31"
+		(uuid "b6c9f8a4-7873-59e7-bd49-76133b9576ec")
+		(property "Reference" "#PWR33"
 			(at 269.24 92.71 0)
 			(effects
 				(font
@@ -8463,12 +8822,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "f4d3e3db-79c9-5a50-a95b-70517142b791")
+			(uuid "286d9e86-23fd-5da6-839e-9d2dbc91e34b")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR31")
+					(reference "#PWR33")
 					(unit 1)
 				)
 			)
@@ -8482,7 +8841,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "0b1a8e5f-8108-5d1a-aca7-ecbb120cfbc7")
+		(uuid "fec298f7-769f-5ec8-8f63-fded502ae6f6")
 		(property "Reference" "C9"
 			(at 279.4 90.17 0)
 			(effects
@@ -8538,10 +8897,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "615d95c7-6ce0-5bb9-bede-1f1ae2a5ca0b")
+			(uuid "4210c838-9a6f-5698-8a81-9ff57612d1e5")
 		)
 		(pin "2"
-			(uuid "eddf958e-458b-54ed-bd10-897be6e00113")
+			(uuid "7d82e904-7593-558f-98a6-37f9881261f4")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -8561,7 +8920,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "6d04f113-47e8-50a4-8497-5d84967b93ed")
+		(uuid "c4f2df38-83db-5b52-9e3c-c919ba704f3c")
 	)
 	(label "5V_BUCK"
 		(at 276.86 85.09 90)
@@ -8571,7 +8930,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "13e03a6e-a86a-592a-a516-340fe6c4f8e6")
+		(uuid "06ca8977-a1e8-52e8-b38d-e7734e9730e6")
 	)
 	(wire
 		(pts
@@ -8582,7 +8941,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "4ea4b7ce-499b-5f6d-b51f-4677da48ec0a")
+		(uuid "ea3acce1-aa8c-576b-b675-c27d228a9568")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:GND")
@@ -8592,8 +8951,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "8c4c59eb-0be1-57e9-99d9-218b7d20f311")
-		(property "Reference" "#PWR32"
+		(uuid "fba1c098-1d79-5c6a-a0b0-7ed9307c3f98")
+		(property "Reference" "#PWR34"
 			(at 279.4 92.71 0)
 			(effects
 				(font
@@ -8638,12 +8997,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "a7438e62-0b13-5b9c-bc88-7a26fddb02f9")
+			(uuid "980d7296-f41e-5be9-a52d-bcd68aa94c1e")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR32")
+					(reference "#PWR34")
 					(unit 1)
 				)
 			)
@@ -8657,7 +9016,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "1377c81a-5b94-5f1f-8553-cec13c3ec7ed")
+		(uuid "c0225277-49d3-53f4-a6c1-03451d96d9bd")
 		(property "Reference" "R5"
 			(at 233.68 102.87 0)
 			(effects
@@ -8713,10 +9072,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "2e6e747e-df61-56d7-b259-9c00ae13db5b")
+			(uuid "a37c0279-7c9f-54c5-9d03-f8985a805415")
 		)
 		(pin "2"
-			(uuid "6e7a0706-e5d3-583d-a708-1f655b5c8e3e")
+			(uuid "60900c2e-0783-574d-8a6f-b17deec430b2")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -8736,7 +9095,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "6cab1436-361d-5a8c-9b51-5653735dfd6e")
+		(uuid "19268119-6b0a-5515-8df3-47ddeb0a2164")
 	)
 	(label "5V_BUCK"
 		(at 231.14 97.79 90)
@@ -8746,7 +9105,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "3b1b60d0-238c-5ea4-ab6b-0dd3f90d5d34")
+		(uuid "50632105-faa6-579d-8315-9848cb000065")
 	)
 	(wire
 		(pts
@@ -8757,7 +9116,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "165f7108-2e86-5b66-a737-9c969db9698f")
+		(uuid "0fb332fa-d899-555c-9f39-5e1c9f8972be")
 	)
 	(label "FB5"
 		(at 231.14 110.49 270)
@@ -8767,7 +9126,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "b6c9f8a4-7873-59e7-bd49-76133b9576ec")
+		(uuid "c50dc85e-5d6b-5a37-818f-bfe51e52e7d3")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:R")
@@ -8777,7 +9136,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "286d9e86-23fd-5da6-839e-9d2dbc91e34b")
+		(uuid "1212b0f6-40dd-5a47-a9b7-0196ace58a22")
 		(property "Reference" "R6"
 			(at 233.68 123.19 0)
 			(effects
@@ -8833,10 +9192,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "fec298f7-769f-5ec8-8f63-fded502ae6f6")
+			(uuid "83353bcc-b7cb-503a-bd3c-8bc803ce22b0")
 		)
 		(pin "2"
-			(uuid "4210c838-9a6f-5698-8a81-9ff57612d1e5")
+			(uuid "20cdef4a-3813-5a72-bf86-6afd59b39ece")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -8856,7 +9215,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "7d82e904-7593-558f-98a6-37f9881261f4")
+		(uuid "a11e4d52-98d0-51c1-89cb-85d3773140e7")
 	)
 	(label "FB5"
 		(at 231.14 118.11 90)
@@ -8866,7 +9225,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "c4f2df38-83db-5b52-9e3c-c919ba704f3c")
+		(uuid "ca1858db-fcb0-5607-b395-673fb2eaf5f2")
 	)
 	(wire
 		(pts
@@ -8877,7 +9236,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "06ca8977-a1e8-52e8-b38d-e7734e9730e6")
+		(uuid "fded5f96-d9a7-5406-8c17-15f9c6ecf642")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:GND")
@@ -8887,8 +9246,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "ea3acce1-aa8c-576b-b675-c27d228a9568")
-		(property "Reference" "#PWR33"
+		(uuid "0a1da8c5-0c30-5098-8453-2eb37d83c1c6")
+		(property "Reference" "#PWR35"
 			(at 233.68 125.73 0)
 			(effects
 				(font
@@ -8933,12 +9292,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "fba1c098-1d79-5c6a-a0b0-7ed9307c3f98")
+			(uuid "069333e7-cdc1-5930-bf2b-70a559b393c1")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR33")
+					(reference "#PWR35")
 					(unit 1)
 				)
 			)
@@ -8952,7 +9311,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "980d7296-f41e-5be9-a52d-bcd68aa94c1e")
+		(uuid "dd460aec-b204-5e48-b46a-06d0f3e271cb")
 		(property "Reference" "C10"
 			(at 215.9 102.87 0)
 			(effects
@@ -8989,7 +9348,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "feed-forward (TI table: 100-220 pF + 20k) for load-step response"
+		(property "Description" "feed-forward across R5 (SY8205 datasheet: 100 pF for faster load transients)"
 			(at 213.36 104.14 0)
 			(effects
 				(font
@@ -9008,10 +9367,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "c0225277-49d3-53f4-a6c1-03451d96d9bd")
+			(uuid "bca894ef-344e-5a46-892a-d9acea85d7ac")
 		)
 		(pin "2"
-			(uuid "a37c0279-7c9f-54c5-9d03-f8985a805415")
+			(uuid "453d7389-e029-531a-91ba-d88c822524ea")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -9031,7 +9390,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "60900c2e-0783-574d-8a6f-b17deec430b2")
+		(uuid "c2680d55-3bc2-5cd8-864c-8f71bebad791")
 	)
 	(label "5V_BUCK"
 		(at 213.36 97.79 90)
@@ -9041,7 +9400,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "19268119-6b0a-5515-8df3-47ddeb0a2164")
+		(uuid "15fb3929-b83c-53ae-832d-bc3d34e5e362")
 	)
 	(wire
 		(pts
@@ -9052,9 +9411,9 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "50632105-faa6-579d-8315-9848cb000065")
+		(uuid "42efee2c-36bc-58eb-b8fc-d0098218e070")
 	)
-	(label "FF5"
+	(label "FB5"
 		(at 213.36 110.49 270)
 		(effects
 			(font
@@ -9062,127 +9421,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "0fb332fa-d899-555c-9f39-5e1c9f8972be")
-	)
-	(symbol
-		(lib_id "AMIGA_PD_PSU:R")
-		(at 213.36 124.46 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "c50dc85e-5d6b-5a37-818f-bfe51e52e7d3")
-		(property "Reference" "R7"
-			(at 215.9 123.19 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "20k"
-			(at 215.9 125.73 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "AMIGA_PD_PSU:R_0603_1608Metric"
-			(at 213.36 124.46 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 213.36 124.46 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "feed-forward series resistor"
-			(at 213.36 124.46 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC" "C4184"
-			(at 213.36 124.46 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "1212b0f6-40dd-5a47-a9b7-0196ace58a22")
-		)
-		(pin "2"
-			(uuid "83353bcc-b7cb-503a-bd3c-8bc803ce22b0")
-		)
-		(instances
-			(project "Amiga USB-C PD Power Supply"
-				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "R7")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(wire
-		(pts
-			(xy 213.36 120.65)
-			(xy 213.36 118.11)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "20cdef4a-3813-5a72-bf86-6afd59b39ece")
-	)
-	(label "FF5"
-		(at 213.36 118.11 90)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "a11e4d52-98d0-51c1-89cb-85d3773140e7")
-	)
-	(wire
-		(pts
-			(xy 213.36 128.27)
-			(xy 213.36 130.81)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ca1858db-fcb0-5607-b395-673fb2eaf5f2")
-	)
-	(label "FB5"
-		(at 213.36 130.81 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "fded5f96-d9a7-5406-8c17-15f9c6ecf642")
+		(uuid "5debb555-ee98-5dd9-9435-0be8e3cbfa42")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:TPS25947")
@@ -9192,7 +9431,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "0a1da8c5-0c30-5098-8453-2eb37d83c1c6")
+		(uuid "9c04161c-f4cd-553f-9d33-509cd7742f04")
 		(property "Reference" "U3"
 			(at 320.04 67.31 0)
 			(effects
@@ -9227,7 +9466,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "TI TPS259470A eFuse: disconnects the Amiga +5 V above 5.64 V, ~6 A current limit, soft start, auto-retry"
+		(property "Description" "TI TPS259470A eFuse: disconnects the Amiga +5 V above 5.64 V, ~5.4 A current limit, soft start, auto-retry"
 			(at 320.04 76.2 0)
 			(effects
 				(font
@@ -9246,34 +9485,34 @@
 			)
 		)
 		(pin "5"
-			(uuid "069333e7-cdc1-5930-bf2b-70a559b393c1")
+			(uuid "ae5d7a79-32df-5bd4-95c9-975db11dc633")
 		)
 		(pin "1"
-			(uuid "dd460aec-b204-5e48-b46a-06d0f3e271cb")
+			(uuid "39cde9e2-b49e-539e-b8fc-938a7da97c6c")
 		)
 		(pin "2"
-			(uuid "bca894ef-344e-5a46-892a-d9acea85d7ac")
+			(uuid "4f06243c-308d-5505-ad40-03f044489ec5")
 		)
 		(pin "7"
-			(uuid "453d7389-e029-531a-91ba-d88c822524ea")
+			(uuid "b2373138-5bdb-515a-a20d-2dfdcedf05d8")
 		)
 		(pin "6"
-			(uuid "c2680d55-3bc2-5cd8-864c-8f71bebad791")
+			(uuid "44e58b30-7586-53f6-8c64-c27117acb24a")
 		)
 		(pin "3"
-			(uuid "15fb3929-b83c-53ae-832d-bc3d34e5e362")
+			(uuid "70010fc1-3354-56db-9501-ec54feb29dca")
 		)
 		(pin "4"
-			(uuid "42efee2c-36bc-58eb-b8fc-d0098218e070")
+			(uuid "0ae988ca-be39-5a7d-b6c0-15774bdfdd02")
 		)
 		(pin "9"
-			(uuid "5debb555-ee98-5dd9-9435-0be8e3cbfa42")
+			(uuid "075e16cd-6eae-5488-8e13-63762e161b87")
 		)
 		(pin "10"
-			(uuid "9c04161c-f4cd-553f-9d33-509cd7742f04")
+			(uuid "991454cf-04f0-564b-9a9c-8b88ca4776ad")
 		)
 		(pin "8"
-			(uuid "ae5d7a79-32df-5bd4-95c9-975db11dc633")
+			(uuid "ab583a70-f6e5-5d1d-b892-30083d728638")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -9293,7 +9532,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "39cde9e2-b49e-539e-b8fc-938a7da97c6c")
+		(uuid "02bf5045-5d32-5eef-a553-bea5bdda9880")
 	)
 	(label "5V_BUCK"
 		(at 307.34 71.12 180)
@@ -9303,7 +9542,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "4f06243c-308d-5505-ad40-03f044489ec5")
+		(uuid "08ee3717-bd21-538c-8405-7313773f04fb")
 	)
 	(wire
 		(pts
@@ -9314,7 +9553,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "b2373138-5bdb-515a-a20d-2dfdcedf05d8")
+		(uuid "066dbb03-c0c4-5f96-818f-13024640e03c")
 	)
 	(label "EF_EN"
 		(at 307.34 76.2 180)
@@ -9324,7 +9563,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "44e58b30-7586-53f6-8c64-c27117acb24a")
+		(uuid "26aadad3-7539-533d-9b0a-5c85ee753736")
 	)
 	(wire
 		(pts
@@ -9335,7 +9574,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "70010fc1-3354-56db-9501-ec54feb29dca")
+		(uuid "64d002e5-43be-5a4f-9225-cf6bfd26da4e")
 	)
 	(label "EF_OVLO"
 		(at 307.34 78.74 180)
@@ -9345,7 +9584,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "0ae988ca-be39-5a7d-b6c0-15774bdfdd02")
+		(uuid "33f8f9f2-645b-55cc-8b92-60837d42b8d4")
 	)
 	(wire
 		(pts
@@ -9356,7 +9595,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "075e16cd-6eae-5488-8e13-63762e161b87")
+		(uuid "8219c494-6e25-5778-9608-233d2f021d23")
 	)
 	(label "EF_DVDT"
 		(at 307.34 81.28 180)
@@ -9366,7 +9605,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "991454cf-04f0-564b-9a9c-8b88ca4776ad")
+		(uuid "4c444ea4-a144-5741-a0ce-a72a15f8487c")
 	)
 	(wire
 		(pts
@@ -9377,7 +9616,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "ab583a70-f6e5-5d1d-b892-30083d728638")
+		(uuid "1479e7c3-1b0c-5a71-8383-d909e3e17c9a")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:+5V")
@@ -9387,8 +9626,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "02bf5045-5d32-5eef-a553-bea5bdda9880")
-		(property "Reference" "#PWR34"
+		(uuid "3ef17b2a-54f1-5ec7-a364-491c4aad2c16")
+		(property "Reference" "#PWR36"
 			(at 340.36 66.04 0)
 			(effects
 				(font
@@ -9433,12 +9672,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "08ee3717-bd21-538c-8405-7313773f04fb")
+			(uuid "2005c57f-0b8f-58b0-a1e8-a0a7ba0e4bc4")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR34")
+					(reference "#PWR36")
 					(unit 1)
 				)
 			)
@@ -9446,7 +9685,7 @@
 	)
 	(no_connect
 		(at 330.2 73.66)
-		(uuid "066dbb03-c0c4-5f96-818f-13024640e03c")
+		(uuid "7a67788e-5100-5094-a750-01eb4103bf70")
 	)
 	(wire
 		(pts
@@ -9457,7 +9696,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "26aadad3-7539-533d-9b0a-5c85ee753736")
+		(uuid "4caeb601-1c9c-53c0-a494-41ba6945bd3b")
 	)
 	(label "FLT"
 		(at 332.74 76.2 0)
@@ -9467,7 +9706,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "64d002e5-43be-5a4f-9225-cf6bfd26da4e")
+		(uuid "826d2046-668f-5d96-a974-886ed4aff3cc")
 	)
 	(wire
 		(pts
@@ -9478,7 +9717,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "33f8f9f2-645b-55cc-8b92-60837d42b8d4")
+		(uuid "a6178d4d-1837-5d93-8705-715e7d142083")
 	)
 	(label "EF_ILM"
 		(at 332.74 78.74 0)
@@ -9488,11 +9727,11 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "8219c494-6e25-5778-9608-233d2f021d23")
+		(uuid "4b932d6a-f2bf-5fc4-bc24-70bae17bafe0")
 	)
 	(no_connect
 		(at 330.2 81.28)
-		(uuid "4c444ea4-a144-5741-a0ce-a72a15f8487c")
+		(uuid "be14f927-308d-5e6c-8c97-4a4736353b08")
 	)
 	(wire
 		(pts
@@ -9503,7 +9742,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "1479e7c3-1b0c-5a71-8383-d909e3e17c9a")
+		(uuid "e3494040-2e82-59f5-aee9-a6b264b0cf29")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:GND")
@@ -9513,8 +9752,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "3ef17b2a-54f1-5ec7-a364-491c4aad2c16")
-		(property "Reference" "#PWR35"
+		(uuid "0b544f6a-b171-57f4-abfa-80b629a36c9a")
+		(property "Reference" "#PWR37"
 			(at 322.58 83.82 0)
 			(effects
 				(font
@@ -9559,12 +9798,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "2005c57f-0b8f-58b0-a1e8-a0a7ba0e4bc4")
+			(uuid "a284749e-e0d8-5b47-bc81-b53ba60354a2")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR35")
+					(reference "#PWR37")
 					(unit 1)
 				)
 			)
@@ -9578,7 +9817,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "7a67788e-5100-5094-a750-01eb4103bf70")
+		(uuid "a558514a-a4fe-52c2-ae60-1f55c6397a04")
 		(property "Reference" "R8"
 			(at 299.72 102.87 0)
 			(effects
@@ -9634,10 +9873,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "4caeb601-1c9c-53c0-a494-41ba6945bd3b")
+			(uuid "24ed3647-35bc-5fb6-9ac2-603c55936cee")
 		)
 		(pin "2"
-			(uuid "826d2046-668f-5d96-a974-886ed4aff3cc")
+			(uuid "ca074122-f8a3-5c70-9992-7d7521878039")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -9657,7 +9896,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "a6178d4d-1837-5d93-8705-715e7d142083")
+		(uuid "5c1b13eb-ee96-5941-9f94-7509cc89aac3")
 	)
 	(label "5V_BUCK"
 		(at 297.18 97.79 90)
@@ -9667,7 +9906,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "4b932d6a-f2bf-5fc4-bc24-70bae17bafe0")
+		(uuid "25cf07db-43d1-5778-b321-c019b50aaec9")
 	)
 	(wire
 		(pts
@@ -9678,7 +9917,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "be14f927-308d-5e6c-8c97-4a4736353b08")
+		(uuid "0abf53ba-122b-5d3d-b46a-f6aee31f372d")
 	)
 	(label "EF_EN"
 		(at 297.18 110.49 270)
@@ -9688,7 +9927,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "e3494040-2e82-59f5-aee9-a6b264b0cf29")
+		(uuid "18ee8dbe-2c9d-5aff-9038-4c017a15d33e")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:R")
@@ -9698,7 +9937,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "0b544f6a-b171-57f4-abfa-80b629a36c9a")
+		(uuid "4b7a1425-9526-58ec-b1e2-879d3e9c4898")
 		(property "Reference" "R9"
 			(at 299.72 123.19 0)
 			(effects
@@ -9754,10 +9993,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "a284749e-e0d8-5b47-bc81-b53ba60354a2")
+			(uuid "d2b45b0b-18d3-5985-9d5f-01675ac1d0e4")
 		)
 		(pin "2"
-			(uuid "a558514a-a4fe-52c2-ae60-1f55c6397a04")
+			(uuid "cd6c0e48-b0c8-56f7-9fa1-9617d090a590")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -9777,7 +10016,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "24ed3647-35bc-5fb6-9ac2-603c55936cee")
+		(uuid "f46ee11f-3c8e-5961-ade3-62022bc181d2")
 	)
 	(label "EF_EN"
 		(at 297.18 118.11 90)
@@ -9787,7 +10026,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "ca074122-f8a3-5c70-9992-7d7521878039")
+		(uuid "1e582e3f-b7de-56fb-bcff-484feeeb9401")
 	)
 	(wire
 		(pts
@@ -9798,7 +10037,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "5c1b13eb-ee96-5941-9f94-7509cc89aac3")
+		(uuid "2f72c5be-cad0-592c-80d1-44bd1fc9a7b8")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:GND")
@@ -9808,8 +10047,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "25cf07db-43d1-5778-b321-c019b50aaec9")
-		(property "Reference" "#PWR36"
+		(uuid "da2f2785-cfd3-57ef-893d-d53061d85787")
+		(property "Reference" "#PWR38"
 			(at 299.72 125.73 0)
 			(effects
 				(font
@@ -9854,12 +10093,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "0abf53ba-122b-5d3d-b46a-f6aee31f372d")
+			(uuid "3cc71652-6415-5393-ae85-b3709c524bdd")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR36")
+					(reference "#PWR38")
 					(unit 1)
 				)
 			)
@@ -9873,7 +10112,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "18ee8dbe-2c9d-5aff-9038-4c017a15d33e")
+		(uuid "31258ec6-7b19-565d-b712-6087a1aa618f")
 		(property "Reference" "R10"
 			(at 309.88 102.87 0)
 			(effects
@@ -9929,10 +10168,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "4b7a1425-9526-58ec-b1e2-879d3e9c4898")
+			(uuid "92693063-0338-5776-8e7b-5ada40341cd3")
 		)
 		(pin "2"
-			(uuid "d2b45b0b-18d3-5985-9d5f-01675ac1d0e4")
+			(uuid "2e560f96-ff78-53fe-882c-10c539402477")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -9952,7 +10191,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "cd6c0e48-b0c8-56f7-9fa1-9617d090a590")
+		(uuid "bd27691f-09fb-5d6f-9920-5f55ade51fba")
 	)
 	(label "5V_BUCK"
 		(at 307.34 97.79 90)
@@ -9962,7 +10201,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "f46ee11f-3c8e-5961-ade3-62022bc181d2")
+		(uuid "f118e0e8-9a60-5ae6-bdd6-47b91c39296a")
 	)
 	(wire
 		(pts
@@ -9973,7 +10212,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "1e582e3f-b7de-56fb-bcff-484feeeb9401")
+		(uuid "81b6cf1f-d821-58c0-8601-f4baa1e21440")
 	)
 	(label "EF_OVLO"
 		(at 307.34 110.49 270)
@@ -9983,7 +10222,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "2f72c5be-cad0-592c-80d1-44bd1fc9a7b8")
+		(uuid "d4f050a1-9689-58b0-aad4-6caa9b567645")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:R")
@@ -9993,7 +10232,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "da2f2785-cfd3-57ef-893d-d53061d85787")
+		(uuid "f8c921ab-eb2f-5c93-9e23-1b478edf310d")
 		(property "Reference" "R11"
 			(at 309.88 123.19 0)
 			(effects
@@ -10049,10 +10288,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "3cc71652-6415-5393-ae85-b3709c524bdd")
+			(uuid "331c2713-f78f-5b98-b38e-8fc6bab5a7f6")
 		)
 		(pin "2"
-			(uuid "31258ec6-7b19-565d-b712-6087a1aa618f")
+			(uuid "b6457809-7e0a-5cfc-8028-dcd1828a96c3")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -10072,7 +10311,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "92693063-0338-5776-8e7b-5ada40341cd3")
+		(uuid "fd471f87-174d-51cf-abe6-96ac90a306b1")
 	)
 	(label "EF_OVLO"
 		(at 307.34 118.11 90)
@@ -10082,7 +10321,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "2e560f96-ff78-53fe-882c-10c539402477")
+		(uuid "50562078-3581-5c82-a32c-942e3aa73d08")
 	)
 	(wire
 		(pts
@@ -10093,7 +10332,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "bd27691f-09fb-5d6f-9920-5f55ade51fba")
+		(uuid "c59a6722-b436-5110-8918-9e0a244d2954")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:GND")
@@ -10103,8 +10342,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "f118e0e8-9a60-5ae6-bdd6-47b91c39296a")
-		(property "Reference" "#PWR37"
+		(uuid "64a17c06-6f15-5f7c-b469-ead9130a8981")
+		(property "Reference" "#PWR39"
 			(at 309.88 125.73 0)
 			(effects
 				(font
@@ -10149,12 +10388,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "81b6cf1f-d821-58c0-8601-f4baa1e21440")
+			(uuid "4e968350-cefa-51ea-a179-d1601dbc51d1")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR37")
+					(reference "#PWR39")
 					(unit 1)
 				)
 			)
@@ -10168,7 +10407,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "d4f050a1-9689-58b0-aad4-6caa9b567645")
+		(uuid "239687fc-653e-563c-9ce2-487b3d36dda6")
 		(property "Reference" "R12"
 			(at 345.44 102.87 0)
 			(effects
@@ -10178,7 +10417,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "560R"
+		(property "Value" "620R"
 			(at 345.44 105.41 0)
 			(effects
 				(font
@@ -10205,7 +10444,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "eFuse current limit 560R: ~5.95 A typ, 5.3 A min"
+		(property "Description" "eFuse current limit 620R: ~5.4 A typ, 4.8 A min (board rated 4.5 A)"
 			(at 342.9 104.14 0)
 			(effects
 				(font
@@ -10214,7 +10453,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C23204"
+		(property "LCSC" "C23220"
 			(at 342.9 104.14 0)
 			(effects
 				(font
@@ -10224,10 +10463,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "f8c921ab-eb2f-5c93-9e23-1b478edf310d")
+			(uuid "3c3003ef-3e24-57e4-ba64-320cbe5ebde1")
 		)
 		(pin "2"
-			(uuid "331c2713-f78f-5b98-b38e-8fc6bab5a7f6")
+			(uuid "ed1a6543-1f3a-5367-82f8-eec1e35d034a")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -10247,7 +10486,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "b6457809-7e0a-5cfc-8028-dcd1828a96c3")
+		(uuid "eba37147-1bce-5f01-9a19-733c076a3804")
 	)
 	(label "EF_ILM"
 		(at 342.9 97.79 90)
@@ -10257,7 +10496,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "fd471f87-174d-51cf-abe6-96ac90a306b1")
+		(uuid "3690449c-5aed-5b02-872a-df3a4226afdf")
 	)
 	(wire
 		(pts
@@ -10268,7 +10507,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "50562078-3581-5c82-a32c-942e3aa73d08")
+		(uuid "3018f738-50e5-5dd9-97ca-701cb5c974d1")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:GND")
@@ -10278,8 +10517,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "c59a6722-b436-5110-8918-9e0a244d2954")
-		(property "Reference" "#PWR38"
+		(uuid "de841da2-6cc2-505d-882d-7c554c648c99")
+		(property "Reference" "#PWR40"
 			(at 345.44 105.41 0)
 			(effects
 				(font
@@ -10324,12 +10563,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "64a17c06-6f15-5f7c-b469-ead9130a8981")
+			(uuid "971782cd-3915-5b39-a852-54b68eeabeda")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR38")
+					(reference "#PWR40")
 					(unit 1)
 				)
 			)
@@ -10343,7 +10582,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "4e968350-cefa-51ea-a179-d1601dbc51d1")
+		(uuid "e09d1b91-4907-52d8-89ab-b1658e82e111")
 		(property "Reference" "C11"
 			(at 320.04 107.95 0)
 			(effects
@@ -10399,10 +10638,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "239687fc-653e-563c-9ce2-487b3d36dda6")
+			(uuid "20546a60-ab30-59a9-ad52-553faf2e3d84")
 		)
 		(pin "2"
-			(uuid "3c3003ef-3e24-57e4-ba64-320cbe5ebde1")
+			(uuid "f9ff806a-3e7b-5bcb-b814-f4f5ba6ba322")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -10422,7 +10661,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "ed1a6543-1f3a-5367-82f8-eec1e35d034a")
+		(uuid "0b9a428e-b9d9-5d15-b47d-0f7791264705")
 	)
 	(label "EF_DVDT"
 		(at 317.5 102.87 90)
@@ -10432,7 +10671,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "eba37147-1bce-5f01-9a19-733c076a3804")
+		(uuid "6e2f7e82-4b47-5d42-bf5f-1b6d11adb328")
 	)
 	(wire
 		(pts
@@ -10443,7 +10682,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "3690449c-5aed-5b02-872a-df3a4226afdf")
+		(uuid "fc847c4e-60b6-5490-8dc5-8fd740723c60")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:GND")
@@ -10453,8 +10692,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "3018f738-50e5-5dd9-97ca-701cb5c974d1")
-		(property "Reference" "#PWR39"
+		(uuid "73dfbb5c-72dd-54e1-aaa5-0cc73c1aa626")
+		(property "Reference" "#PWR41"
 			(at 320.04 110.49 0)
 			(effects
 				(font
@@ -10499,12 +10738,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "de841da2-6cc2-505d-882d-7c554c648c99")
+			(uuid "1b16045a-a3b9-536f-accd-da4d37d757f1")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR39")
+					(reference "#PWR41")
 					(unit 1)
 				)
 			)
@@ -10518,7 +10757,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "971782cd-3915-5b39-a852-54b68eeabeda")
+		(uuid "161a0a17-0abc-5c0d-8b95-a04ffed85195")
 		(property "Reference" "C12"
 			(at 368.3 90.17 0)
 			(effects
@@ -10574,10 +10813,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "e09d1b91-4907-52d8-89ab-b1658e82e111")
+			(uuid "4b134b61-4a3e-50cd-bf89-2ecc7c6c65b3")
 		)
 		(pin "2"
-			(uuid "20546a60-ab30-59a9-ad52-553faf2e3d84")
+			(uuid "2c20a8a4-e3a4-5bdf-b129-ec26d7cf2299")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -10597,7 +10836,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "f9ff806a-3e7b-5bcb-b814-f4f5ba6ba322")
+		(uuid "1475ae9f-ba80-552a-92a5-2b552d8a4cf9")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:+5V")
@@ -10607,8 +10846,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "0b9a428e-b9d9-5d15-b47d-0f7791264705")
-		(property "Reference" "#PWR40"
+		(uuid "88773cbb-675b-525a-844f-f51d0485ddfc")
+		(property "Reference" "#PWR42"
 			(at 368.3 80.01 0)
 			(effects
 				(font
@@ -10653,12 +10892,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "6e2f7e82-4b47-5d42-bf5f-1b6d11adb328")
+			(uuid "4266a465-34f3-50a6-a4ab-c1064da7e117")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR40")
+					(reference "#PWR42")
 					(unit 1)
 				)
 			)
@@ -10673,7 +10912,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "fc847c4e-60b6-5490-8dc5-8fd740723c60")
+		(uuid "542a068d-17d4-5495-a0d6-eb53430e8bdf")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:GND")
@@ -10683,8 +10922,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "73dfbb5c-72dd-54e1-aaa5-0cc73c1aa626")
-		(property "Reference" "#PWR41"
+		(uuid "c2db58a1-1016-50cd-9c82-4e3750fa538a")
+		(property "Reference" "#PWR43"
 			(at 368.3 92.71 0)
 			(effects
 				(font
@@ -10729,12 +10968,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "1b16045a-a3b9-536f-accd-da4d37d757f1")
+			(uuid "736666b3-b333-56ad-a14e-acf1ca5a5eef")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR41")
+					(reference "#PWR43")
 					(unit 1)
 				)
 			)
@@ -10748,7 +10987,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "161a0a17-0abc-5c0d-8b95-a04ffed85195")
+		(uuid "52f87489-079e-5f9c-8196-e27d8fce3af0")
 		(property "Reference" "D1"
 			(at 375.92 87.63 0)
 			(effects
@@ -10802,10 +11041,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "4b134b61-4a3e-50cd-bf89-2ecc7c6c65b3")
+			(uuid "72d4b585-c97e-5ad1-867c-e6614f46db6e")
 		)
 		(pin "2"
-			(uuid "2c20a8a4-e3a4-5bdf-b129-ec26d7cf2299")
+			(uuid "b7da0e2f-7933-53f3-9f76-b8c7e23ff045")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -10825,7 +11064,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "1475ae9f-ba80-552a-92a5-2b552d8a4cf9")
+		(uuid "7d264717-2349-589a-b962-cb0de1edc732")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:+5V")
@@ -10835,8 +11074,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "88773cbb-675b-525a-844f-f51d0485ddfc")
-		(property "Reference" "#PWR42"
+		(uuid "95b7ac59-f4af-5f17-bcc6-f0a2357bf153")
+		(property "Reference" "#PWR44"
 			(at 367.03 86.36 0)
 			(effects
 				(font
@@ -10881,12 +11120,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "4266a465-34f3-50a6-a4ab-c1064da7e117")
+			(uuid "9d9c9b28-15eb-5f03-b506-10055e175564")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR42")
+					(reference "#PWR44")
 					(unit 1)
 				)
 			)
@@ -10901,7 +11140,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "542a068d-17d4-5495-a0d6-eb53430e8bdf")
+		(uuid "369208ab-42dd-5c62-9b1e-26d8e98dfb14")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:GND")
@@ -10911,8 +11150,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "c2db58a1-1016-50cd-9c82-4e3750fa538a")
-		(property "Reference" "#PWR43"
+		(uuid "416a0831-76a1-515b-9394-a4355b572ef9")
+		(property "Reference" "#PWR45"
 			(at 389.89 86.36 0)
 			(effects
 				(font
@@ -10957,12 +11196,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "736666b3-b333-56ad-a14e-acf1ca5a5eef")
+			(uuid "44173603-79fb-596a-9604-1195325335f7")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR43")
+					(reference "#PWR45")
 					(unit 1)
 				)
 			)
@@ -10976,7 +11215,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "52f87489-079e-5f9c-8196-e27d8fce3af0")
+		(uuid "2ab7005f-10bd-50d6-8616-932280e5f08c")
 		(property "Reference" "R13"
 			(at 358.14 123.19 0)
 			(effects
@@ -11032,10 +11271,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "72d4b585-c97e-5ad1-867c-e6614f46db6e")
+			(uuid "587aa9d0-c8b3-5d6f-8450-bac183b29d78")
 		)
 		(pin "2"
-			(uuid "b7da0e2f-7933-53f3-9f76-b8c7e23ff045")
+			(uuid "1f8ad9c3-3ed9-5045-a7c9-e7de1d8ee2eb")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -11055,7 +11294,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "7d264717-2349-589a-b962-cb0de1edc732")
+		(uuid "9c26acf8-a47d-5616-82f7-b8167f0bb1bb")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:+5V")
@@ -11065,8 +11304,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "95b7ac59-f4af-5f17-bcc6-f0a2357bf153")
-		(property "Reference" "#PWR44"
+		(uuid "ba0e068a-f8ba-5b79-aa9d-b1f5f97958e6")
+		(property "Reference" "#PWR46"
 			(at 358.14 113.03 0)
 			(effects
 				(font
@@ -11111,12 +11350,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "9d9c9b28-15eb-5f03-b506-10055e175564")
+			(uuid "8b95dd83-d9ed-5d44-a0ad-6a583f4a0a3d")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR44")
+					(reference "#PWR46")
 					(unit 1)
 				)
 			)
@@ -11131,7 +11370,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "369208ab-42dd-5c62-9b1e-26d8e98dfb14")
+		(uuid "9a94e60e-9b00-5f0c-a80a-cfa66c5c3c60")
 	)
 	(label "LED5"
 		(at 355.6 130.81 270)
@@ -11141,7 +11380,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "416a0831-76a1-515b-9394-a4355b572ef9")
+		(uuid "e1763fe6-9f06-5317-a945-1d4da27eb3f8")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:LED")
@@ -11151,7 +11390,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "44173603-79fb-596a-9604-1195325335f7")
+		(uuid "d8c4568d-2560-5cbf-8eef-679d97b40d46")
 		(property "Reference" "D2"
 			(at 355.6 135.89 0)
 			(effects
@@ -11205,10 +11444,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "2ab7005f-10bd-50d6-8616-932280e5f08c")
+			(uuid "23d055fc-b9c6-579f-b3d1-ff565c2fabd4")
 		)
 		(pin "2"
-			(uuid "587aa9d0-c8b3-5d6f-8450-bac183b29d78")
+			(uuid "2d06f2ea-3f5f-5a95-a47e-f231aba03a9b")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -11228,7 +11467,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "1f8ad9c3-3ed9-5045-a7c9-e7de1d8ee2eb")
+		(uuid "d0b78dd3-57d2-5972-9a23-153c7c23edc2")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:GND")
@@ -11238,8 +11477,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "9c26acf8-a47d-5616-82f7-b8167f0bb1bb")
-		(property "Reference" "#PWR45"
+		(uuid "f6416c4e-2879-5ec1-b4b6-a7168671bb31")
+		(property "Reference" "#PWR47"
 			(at 346.71 134.62 0)
 			(effects
 				(font
@@ -11284,12 +11523,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "ba0e068a-f8ba-5b79-aa9d-b1f5f97958e6")
+			(uuid "2c009af1-0171-5112-93f2-a522263b51ea")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR45")
+					(reference "#PWR47")
 					(unit 1)
 				)
 			)
@@ -11304,7 +11543,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "8b95dd83-d9ed-5d44-a0ad-6a583f4a0a3d")
+		(uuid "c5996004-9753-500b-8e11-c1cdf1c7ba57")
 	)
 	(label "LED5"
 		(at 361.95 139.7 0)
@@ -11314,7 +11553,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "9a94e60e-9b00-5f0c-a80a-cfa66c5c3c60")
+		(uuid "490c63a8-ea07-589f-bb53-f1d25b848460")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:R")
@@ -11324,7 +11563,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "e1763fe6-9f06-5317-a945-1d4da27eb3f8")
+		(uuid "b7bf70da-3607-553b-9f6a-4da75bc24d1e")
 		(property "Reference" "R14"
 			(at 335.28 123.19 0)
 			(effects
@@ -11380,10 +11619,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "d8c4568d-2560-5cbf-8eef-679d97b40d46")
+			(uuid "352f8654-8230-51f3-b373-a2b0c5c80697")
 		)
 		(pin "2"
-			(uuid "23d055fc-b9c6-579f-b3d1-ff565c2fabd4")
+			(uuid "1f8e0244-1387-5dc6-9198-3a9fbd2e6a5d")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -11403,7 +11642,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "2d06f2ea-3f5f-5a95-a47e-f231aba03a9b")
+		(uuid "2e0749fc-2ec2-5c02-b110-189c7acd78a2")
 	)
 	(label "5V_BUCK"
 		(at 332.74 118.11 90)
@@ -11413,7 +11652,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "d0b78dd3-57d2-5972-9a23-153c7c23edc2")
+		(uuid "0397d050-0ab2-589c-8a5f-5cc7194d19c5")
 	)
 	(wire
 		(pts
@@ -11424,7 +11663,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "f6416c4e-2879-5ec1-b4b6-a7168671bb31")
+		(uuid "40ea2ecb-c994-5d72-bf5f-cdb298353082")
 	)
 	(label "LEDF"
 		(at 332.74 130.81 270)
@@ -11434,7 +11673,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "2c009af1-0171-5112-93f2-a522263b51ea")
+		(uuid "8ac605a3-d211-5343-b2a3-985592c9faa0")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:LED")
@@ -11444,7 +11683,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "c5996004-9753-500b-8e11-c1cdf1c7ba57")
+		(uuid "9f980393-6043-5fde-98f7-4ae4bf416f21")
 		(property "Reference" "D3"
 			(at 332.74 135.89 0)
 			(effects
@@ -11498,10 +11737,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "490c63a8-ea07-589f-bb53-f1d25b848460")
+			(uuid "af0b4880-1067-59c4-a2b0-d5d604f78c7b")
 		)
 		(pin "2"
-			(uuid "b7bf70da-3607-553b-9f6a-4da75bc24d1e")
+			(uuid "7d8293f1-842d-545b-8a9d-9d5d5cc54e81")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -11521,7 +11760,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "352f8654-8230-51f3-b373-a2b0c5c80697")
+		(uuid "a69b3500-3d60-54b1-af9c-51af1245cbed")
 	)
 	(label "FLT"
 		(at 326.39 139.7 180)
@@ -11531,7 +11770,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "1f8e0244-1387-5dc6-9198-3a9fbd2e6a5d")
+		(uuid "7ce80594-dce0-59fb-bb80-6d3503303f43")
 	)
 	(wire
 		(pts
@@ -11542,7 +11781,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "2e0749fc-2ec2-5c02-b110-189c7acd78a2")
+		(uuid "57501c01-16f0-58b0-8a5f-755d3a594e1c")
 	)
 	(label "LEDF"
 		(at 339.09 139.7 0)
@@ -11552,7 +11791,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "0397d050-0ab2-589c-8a5f-5cc7194d19c5")
+		(uuid "cd3031a1-d236-5112-ad6a-d4ddae47fa16")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:LMR51430")
@@ -11562,7 +11801,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "40ea2ecb-c994-5d72-bf5f-cdb298353082")
+		(uuid "582644ad-b471-57a5-8a91-d04e3a2ed322")
 		(property "Reference" "U4"
 			(at 195.58 171.45 0)
 			(effects
@@ -11616,22 +11855,22 @@
 			)
 		)
 		(pin "1"
-			(uuid "8ac605a3-d211-5343-b2a3-985592c9faa0")
+			(uuid "2351b314-ac4f-5d76-af18-31a517e5b428")
 		)
 		(pin "2"
-			(uuid "9f980393-6043-5fde-98f7-4ae4bf416f21")
+			(uuid "85defd13-86f2-56be-ba09-21b0351cc214")
 		)
 		(pin "3"
-			(uuid "af0b4880-1067-59c4-a2b0-d5d604f78c7b")
+			(uuid "cbd3616d-bf01-51ff-862c-dd317abd6cc2")
 		)
 		(pin "4"
-			(uuid "7d8293f1-842d-545b-8a9d-9d5d5cc54e81")
+			(uuid "45e4493b-ffa0-58cd-84c5-e6b041e3c674")
 		)
 		(pin "5"
-			(uuid "a69b3500-3d60-54b1-af9c-51af1245cbed")
+			(uuid "e50e9da4-8c0e-5f15-8215-6e071baa16ca")
 		)
 		(pin "6"
-			(uuid "7ce80594-dce0-59fb-bb80-6d3503303f43")
+			(uuid "100aedae-9485-55fb-8516-240624a38cb0")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -11651,7 +11890,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "57501c01-16f0-58b0-8a5f-755d3a594e1c")
+		(uuid "89e48d21-384b-5f88-88e4-bed860861949")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:GND")
@@ -11661,8 +11900,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "cd3031a1-d236-5112-ad6a-d4ddae47fa16")
-		(property "Reference" "#PWR46"
+		(uuid "24e733e7-dcbb-5558-930b-8675595f57d1")
+		(property "Reference" "#PWR48"
 			(at 198.12 182.88 0)
 			(effects
 				(font
@@ -11707,12 +11946,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "582644ad-b471-57a5-8a91-d04e3a2ed322")
+			(uuid "61e07d5e-49d0-5a64-8e28-1566ea8956f6")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR46")
+					(reference "#PWR48")
 					(unit 1)
 				)
 			)
@@ -11727,7 +11966,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "2351b314-ac4f-5d76-af18-31a517e5b428")
+		(uuid "ba0efbe4-22bf-5741-b9e8-bc91828381c4")
 	)
 	(label "SW12"
 		(at 208.28 177.8 0)
@@ -11737,7 +11976,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "85defd13-86f2-56be-ba09-21b0351cc214")
+		(uuid "ec05a2bd-bf02-5862-92cc-e1767d54619a")
 	)
 	(wire
 		(pts
@@ -11748,7 +11987,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "cbd3616d-bf01-51ff-862c-dd317abd6cc2")
+		(uuid "cfe8be75-4190-5704-a697-6b3801646a8b")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:VBUS")
@@ -11758,8 +11997,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "45e4493b-ffa0-58cd-84c5-e6b041e3c674")
-		(property "Reference" "#PWR47"
+		(uuid "f234442f-8b01-56ae-b58c-4f01fc8cd4f2")
+		(property "Reference" "#PWR49"
 			(at 180.34 170.18 0)
 			(effects
 				(font
@@ -11804,12 +12043,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "e50e9da4-8c0e-5f15-8215-6e071baa16ca")
+			(uuid "cd13e41b-8352-506f-a791-b3f9df06dc32")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR47")
+					(reference "#PWR49")
 					(unit 1)
 				)
 			)
@@ -11824,7 +12063,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "100aedae-9485-55fb-8516-240624a38cb0")
+		(uuid "1c9492ca-8222-5fb1-af44-efaba945a0bf")
 	)
 	(label "FB12"
 		(at 208.28 180.34 0)
@@ -11834,7 +12073,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "89e48d21-384b-5f88-88e4-bed860861949")
+		(uuid "6b7d6315-cbed-561b-beeb-2fc86c4019dd")
 	)
 	(wire
 		(pts
@@ -11845,7 +12084,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "24e733e7-dcbb-5558-930b-8675595f57d1")
+		(uuid "d4402387-c4bb-5a91-a084-ec9efb7243e7")
 	)
 	(label "EN"
 		(at 182.88 180.34 180)
@@ -11855,7 +12094,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "61e07d5e-49d0-5a64-8e28-1566ea8956f6")
+		(uuid "aa87c5b0-620f-5ba8-8323-37e48449a8f1")
 	)
 	(wire
 		(pts
@@ -11866,7 +12105,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "ba0efbe4-22bf-5741-b9e8-bc91828381c4")
+		(uuid "9e44fd0d-40ec-5d29-8254-f9a67e0b823a")
 	)
 	(label "BOOT12"
 		(at 208.28 175.26 0)
@@ -11876,7 +12115,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "ec05a2bd-bf02-5862-92cc-e1767d54619a")
+		(uuid "aaa97d10-d9cc-59f5-8e92-bf64f89b3fdc")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:C")
@@ -11886,7 +12125,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "cfe8be75-4190-5704-a697-6b3801646a8b")
+		(uuid "2ba4eb45-c545-55f1-991c-5896806a151e")
 		(property "Reference" "C13"
 			(at 149.86 176.53 0)
 			(effects
@@ -11942,10 +12181,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "f234442f-8b01-56ae-b58c-4f01fc8cd4f2")
+			(uuid "8f495325-02e7-5f7e-b2dc-90ce1a5468e7")
 		)
 		(pin "2"
-			(uuid "cd13e41b-8352-506f-a791-b3f9df06dc32")
+			(uuid "e917b5a2-2240-5c08-b135-1f59f78789ac")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -11965,7 +12204,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "1c9492ca-8222-5fb1-af44-efaba945a0bf")
+		(uuid "1966c48f-511d-53bb-818a-42707b1e64b2")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:VBUS")
@@ -11975,8 +12214,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "6b7d6315-cbed-561b-beeb-2fc86c4019dd")
-		(property "Reference" "#PWR48"
+		(uuid "a6d47097-54cf-533d-ba25-348ef9b23580")
+		(property "Reference" "#PWR50"
 			(at 149.86 166.37 0)
 			(effects
 				(font
@@ -12021,12 +12260,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "d4402387-c4bb-5a91-a084-ec9efb7243e7")
+			(uuid "7f8fbad1-8f85-56b5-b510-731f6224d26c")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR48")
+					(reference "#PWR50")
 					(unit 1)
 				)
 			)
@@ -12041,7 +12280,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "aa87c5b0-620f-5ba8-8323-37e48449a8f1")
+		(uuid "0a8dc9e8-eaaa-5929-bc11-09fade341cfb")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:GND")
@@ -12051,8 +12290,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "9e44fd0d-40ec-5d29-8254-f9a67e0b823a")
-		(property "Reference" "#PWR49"
+		(uuid "a65225bf-04d1-5315-82db-464095a3a2d2")
+		(property "Reference" "#PWR51"
 			(at 149.86 179.07 0)
 			(effects
 				(font
@@ -12097,12 +12336,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "aaa97d10-d9cc-59f5-8e92-bf64f89b3fdc")
+			(uuid "6f99f4ba-9dc0-5d71-b6ff-b995824dd30f")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR49")
+					(reference "#PWR51")
 					(unit 1)
 				)
 			)
@@ -12116,7 +12355,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "2ba4eb45-c545-55f1-991c-5896806a151e")
+		(uuid "8296c2de-b534-50e0-a002-3bc5c6d25883")
 		(property "Reference" "C14"
 			(at 160.02 176.53 0)
 			(effects
@@ -12172,10 +12411,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "8f495325-02e7-5f7e-b2dc-90ce1a5468e7")
+			(uuid "111b868c-2ca0-5348-a901-a60c9641d7bb")
 		)
 		(pin "2"
-			(uuid "e917b5a2-2240-5c08-b135-1f59f78789ac")
+			(uuid "04a359e4-87d5-5981-ab7d-d7b819a46815")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -12195,7 +12434,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "1966c48f-511d-53bb-818a-42707b1e64b2")
+		(uuid "f9503b30-5ec4-567d-83a2-bcb7e0a45f5f")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:VBUS")
@@ -12205,8 +12444,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "a6d47097-54cf-533d-ba25-348ef9b23580")
-		(property "Reference" "#PWR50"
+		(uuid "28d4c17f-2833-5041-afd9-d127b99ca5fe")
+		(property "Reference" "#PWR52"
 			(at 160.02 166.37 0)
 			(effects
 				(font
@@ -12251,12 +12490,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "7f8fbad1-8f85-56b5-b510-731f6224d26c")
+			(uuid "d90c1d40-ffb1-5337-8781-6ce32c35c54e")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR50")
+					(reference "#PWR52")
 					(unit 1)
 				)
 			)
@@ -12271,7 +12510,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "0a8dc9e8-eaaa-5929-bc11-09fade341cfb")
+		(uuid "6fe2fc34-98f4-5784-8f2a-bd59116781dd")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:GND")
@@ -12281,8 +12520,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "a65225bf-04d1-5315-82db-464095a3a2d2")
-		(property "Reference" "#PWR51"
+		(uuid "0900e9ea-9db3-59fb-8ff7-f36eca452cd7")
+		(property "Reference" "#PWR53"
 			(at 160.02 179.07 0)
 			(effects
 				(font
@@ -12327,12 +12566,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "6f99f4ba-9dc0-5d71-b6ff-b995824dd30f")
+			(uuid "e8ef4791-926d-59d0-914e-6e8e62b0b501")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR51")
+					(reference "#PWR53")
 					(unit 1)
 				)
 			)
@@ -12346,7 +12585,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "8296c2de-b534-50e0-a002-3bc5c6d25883")
+		(uuid "269ffb93-9b74-5e03-bcff-25400f3645d8")
 		(property "Reference" "C15"
 			(at 170.18 176.53 0)
 			(effects
@@ -12402,10 +12641,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "111b868c-2ca0-5348-a901-a60c9641d7bb")
+			(uuid "dc7e8fb2-9cd7-542d-826c-625d638d7af4")
 		)
 		(pin "2"
-			(uuid "04a359e4-87d5-5981-ab7d-d7b819a46815")
+			(uuid "02f130c7-ad53-5307-8313-167acfa0dd0c")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -12425,7 +12664,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "f9503b30-5ec4-567d-83a2-bcb7e0a45f5f")
+		(uuid "74cbebd2-eba2-54db-a12f-af4692522b22")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:VBUS")
@@ -12435,8 +12674,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "28d4c17f-2833-5041-afd9-d127b99ca5fe")
-		(property "Reference" "#PWR52"
+		(uuid "bd877595-d108-5880-95ed-b09fbceb8d53")
+		(property "Reference" "#PWR54"
 			(at 170.18 166.37 0)
 			(effects
 				(font
@@ -12481,12 +12720,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "d90c1d40-ffb1-5337-8781-6ce32c35c54e")
+			(uuid "f305aaf6-a2ce-591f-be7e-45c53315fd7f")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR52")
+					(reference "#PWR54")
 					(unit 1)
 				)
 			)
@@ -12501,7 +12740,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "6fe2fc34-98f4-5784-8f2a-bd59116781dd")
+		(uuid "69c1cc32-9b0f-5c3e-a4ad-9952562cfee5")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:GND")
@@ -12511,8 +12750,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "0900e9ea-9db3-59fb-8ff7-f36eca452cd7")
-		(property "Reference" "#PWR53"
+		(uuid "0d6ed032-7af5-5523-b1ca-c4ec16a99db5")
+		(property "Reference" "#PWR55"
 			(at 170.18 179.07 0)
 			(effects
 				(font
@@ -12557,12 +12796,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "e8ef4791-926d-59d0-914e-6e8e62b0b501")
+			(uuid "756950ad-0507-5291-958b-3b8b7cd9ab1f")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR53")
+					(reference "#PWR55")
 					(unit 1)
 				)
 			)
@@ -12576,7 +12815,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "269ffb93-9b74-5e03-bcff-25400f3645d8")
+		(uuid "4357ee64-9a6e-5df4-9d60-d6acb2087d74")
 		(property "Reference" "C16"
 			(at 223.52 158.75 0)
 			(effects
@@ -12632,10 +12871,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "dc7e8fb2-9cd7-542d-826c-625d638d7af4")
+			(uuid "b78d7dbf-f7c2-56fc-8005-d131e316dca7")
 		)
 		(pin "2"
-			(uuid "02f130c7-ad53-5307-8313-167acfa0dd0c")
+			(uuid "c6b9c2ff-f321-51f9-9a14-1dff5774ec83")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -12655,7 +12894,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "74cbebd2-eba2-54db-a12f-af4692522b22")
+		(uuid "3d366d1b-5968-5239-8c80-67845e07b4fd")
 	)
 	(label "BOOT12"
 		(at 220.98 153.67 90)
@@ -12665,7 +12904,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "bd877595-d108-5880-95ed-b09fbceb8d53")
+		(uuid "fa1075c9-78a1-56e0-bff3-c0695528b059")
 	)
 	(wire
 		(pts
@@ -12676,7 +12915,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "f305aaf6-a2ce-591f-be7e-45c53315fd7f")
+		(uuid "0870651c-e53d-542b-a1b0-608e9c352b74")
 	)
 	(label "SW12"
 		(at 220.98 166.37 270)
@@ -12686,7 +12925,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "69c1cc32-9b0f-5c3e-a4ad-9952562cfee5")
+		(uuid "c0ef679e-401a-538c-933c-971f79c690a0")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:L")
@@ -12696,7 +12935,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "0d6ed032-7af5-5523-b1ca-c4ec16a99db5")
+		(uuid "53feb9bb-ddfc-5e99-a42d-506f801b34d3")
 		(property "Reference" "L2"
 			(at 228.6 176.53 0)
 			(effects
@@ -12752,10 +12991,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "756950ad-0507-5291-958b-3b8b7cd9ab1f")
+			(uuid "6189fb89-b419-51d8-b851-8c54fa048bd3")
 		)
 		(pin "2"
-			(uuid "4357ee64-9a6e-5df4-9d60-d6acb2087d74")
+			(uuid "40648a68-dbfa-5744-a998-7b84eda48f8e")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -12775,7 +13014,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "b78d7dbf-f7c2-56fc-8005-d131e316dca7")
+		(uuid "eae6d5ce-f437-50da-b52d-b336ac3d1894")
 	)
 	(label "SW12"
 		(at 226.06 171.45 90)
@@ -12785,7 +13024,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "c6b9c2ff-f321-51f9-9a14-1dff5774ec83")
+		(uuid "efc60a70-1a6c-5aca-82ec-8724d108f835")
 	)
 	(wire
 		(pts
@@ -12796,7 +13035,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "3d366d1b-5968-5239-8c80-67845e07b4fd")
+		(uuid "7a0c6b6d-b348-55a0-98a8-a5e8f6cc6c55")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:+12V")
@@ -12806,8 +13045,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "fa1075c9-78a1-56e0-bff3-c0695528b059")
-		(property "Reference" "#PWR54"
+		(uuid "41986867-37d1-59a9-9f7e-6bae6f306424")
+		(property "Reference" "#PWR56"
 			(at 228.6 179.07 0)
 			(effects
 				(font
@@ -12852,12 +13091,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "0870651c-e53d-542b-a1b0-608e9c352b74")
+			(uuid "d051897d-d95d-55a4-86cd-de056ca85026")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR54")
+					(reference "#PWR56")
 					(unit 1)
 				)
 			)
@@ -12871,7 +13110,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "c0ef679e-401a-538c-933c-971f79c690a0")
+		(uuid "2cf98529-3bca-574a-b236-b2cbc0009ccc")
 		(property "Reference" "C17"
 			(at 248.92 191.77 0)
 			(effects
@@ -12927,10 +13166,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "53feb9bb-ddfc-5e99-a42d-506f801b34d3")
+			(uuid "d6883143-520f-5306-adce-72c735fab201")
 		)
 		(pin "2"
-			(uuid "6189fb89-b419-51d8-b851-8c54fa048bd3")
+			(uuid "9ce97596-bda0-5de7-b7fb-d96d2cec194a")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -12950,7 +13189,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "40648a68-dbfa-5744-a998-7b84eda48f8e")
+		(uuid "cf619f60-d393-5781-a132-580e1a3702ba")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:+12V")
@@ -12960,8 +13199,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "eae6d5ce-f437-50da-b52d-b336ac3d1894")
-		(property "Reference" "#PWR55"
+		(uuid "ccbec374-b4cb-53e2-aa1d-99a023dc7d7b")
+		(property "Reference" "#PWR57"
 			(at 248.92 181.61 0)
 			(effects
 				(font
@@ -13006,12 +13245,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "efc60a70-1a6c-5aca-82ec-8724d108f835")
+			(uuid "ba1b097c-1b74-5aea-a574-760927a729dd")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR55")
+					(reference "#PWR57")
 					(unit 1)
 				)
 			)
@@ -13026,7 +13265,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "7a0c6b6d-b348-55a0-98a8-a5e8f6cc6c55")
+		(uuid "3d73f0f0-2f25-53a9-904e-a4bc29e7230b")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:GND")
@@ -13036,8 +13275,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "41986867-37d1-59a9-9f7e-6bae6f306424")
-		(property "Reference" "#PWR56"
+		(uuid "9b0b5b48-b30f-5730-913a-c20e76094924")
+		(property "Reference" "#PWR58"
 			(at 248.92 194.31 0)
 			(effects
 				(font
@@ -13082,12 +13321,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "d051897d-d95d-55a4-86cd-de056ca85026")
+			(uuid "f3a461e8-a827-5c69-9e18-7c58d41d13ef")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR56")
+					(reference "#PWR58")
 					(unit 1)
 				)
 			)
@@ -13101,7 +13340,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "2cf98529-3bca-574a-b236-b2cbc0009ccc")
+		(uuid "2fa38b58-8641-574b-9bee-032fbaf3f7bb")
 		(property "Reference" "C18"
 			(at 259.08 191.77 0)
 			(effects
@@ -13157,10 +13396,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "d6883143-520f-5306-adce-72c735fab201")
+			(uuid "24a3f95f-2cdf-5413-9ca6-2574ce02501a")
 		)
 		(pin "2"
-			(uuid "9ce97596-bda0-5de7-b7fb-d96d2cec194a")
+			(uuid "ab3c62c2-0320-5d77-93bc-17d27aad332f")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -13180,7 +13419,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "cf619f60-d393-5781-a132-580e1a3702ba")
+		(uuid "e5278528-2f20-51a6-b750-b08dc592e210")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:+12V")
@@ -13190,8 +13429,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "ccbec374-b4cb-53e2-aa1d-99a023dc7d7b")
-		(property "Reference" "#PWR57"
+		(uuid "5d613de8-f1dc-535c-994a-bd1ceae0fd4e")
+		(property "Reference" "#PWR59"
 			(at 259.08 181.61 0)
 			(effects
 				(font
@@ -13236,12 +13475,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "ba1b097c-1b74-5aea-a574-760927a729dd")
+			(uuid "47d1a1c8-74b4-50da-a250-aaeb616a7195")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR57")
+					(reference "#PWR59")
 					(unit 1)
 				)
 			)
@@ -13256,7 +13495,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "3d73f0f0-2f25-53a9-904e-a4bc29e7230b")
+		(uuid "d22ad43d-e1c7-50a2-9f4f-6582a146e882")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:GND")
@@ -13266,8 +13505,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "9b0b5b48-b30f-5730-913a-c20e76094924")
-		(property "Reference" "#PWR58"
+		(uuid "1f18213a-07fb-5d15-aa0a-22b96d7b8716")
+		(property "Reference" "#PWR60"
 			(at 259.08 194.31 0)
 			(effects
 				(font
@@ -13312,12 +13551,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "f3a461e8-a827-5c69-9e18-7c58d41d13ef")
+			(uuid "c9ddbd42-50b4-53c3-a3e6-e383d36a2e4c")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR58")
+					(reference "#PWR60")
 					(unit 1)
 				)
 			)
@@ -13331,7 +13570,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "2fa38b58-8641-574b-9bee-032fbaf3f7bb")
+		(uuid "26ce7794-b83d-57b5-ab37-32de3c235bd9")
 		(property "Reference" "C19"
 			(at 269.24 191.77 0)
 			(effects
@@ -13387,10 +13626,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "24a3f95f-2cdf-5413-9ca6-2574ce02501a")
+			(uuid "ae990c2c-f754-5225-8efe-4a6c2a09e012")
 		)
 		(pin "2"
-			(uuid "ab3c62c2-0320-5d77-93bc-17d27aad332f")
+			(uuid "0cf3f0d5-9296-57e0-90ae-908b305a6d49")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -13410,7 +13649,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "e5278528-2f20-51a6-b750-b08dc592e210")
+		(uuid "df1e40b0-ae6c-5e4b-8c00-d18fbf3c7113")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:+12V")
@@ -13420,8 +13659,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "5d613de8-f1dc-535c-994a-bd1ceae0fd4e")
-		(property "Reference" "#PWR59"
+		(uuid "1b0382d3-fde7-538a-9f49-fb8cd05eaac8")
+		(property "Reference" "#PWR61"
 			(at 269.24 181.61 0)
 			(effects
 				(font
@@ -13466,12 +13705,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "47d1a1c8-74b4-50da-a250-aaeb616a7195")
+			(uuid "908cdba9-937f-59c0-9d36-1ee08d99350c")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR59")
+					(reference "#PWR61")
 					(unit 1)
 				)
 			)
@@ -13486,7 +13725,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "d22ad43d-e1c7-50a2-9f4f-6582a146e882")
+		(uuid "c8251e92-7159-52d4-b246-60ffe3d2c311")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:GND")
@@ -13496,8 +13735,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "1f18213a-07fb-5d15-aa0a-22b96d7b8716")
-		(property "Reference" "#PWR60"
+		(uuid "05762a11-ddc5-5432-8a9a-5dc7a23e0579")
+		(property "Reference" "#PWR62"
 			(at 269.24 194.31 0)
 			(effects
 				(font
@@ -13542,12 +13781,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "c9ddbd42-50b4-53c3-a3e6-e383d36a2e4c")
+			(uuid "b8bb060b-a1bd-5d49-876b-2f80fa7c2483")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR60")
+					(reference "#PWR62")
 					(unit 1)
 				)
 			)
@@ -13561,7 +13800,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "26ce7794-b83d-57b5-ab37-32de3c235bd9")
+		(uuid "4a18be0e-9040-5782-8ca7-548816d39af4")
 		(property "Reference" "R15"
 			(at 233.68 204.47 0)
 			(effects
@@ -13617,10 +13856,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "ae990c2c-f754-5225-8efe-4a6c2a09e012")
+			(uuid "a1e2ed2f-65cc-5237-b241-34beffbd0857")
 		)
 		(pin "2"
-			(uuid "0cf3f0d5-9296-57e0-90ae-908b305a6d49")
+			(uuid "f741b19d-88e4-5153-b3e1-ce47219ef0b5")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -13640,7 +13879,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "df1e40b0-ae6c-5e4b-8c00-d18fbf3c7113")
+		(uuid "85815783-d04e-54b1-b9ef-f4dc7f74b3da")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:+12V")
@@ -13650,8 +13889,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "1b0382d3-fde7-538a-9f49-fb8cd05eaac8")
-		(property "Reference" "#PWR61"
+		(uuid "8154c108-1a13-5d9f-88c8-bee611489380")
+		(property "Reference" "#PWR63"
 			(at 233.68 194.31 0)
 			(effects
 				(font
@@ -13696,12 +13935,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "908cdba9-937f-59c0-9d36-1ee08d99350c")
+			(uuid "a31c5398-74c4-5557-86ee-c5b5fd495644")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR61")
+					(reference "#PWR63")
 					(unit 1)
 				)
 			)
@@ -13716,7 +13955,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "c8251e92-7159-52d4-b246-60ffe3d2c311")
+		(uuid "d8ffe52e-a54e-5bea-a039-795b7bdaa7a9")
 	)
 	(label "FB12"
 		(at 231.14 212.09 270)
@@ -13726,7 +13965,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "05762a11-ddc5-5432-8a9a-5dc7a23e0579")
+		(uuid "3fe914dd-1735-5ea6-8610-f749ce465a81")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:R")
@@ -13736,7 +13975,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "b8bb060b-a1bd-5d49-876b-2f80fa7c2483")
+		(uuid "5900faa9-ecd6-522d-95f3-928fd5ab5b25")
 		(property "Reference" "R16"
 			(at 233.68 224.79 0)
 			(effects
@@ -13792,10 +14031,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "4a18be0e-9040-5782-8ca7-548816d39af4")
+			(uuid "511187e7-0a45-577e-86bf-ff6eaf69a312")
 		)
 		(pin "2"
-			(uuid "a1e2ed2f-65cc-5237-b241-34beffbd0857")
+			(uuid "90589a47-a8c5-5edc-97ea-cd77a5e71c44")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -13815,7 +14054,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "f741b19d-88e4-5153-b3e1-ce47219ef0b5")
+		(uuid "826c1234-f71e-5690-b746-4afbdab41f06")
 	)
 	(label "FB12"
 		(at 231.14 219.71 90)
@@ -13825,7 +14064,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "85815783-d04e-54b1-b9ef-f4dc7f74b3da")
+		(uuid "bd219768-f01f-57f4-8126-cd28c7cfa4d6")
 	)
 	(wire
 		(pts
@@ -13836,7 +14075,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "8154c108-1a13-5d9f-88c8-bee611489380")
+		(uuid "5b1f847d-ba94-56bf-b840-06f4ea1dedf6")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:GND")
@@ -13846,8 +14085,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "a31c5398-74c4-5557-86ee-c5b5fd495644")
-		(property "Reference" "#PWR62"
+		(uuid "90500b9d-b26f-5f5f-846c-92043fda1022")
+		(property "Reference" "#PWR64"
 			(at 233.68 227.33 0)
 			(effects
 				(font
@@ -13892,12 +14131,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "d8ffe52e-a54e-5bea-a039-795b7bdaa7a9")
+			(uuid "a9cd4093-bfea-5eea-812c-9a8a4dd6f530")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR62")
+					(reference "#PWR64")
 					(unit 1)
 				)
 			)
@@ -13911,7 +14150,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "3fe914dd-1735-5ea6-8610-f749ce465a81")
+		(uuid "b011a08f-4903-5ab4-a4b6-4d76f99401e6")
 		(property "Reference" "D4"
 			(at 276.86 189.23 0)
 			(effects
@@ -13965,10 +14204,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "5900faa9-ecd6-522d-95f3-928fd5ab5b25")
+			(uuid "19197f13-7717-5095-80b0-7e65691d42c8")
 		)
 		(pin "2"
-			(uuid "511187e7-0a45-577e-86bf-ff6eaf69a312")
+			(uuid "cdf1f80e-661a-592e-b209-6d304a9ace20")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -13988,7 +14227,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "90589a47-a8c5-5edc-97ea-cd77a5e71c44")
+		(uuid "4629a0f3-0499-54ba-b74a-74f9f2d62fae")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:+12V")
@@ -13998,8 +14237,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "826c1234-f71e-5690-b746-4afbdab41f06")
-		(property "Reference" "#PWR63"
+		(uuid "7427ba96-7565-52c8-9855-dc4f2672da72")
+		(property "Reference" "#PWR65"
 			(at 267.97 187.96 0)
 			(effects
 				(font
@@ -14044,12 +14283,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "bd219768-f01f-57f4-8126-cd28c7cfa4d6")
+			(uuid "3bcf3dc8-ceff-54a9-8d26-fc609719a9be")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR63")
+					(reference "#PWR65")
 					(unit 1)
 				)
 			)
@@ -14064,7 +14303,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "5b1f847d-ba94-56bf-b840-06f4ea1dedf6")
+		(uuid "89187d68-0556-59dd-aca0-ddfa4ae7e5ad")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:GND")
@@ -14074,8 +14313,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "90500b9d-b26f-5f5f-846c-92043fda1022")
-		(property "Reference" "#PWR64"
+		(uuid "b6afe679-c2f7-5469-9dcc-64537d20c513")
+		(property "Reference" "#PWR66"
 			(at 290.83 187.96 0)
 			(effects
 				(font
@@ -14120,12 +14359,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "a9cd4093-bfea-5eea-812c-9a8a4dd6f530")
+			(uuid "cf49fcbf-dffb-5110-8b3b-a00e9b74e52b")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR64")
+					(reference "#PWR66")
 					(unit 1)
 				)
 			)
@@ -14139,7 +14378,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "b011a08f-4903-5ab4-a4b6-4d76f99401e6")
+		(uuid "74d2c78b-4825-536d-9107-ff43b17a8102")
 		(property "Reference" "R17"
 			(at 289.56 204.47 0)
 			(effects
@@ -14195,10 +14434,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "19197f13-7717-5095-80b0-7e65691d42c8")
+			(uuid "65537b98-659a-5caa-b1a3-0abbf109b8e4")
 		)
 		(pin "2"
-			(uuid "cdf1f80e-661a-592e-b209-6d304a9ace20")
+			(uuid "3b3b5187-0f74-5161-b8a6-760eec4be10e")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -14218,7 +14457,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "4629a0f3-0499-54ba-b74a-74f9f2d62fae")
+		(uuid "37b192ce-5591-5280-aaaa-6837779d6f5c")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:+12V")
@@ -14228,8 +14467,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "7427ba96-7565-52c8-9855-dc4f2672da72")
-		(property "Reference" "#PWR65"
+		(uuid "80376512-2357-5a98-a686-4f024f30064c")
+		(property "Reference" "#PWR67"
 			(at 289.56 194.31 0)
 			(effects
 				(font
@@ -14274,12 +14513,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "3bcf3dc8-ceff-54a9-8d26-fc609719a9be")
+			(uuid "8701702e-c401-5543-9511-38e31e074a76")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR65")
+					(reference "#PWR67")
 					(unit 1)
 				)
 			)
@@ -14294,7 +14533,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "89187d68-0556-59dd-aca0-ddfa4ae7e5ad")
+		(uuid "b43b9474-33b8-57c1-99d8-c8b9ce9447bf")
 	)
 	(label "LED12"
 		(at 287.02 212.09 270)
@@ -14304,7 +14543,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "b6afe679-c2f7-5469-9dcc-64537d20c513")
+		(uuid "b8450b42-8006-5329-9afb-203f8c4d3455")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:LED")
@@ -14314,7 +14553,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "cf49fcbf-dffb-5110-8b3b-a00e9b74e52b")
+		(uuid "b7f6f4ee-2543-54f0-be51-39fec26ace74")
 		(property "Reference" "D5"
 			(at 287.02 217.17 0)
 			(effects
@@ -14368,10 +14607,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "74d2c78b-4825-536d-9107-ff43b17a8102")
+			(uuid "d9d2dc70-5f3a-546a-8d70-43d0ec363b53")
 		)
 		(pin "2"
-			(uuid "65537b98-659a-5caa-b1a3-0abbf109b8e4")
+			(uuid "f3918ced-77b1-5723-bbe3-276409553391")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -14391,7 +14630,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "3b3b5187-0f74-5161-b8a6-760eec4be10e")
+		(uuid "269f8b6e-9e3f-5a24-996e-633d187c6d2f")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:GND")
@@ -14401,8 +14640,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "37b192ce-5591-5280-aaaa-6837779d6f5c")
-		(property "Reference" "#PWR66"
+		(uuid "02c39c58-a841-5c6a-9ac4-ddb9e49df3cb")
+		(property "Reference" "#PWR68"
 			(at 278.13 215.9 0)
 			(effects
 				(font
@@ -14447,12 +14686,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "80376512-2357-5a98-a686-4f024f30064c")
+			(uuid "552428b1-8495-5f09-987e-96f242f049ef")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR66")
+					(reference "#PWR68")
 					(unit 1)
 				)
 			)
@@ -14467,7 +14706,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "8701702e-c401-5543-9511-38e31e074a76")
+		(uuid "2991877e-f759-51c5-9e12-6e18b01e150b")
 	)
 	(label "LED12"
 		(at 293.37 220.98 0)
@@ -14477,7 +14716,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "b43b9474-33b8-57c1-99d8-c8b9ce9447bf")
+		(uuid "6c11b9cd-3b0c-58cf-a421-a698cf962027")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:LMR51430")
@@ -14487,7 +14726,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "b8450b42-8006-5329-9afb-203f8c4d3455")
+		(uuid "ffb4a849-a7d8-5776-b021-6e479e328837")
 		(property "Reference" "U5"
 			(at 195.58 234.95 0)
 			(effects
@@ -14541,22 +14780,22 @@
 			)
 		)
 		(pin "1"
-			(uuid "b7f6f4ee-2543-54f0-be51-39fec26ace74")
+			(uuid "e0e25a15-acd5-5786-b757-bc51ab91d53a")
 		)
 		(pin "2"
-			(uuid "d9d2dc70-5f3a-546a-8d70-43d0ec363b53")
+			(uuid "b6a2b968-364b-5e65-83e5-b0d577718c72")
 		)
 		(pin "3"
-			(uuid "f3918ced-77b1-5723-bbe3-276409553391")
+			(uuid "f5a6b8af-07cf-50bf-a418-ab1771fb601c")
 		)
 		(pin "4"
-			(uuid "269f8b6e-9e3f-5a24-996e-633d187c6d2f")
+			(uuid "0597a4fa-f0f5-5173-9c40-3871de7006b2")
 		)
 		(pin "5"
-			(uuid "02c39c58-a841-5c6a-9ac4-ddb9e49df3cb")
+			(uuid "6b498c30-94e0-5576-982b-bfc53ee6a0e5")
 		)
 		(pin "6"
-			(uuid "552428b1-8495-5f09-987e-96f242f049ef")
+			(uuid "0503382d-a196-561b-9083-950ab54c70ab")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -14576,7 +14815,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "2991877e-f759-51c5-9e12-6e18b01e150b")
+		(uuid "4808f905-28b9-5a6a-a4df-8eccfdd8b158")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:-12V")
@@ -14586,8 +14825,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "6c11b9cd-3b0c-58cf-a421-a698cf962027")
-		(property "Reference" "#PWR67"
+		(uuid "8d09b48f-808e-5f6e-9360-5812b264e731")
+		(property "Reference" "#PWR69"
 			(at 198.12 246.38 0)
 			(effects
 				(font
@@ -14632,12 +14871,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "ffb4a849-a7d8-5776-b021-6e479e328837")
+			(uuid "4c812c06-b1e0-5edc-a1ea-a8d621bd5cd8")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR67")
+					(reference "#PWR69")
 					(unit 1)
 				)
 			)
@@ -14652,7 +14891,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "e0e25a15-acd5-5786-b757-bc51ab91d53a")
+		(uuid "a1e5aa35-5f26-53ea-b13e-b74e7874f40b")
 	)
 	(label "SWN"
 		(at 208.28 241.3 0)
@@ -14662,7 +14901,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "b6a2b968-364b-5e65-83e5-b0d577718c72")
+		(uuid "a48d9322-d09e-57a5-9c9a-560044cb0121")
 	)
 	(wire
 		(pts
@@ -14673,7 +14912,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "f5a6b8af-07cf-50bf-a418-ab1771fb601c")
+		(uuid "33d955b8-d93d-5ec3-983a-910e7ab2ed38")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:+12V")
@@ -14683,8 +14922,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "0597a4fa-f0f5-5173-9c40-3871de7006b2")
-		(property "Reference" "#PWR68"
+		(uuid "d85f1473-8a53-5341-aaa9-35f383de8144")
+		(property "Reference" "#PWR70"
 			(at 180.34 233.68 0)
 			(effects
 				(font
@@ -14729,12 +14968,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "6b498c30-94e0-5576-982b-bfc53ee6a0e5")
+			(uuid "45065f5c-4771-5aef-96cb-280eefd60690")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR68")
+					(reference "#PWR70")
 					(unit 1)
 				)
 			)
@@ -14749,7 +14988,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "0503382d-a196-561b-9083-950ab54c70ab")
+		(uuid "2d469b36-c415-52cf-89e3-f1939af79ae1")
 	)
 	(label "FBN"
 		(at 208.28 243.84 0)
@@ -14759,7 +14998,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "4808f905-28b9-5a6a-a4df-8eccfdd8b158")
+		(uuid "245f6d47-4f7d-5434-8406-38951f07b876")
 	)
 	(wire
 		(pts
@@ -14770,7 +15009,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "8d09b48f-808e-5f6e-9360-5812b264e731")
+		(uuid "50183167-ebb0-507d-a6f4-c0ce34aa8c57")
 	)
 	(label "ENN"
 		(at 182.88 243.84 180)
@@ -14780,7 +15019,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "4c812c06-b1e0-5edc-a1ea-a8d621bd5cd8")
+		(uuid "e96d2e95-5823-5544-a8e8-d960fbd6b601")
 	)
 	(wire
 		(pts
@@ -14791,7 +15030,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "a1e5aa35-5f26-53ea-b13e-b74e7874f40b")
+		(uuid "9476b881-2a99-54fd-96bb-816901729c46")
 	)
 	(label "BOOTN"
 		(at 208.28 238.76 0)
@@ -14801,7 +15040,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "a48d9322-d09e-57a5-9c9a-560044cb0121")
+		(uuid "0158bdcc-7fd7-5865-a701-e6bae803152e")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:C")
@@ -14811,7 +15050,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "33d955b8-d93d-5ec3-983a-910e7ab2ed38")
+		(uuid "ffa59843-3daf-541f-b115-01d3252d0b76")
 		(property "Reference" "C20"
 			(at 149.86 240.03 0)
 			(effects
@@ -14867,10 +15106,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "d85f1473-8a53-5341-aaa9-35f383de8144")
+			(uuid "6d9e83f5-64ce-52d3-a7b0-c16ee8077ea4")
 		)
 		(pin "2"
-			(uuid "45065f5c-4771-5aef-96cb-280eefd60690")
+			(uuid "3d37c71e-7f26-5fec-939b-5de3fceb9cf0")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -14890,7 +15129,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "2d469b36-c415-52cf-89e3-f1939af79ae1")
+		(uuid "008d6254-ec68-5abd-855e-2c3eb3d02e46")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:+12V")
@@ -14900,8 +15139,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "245f6d47-4f7d-5434-8406-38951f07b876")
-		(property "Reference" "#PWR69"
+		(uuid "25f84ccf-b16d-5f89-aaff-36c4eb5732ed")
+		(property "Reference" "#PWR71"
 			(at 149.86 229.87 0)
 			(effects
 				(font
@@ -14946,12 +15185,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "50183167-ebb0-507d-a6f4-c0ce34aa8c57")
+			(uuid "aaaafd4f-4972-5ff8-834d-62004e012020")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR69")
+					(reference "#PWR71")
 					(unit 1)
 				)
 			)
@@ -14966,7 +15205,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "e96d2e95-5823-5544-a8e8-d960fbd6b601")
+		(uuid "0eb8e9b1-62de-512b-a934-c8b33e271de2")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:-12V")
@@ -14976,8 +15215,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "9476b881-2a99-54fd-96bb-816901729c46")
-		(property "Reference" "#PWR70"
+		(uuid "db80460b-a472-5f06-91b1-d78b876c256a")
+		(property "Reference" "#PWR72"
 			(at 149.86 242.57 0)
 			(effects
 				(font
@@ -15022,12 +15261,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "0158bdcc-7fd7-5865-a701-e6bae803152e")
+			(uuid "f8e1a2c8-7bd4-55bf-9c32-f2911e791198")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR70")
+					(reference "#PWR72")
 					(unit 1)
 				)
 			)
@@ -15041,7 +15280,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "ffa59843-3daf-541f-b115-01d3252d0b76")
+		(uuid "bcfc072d-514d-5e0d-b981-3174e4665f29")
 		(property "Reference" "C21"
 			(at 160.02 240.03 0)
 			(effects
@@ -15097,10 +15336,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "6d9e83f5-64ce-52d3-a7b0-c16ee8077ea4")
+			(uuid "f0634c09-5b35-5117-ac57-f3cde9c2d26a")
 		)
 		(pin "2"
-			(uuid "3d37c71e-7f26-5fec-939b-5de3fceb9cf0")
+			(uuid "f655e45c-4137-5a78-b508-074977a0ec93")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -15120,7 +15359,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "008d6254-ec68-5abd-855e-2c3eb3d02e46")
+		(uuid "87791ac7-4ca3-59fc-bdea-9e36834c41b3")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:+12V")
@@ -15130,8 +15369,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "25f84ccf-b16d-5f89-aaff-36c4eb5732ed")
-		(property "Reference" "#PWR71"
+		(uuid "2a242e55-074d-5b85-adea-490f05c4b524")
+		(property "Reference" "#PWR73"
 			(at 160.02 229.87 0)
 			(effects
 				(font
@@ -15176,12 +15415,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "aaaafd4f-4972-5ff8-834d-62004e012020")
+			(uuid "bfa82e52-3d08-52f9-9548-fea69d2a0974")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR71")
+					(reference "#PWR73")
 					(unit 1)
 				)
 			)
@@ -15196,7 +15435,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "0eb8e9b1-62de-512b-a934-c8b33e271de2")
+		(uuid "51ea1836-b891-51e4-9b4f-a2a8d63faeac")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:-12V")
@@ -15206,8 +15445,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "db80460b-a472-5f06-91b1-d78b876c256a")
-		(property "Reference" "#PWR72"
+		(uuid "9975cfbd-895b-51c4-ac2f-ad6401c49b08")
+		(property "Reference" "#PWR74"
 			(at 160.02 242.57 0)
 			(effects
 				(font
@@ -15252,12 +15491,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "f8e1a2c8-7bd4-55bf-9c32-f2911e791198")
+			(uuid "7406f9c9-a6e0-5b39-8a95-6184114dfc27")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR72")
+					(reference "#PWR74")
 					(unit 1)
 				)
 			)
@@ -15271,7 +15510,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "bcfc072d-514d-5e0d-b981-3174e4665f29")
+		(uuid "c85e7809-4330-5b12-833c-49d035b28e09")
 		(property "Reference" "C22"
 			(at 170.18 240.03 0)
 			(effects
@@ -15327,10 +15566,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "f0634c09-5b35-5117-ac57-f3cde9c2d26a")
+			(uuid "c25e9b81-4037-5087-b643-498ea8936916")
 		)
 		(pin "2"
-			(uuid "f655e45c-4137-5a78-b508-074977a0ec93")
+			(uuid "0a0a2b85-7bfa-5d53-9f99-dab9ee39f1d0")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -15350,7 +15589,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "87791ac7-4ca3-59fc-bdea-9e36834c41b3")
+		(uuid "3457bc51-cef5-5874-8c2f-6be810a9221f")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:+12V")
@@ -15360,8 +15599,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "2a242e55-074d-5b85-adea-490f05c4b524")
-		(property "Reference" "#PWR73"
+		(uuid "610fc518-e336-522f-ad2f-8c1a936742bd")
+		(property "Reference" "#PWR75"
 			(at 170.18 229.87 0)
 			(effects
 				(font
@@ -15406,12 +15645,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "bfa82e52-3d08-52f9-9548-fea69d2a0974")
+			(uuid "ac3b52a9-3f8a-582e-bf26-d5a27a16006f")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR73")
+					(reference "#PWR75")
 					(unit 1)
 				)
 			)
@@ -15426,7 +15665,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "51ea1836-b891-51e4-9b4f-a2a8d63faeac")
+		(uuid "de998b32-7a30-5122-984e-9284f6d01afd")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:-12V")
@@ -15436,8 +15675,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "9975cfbd-895b-51c4-ac2f-ad6401c49b08")
-		(property "Reference" "#PWR74"
+		(uuid "59c7f267-4ba4-5fc9-b6d8-68fdd34d6e03")
+		(property "Reference" "#PWR76"
 			(at 170.18 242.57 0)
 			(effects
 				(font
@@ -15482,12 +15721,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "7406f9c9-a6e0-5b39-8a95-6184114dfc27")
+			(uuid "12abf411-0e31-5fde-8a58-3a9adaef091d")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR74")
+					(reference "#PWR76")
 					(unit 1)
 				)
 			)
@@ -15501,7 +15740,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "c85e7809-4330-5b12-833c-49d035b28e09")
+		(uuid "60e6bfbe-aacd-534b-8b71-8e8c7038a938")
 		(property "Reference" "R18"
 			(at 175.26 260.35 0)
 			(effects
@@ -15557,10 +15796,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "c25e9b81-4037-5087-b643-498ea8936916")
+			(uuid "92bf2f62-a372-523e-b594-8c88c0448a8c")
 		)
 		(pin "2"
-			(uuid "0a0a2b85-7bfa-5d53-9f99-dab9ee39f1d0")
+			(uuid "ea871ba3-3469-544f-a34a-0073157031b2")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -15580,7 +15819,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "3457bc51-cef5-5874-8c2f-6be810a9221f")
+		(uuid "16f8be20-d614-5872-bf65-56941aed0a3a")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:+12V")
@@ -15590,8 +15829,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "610fc518-e336-522f-ad2f-8c1a936742bd")
-		(property "Reference" "#PWR75"
+		(uuid "e2b9c2c1-c23a-582e-a910-9a76524572ef")
+		(property "Reference" "#PWR77"
 			(at 175.26 250.19 0)
 			(effects
 				(font
@@ -15636,12 +15875,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "ac3b52a9-3f8a-582e-bf26-d5a27a16006f")
+			(uuid "0602f9e2-7057-5e35-a61d-4f053f039df0")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR75")
+					(reference "#PWR77")
 					(unit 1)
 				)
 			)
@@ -15656,7 +15895,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "de998b32-7a30-5122-984e-9284f6d01afd")
+		(uuid "32dff6cd-fc67-5065-b9b0-f44f63fc0e02")
 	)
 	(label "ENN"
 		(at 172.72 267.97 270)
@@ -15666,7 +15905,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "59c7f267-4ba4-5fc9-b6d8-68fdd34d6e03")
+		(uuid "9b447d83-0e83-5212-8199-a4de795e4343")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:R")
@@ -15676,7 +15915,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "12abf411-0e31-5fde-8a58-3a9adaef091d")
+		(uuid "b0510b16-3c1b-5a2b-9aca-08ff7c413c04")
 		(property "Reference" "R19"
 			(at 175.26 275.59 0)
 			(effects
@@ -15732,10 +15971,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "60e6bfbe-aacd-534b-8b71-8e8c7038a938")
+			(uuid "ef7eb5db-6ada-51ed-a340-77c27bcdfae9")
 		)
 		(pin "2"
-			(uuid "92bf2f62-a372-523e-b594-8c88c0448a8c")
+			(uuid "657c2843-fee3-56ee-a6b8-f00a839040ca")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -15755,7 +15994,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "ea871ba3-3469-544f-a34a-0073157031b2")
+		(uuid "8280aa71-57d2-58b9-bfd6-5654f245eea9")
 	)
 	(label "ENN"
 		(at 172.72 270.51 90)
@@ -15765,7 +16004,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "16f8be20-d614-5872-bf65-56941aed0a3a")
+		(uuid "a2fa2c3a-8b09-50cb-93b4-42dcfb2d016b")
 	)
 	(wire
 		(pts
@@ -15776,7 +16015,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "e2b9c2c1-c23a-582e-a910-9a76524572ef")
+		(uuid "522150a8-e638-5927-9242-781e81b11ee3")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:-12V")
@@ -15786,8 +16025,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "0602f9e2-7057-5e35-a61d-4f053f039df0")
-		(property "Reference" "#PWR76"
+		(uuid "8e748a0b-fe40-5637-8873-96d184d137e8")
+		(property "Reference" "#PWR78"
 			(at 175.26 278.13 0)
 			(effects
 				(font
@@ -15832,12 +16071,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "32dff6cd-fc67-5065-b9b0-f44f63fc0e02")
+			(uuid "d12e44c2-a1de-5fe8-84b5-5ba5cdc21e97")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR76")
+					(reference "#PWR78")
 					(unit 1)
 				)
 			)
@@ -15851,7 +16090,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "9b447d83-0e83-5212-8199-a4de795e4343")
+		(uuid "37fac6df-f807-5b21-ace2-65171139de1b")
 		(property "Reference" "C23"
 			(at 223.52 222.25 0)
 			(effects
@@ -15907,10 +16146,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "b0510b16-3c1b-5a2b-9aca-08ff7c413c04")
+			(uuid "4906ef46-8439-5a59-b910-da47b8703ea9")
 		)
 		(pin "2"
-			(uuid "ef7eb5db-6ada-51ed-a340-77c27bcdfae9")
+			(uuid "608ed863-d882-524c-967e-91dd65f38485")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -15930,7 +16169,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "657c2843-fee3-56ee-a6b8-f00a839040ca")
+		(uuid "728d9fab-2ec6-5d7d-949e-d3014342e536")
 	)
 	(label "BOOTN"
 		(at 220.98 217.17 90)
@@ -15940,7 +16179,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "8280aa71-57d2-58b9-bfd6-5654f245eea9")
+		(uuid "04cae845-c13e-5b0e-87b9-f851a7ed9194")
 	)
 	(wire
 		(pts
@@ -15951,7 +16190,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "a2fa2c3a-8b09-50cb-93b4-42dcfb2d016b")
+		(uuid "1e2f8f61-76e0-5b2d-beba-b9df3e0e9ec2")
 	)
 	(label "SWN"
 		(at 220.98 229.87 270)
@@ -15961,7 +16200,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "522150a8-e638-5927-9242-781e81b11ee3")
+		(uuid "3d7854b8-3639-5a68-ab6c-38adedac0505")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:L")
@@ -15971,7 +16210,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "8e748a0b-fe40-5637-8873-96d184d137e8")
+		(uuid "f03fbefd-216b-57cf-bb19-e6685754d00f")
 		(property "Reference" "L3"
 			(at 228.6 240.03 0)
 			(effects
@@ -16027,10 +16266,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "d12e44c2-a1de-5fe8-84b5-5ba5cdc21e97")
+			(uuid "3bbef9cf-a013-534a-8588-a2f707f33c91")
 		)
 		(pin "2"
-			(uuid "37fac6df-f807-5b21-ace2-65171139de1b")
+			(uuid "637752b3-589c-50b8-91bb-b2abda92f81e")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -16050,7 +16289,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "4906ef46-8439-5a59-b910-da47b8703ea9")
+		(uuid "e5ddc3c9-6ae3-5a4d-b484-797220a842f6")
 	)
 	(label "SWN"
 		(at 226.06 234.95 90)
@@ -16060,7 +16299,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "608ed863-d882-524c-967e-91dd65f38485")
+		(uuid "f29f90cb-5249-585e-87c8-70ec70599f8e")
 	)
 	(wire
 		(pts
@@ -16071,7 +16310,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "728d9fab-2ec6-5d7d-949e-d3014342e536")
+		(uuid "7d6839ca-c9fa-5e1b-88ea-97b2e545ed28")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:GND")
@@ -16081,8 +16320,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "04cae845-c13e-5b0e-87b9-f851a7ed9194")
-		(property "Reference" "#PWR77"
+		(uuid "e7bd08f8-0a7e-5359-a592-d3d23ba5df64")
+		(property "Reference" "#PWR79"
 			(at 228.6 242.57 0)
 			(effects
 				(font
@@ -16127,12 +16366,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "1e2f8f61-76e0-5b2d-beba-b9df3e0e9ec2")
+			(uuid "088fea48-b257-5f94-97a1-cc6ba09d970f")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR77")
+					(reference "#PWR79")
 					(unit 1)
 				)
 			)
@@ -16146,7 +16385,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "3d7854b8-3639-5a68-ab6c-38adedac0505")
+		(uuid "c9e69cad-d461-5a5b-a126-0dbc3faa45bb")
 		(property "Reference" "C24"
 			(at 248.92 255.27 0)
 			(effects
@@ -16202,10 +16441,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "f03fbefd-216b-57cf-bb19-e6685754d00f")
+			(uuid "fcc53e41-0984-5400-a17d-ed76d2c2f0a2")
 		)
 		(pin "2"
-			(uuid "3bbef9cf-a013-534a-8588-a2f707f33c91")
+			(uuid "18453799-ddd6-5de0-8870-5c4c42db05de")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -16225,7 +16464,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "637752b3-589c-50b8-91bb-b2abda92f81e")
+		(uuid "229e044f-3759-5244-8c2e-ce674e318ff3")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:GND")
@@ -16235,8 +16474,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "e5ddc3c9-6ae3-5a4d-b484-797220a842f6")
-		(property "Reference" "#PWR78"
+		(uuid "d00b2c62-08e4-5df5-a09d-dfc0443bcf03")
+		(property "Reference" "#PWR80"
 			(at 248.92 245.11 0)
 			(effects
 				(font
@@ -16281,12 +16520,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "f29f90cb-5249-585e-87c8-70ec70599f8e")
+			(uuid "0403b061-170e-5aef-8574-7b50ec7b3918")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR78")
+					(reference "#PWR80")
 					(unit 1)
 				)
 			)
@@ -16301,7 +16540,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "7d6839ca-c9fa-5e1b-88ea-97b2e545ed28")
+		(uuid "857ab1d7-a262-5d0f-b7af-de6a9a0b7047")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:-12V")
@@ -16311,8 +16550,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "e7bd08f8-0a7e-5359-a592-d3d23ba5df64")
-		(property "Reference" "#PWR79"
+		(uuid "0900faad-b12c-5142-9b24-2545ff6f9e2f")
+		(property "Reference" "#PWR81"
 			(at 248.92 257.81 0)
 			(effects
 				(font
@@ -16357,12 +16596,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "088fea48-b257-5f94-97a1-cc6ba09d970f")
+			(uuid "44df216e-ded6-535d-9263-60cee35027dd")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR79")
+					(reference "#PWR81")
 					(unit 1)
 				)
 			)
@@ -16376,7 +16615,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "c9e69cad-d461-5a5b-a126-0dbc3faa45bb")
+		(uuid "9034953c-c6a2-5b4d-934d-bf6c6661b099")
 		(property "Reference" "C25"
 			(at 259.08 255.27 0)
 			(effects
@@ -16432,10 +16671,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "fcc53e41-0984-5400-a17d-ed76d2c2f0a2")
+			(uuid "2e980e1b-f59f-5d5c-88a4-07fa34312ebe")
 		)
 		(pin "2"
-			(uuid "18453799-ddd6-5de0-8870-5c4c42db05de")
+			(uuid "1121f437-ba90-59fc-a090-81c99b3ad82d")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -16455,7 +16694,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "229e044f-3759-5244-8c2e-ce674e318ff3")
+		(uuid "0ac8edd3-ee62-58b7-8255-1b4491eac631")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:GND")
@@ -16465,8 +16704,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "d00b2c62-08e4-5df5-a09d-dfc0443bcf03")
-		(property "Reference" "#PWR80"
+		(uuid "77a25f68-f64b-5bdb-a90c-b4cf98829959")
+		(property "Reference" "#PWR82"
 			(at 259.08 245.11 0)
 			(effects
 				(font
@@ -16511,12 +16750,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "0403b061-170e-5aef-8574-7b50ec7b3918")
+			(uuid "c7c8bb1d-028f-54c7-9266-fe3d6f0b5489")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR80")
+					(reference "#PWR82")
 					(unit 1)
 				)
 			)
@@ -16531,7 +16770,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "857ab1d7-a262-5d0f-b7af-de6a9a0b7047")
+		(uuid "53c1f227-575b-5809-8c47-97617d768e2f")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:-12V")
@@ -16541,8 +16780,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "0900faad-b12c-5142-9b24-2545ff6f9e2f")
-		(property "Reference" "#PWR81"
+		(uuid "6b9374a7-8c19-57f0-8342-f795577ca03c")
+		(property "Reference" "#PWR83"
 			(at 259.08 257.81 0)
 			(effects
 				(font
@@ -16587,12 +16826,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "44df216e-ded6-535d-9263-60cee35027dd")
+			(uuid "c2d8fec3-c93f-5b7c-a546-b692b378d942")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR81")
+					(reference "#PWR83")
 					(unit 1)
 				)
 			)
@@ -16606,7 +16845,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "9034953c-c6a2-5b4d-934d-bf6c6661b099")
+		(uuid "064a06fc-409a-525a-a339-d2a73ded893d")
 		(property "Reference" "C26"
 			(at 269.24 255.27 0)
 			(effects
@@ -16662,10 +16901,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "2e980e1b-f59f-5d5c-88a4-07fa34312ebe")
+			(uuid "a5779cea-1a7e-52a3-8fe9-2f0b553f85cd")
 		)
 		(pin "2"
-			(uuid "1121f437-ba90-59fc-a090-81c99b3ad82d")
+			(uuid "29549ce2-a59c-57ad-b370-1b3d6f12f5a3")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -16685,7 +16924,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "0ac8edd3-ee62-58b7-8255-1b4491eac631")
+		(uuid "1c8d205a-3753-5183-968d-90c11fbea78e")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:GND")
@@ -16695,8 +16934,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "77a25f68-f64b-5bdb-a90c-b4cf98829959")
-		(property "Reference" "#PWR82"
+		(uuid "0efc98fa-409c-5e75-a60f-04ee34e49039")
+		(property "Reference" "#PWR84"
 			(at 269.24 245.11 0)
 			(effects
 				(font
@@ -16741,12 +16980,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "c7c8bb1d-028f-54c7-9266-fe3d6f0b5489")
+			(uuid "c730dbb1-bcf3-5b5a-b583-8e5797ba97be")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR82")
+					(reference "#PWR84")
 					(unit 1)
 				)
 			)
@@ -16761,7 +17000,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "53c1f227-575b-5809-8c47-97617d768e2f")
+		(uuid "9de38eba-5a39-54de-b227-ce57343df5fa")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:-12V")
@@ -16771,8 +17010,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "6b9374a7-8c19-57f0-8342-f795577ca03c")
-		(property "Reference" "#PWR83"
+		(uuid "19ab9f0e-58e0-580c-9c31-0a3c5384ec7c")
+		(property "Reference" "#PWR85"
 			(at 269.24 257.81 0)
 			(effects
 				(font
@@ -16817,12 +17056,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "c2d8fec3-c93f-5b7c-a546-b692b378d942")
+			(uuid "538e1be5-6824-5cc9-bfa8-9c05a026c5dd")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR83")
+					(reference "#PWR85")
 					(unit 1)
 				)
 			)
@@ -16836,7 +17075,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "064a06fc-409a-525a-a339-d2a73ded893d")
+		(uuid "bac43ef2-7d38-58bc-98fe-c6fb53afcada")
 		(property "Reference" "R20"
 			(at 233.68 260.35 0)
 			(effects
@@ -16892,10 +17131,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "a5779cea-1a7e-52a3-8fe9-2f0b553f85cd")
+			(uuid "3dc243a3-89fb-572e-beaa-3ceee3aa23f6")
 		)
 		(pin "2"
-			(uuid "29549ce2-a59c-57ad-b370-1b3d6f12f5a3")
+			(uuid "b5505c32-36de-56ce-99ff-e1edcd2daae0")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -16915,7 +17154,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "1c8d205a-3753-5183-968d-90c11fbea78e")
+		(uuid "60f680e8-bce2-5dc3-9883-14818d0b1f1c")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:GND")
@@ -16925,8 +17164,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "0efc98fa-409c-5e75-a60f-04ee34e49039")
-		(property "Reference" "#PWR84"
+		(uuid "c9e07b1e-531a-5274-b4fb-ecdd49788f89")
+		(property "Reference" "#PWR86"
 			(at 233.68 250.19 0)
 			(effects
 				(font
@@ -16971,12 +17210,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "c730dbb1-bcf3-5b5a-b583-8e5797ba97be")
+			(uuid "07553bce-9161-5c75-bd74-1bb8be39a490")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR84")
+					(reference "#PWR86")
 					(unit 1)
 				)
 			)
@@ -16991,7 +17230,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "9de38eba-5a39-54de-b227-ce57343df5fa")
+		(uuid "bbf6870b-d892-54ec-bd6e-f5048687b296")
 	)
 	(label "FBN"
 		(at 231.14 267.97 270)
@@ -17001,7 +17240,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "19ab9f0e-58e0-580c-9c31-0a3c5384ec7c")
+		(uuid "7366e3d5-0d40-58a1-90d5-15fe98081426")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:R")
@@ -17011,7 +17250,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "538e1be5-6824-5cc9-bfa8-9c05a026c5dd")
+		(uuid "06ba881e-6f5a-560e-8747-13596fec8352")
 		(property "Reference" "R21"
 			(at 233.68 275.59 0)
 			(effects
@@ -17067,10 +17306,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "bac43ef2-7d38-58bc-98fe-c6fb53afcada")
+			(uuid "ff896352-c8ec-58b3-a249-9d9e9fc806a0")
 		)
 		(pin "2"
-			(uuid "3dc243a3-89fb-572e-beaa-3ceee3aa23f6")
+			(uuid "ce301ec9-4e31-554a-aff1-c6e7fd0c540c")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -17090,7 +17329,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "b5505c32-36de-56ce-99ff-e1edcd2daae0")
+		(uuid "bde0dc8f-4ca5-55bc-8576-674d74984c35")
 	)
 	(label "FBN"
 		(at 231.14 270.51 90)
@@ -17100,7 +17339,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "60f680e8-bce2-5dc3-9883-14818d0b1f1c")
+		(uuid "94f6c55b-8bc3-54e2-98e6-3ef59f966c2e")
 	)
 	(wire
 		(pts
@@ -17111,7 +17350,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "c9e07b1e-531a-5274-b4fb-ecdd49788f89")
+		(uuid "a0907cc7-c041-542b-8c5d-69adcaada879")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:-12V")
@@ -17121,8 +17360,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "07553bce-9161-5c75-bd74-1bb8be39a490")
-		(property "Reference" "#PWR85"
+		(uuid "1adcddbb-39e0-5343-9980-d2b1c00ddb01")
+		(property "Reference" "#PWR87"
 			(at 233.68 278.13 0)
 			(effects
 				(font
@@ -17167,12 +17406,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "bbf6870b-d892-54ec-bd6e-f5048687b296")
+			(uuid "f37c094d-c2ef-5373-b163-5fe422845109")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR85")
+					(reference "#PWR87")
 					(unit 1)
 				)
 			)
@@ -17186,7 +17425,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "7366e3d5-0d40-58a1-90d5-15fe98081426")
+		(uuid "4a90ae4a-9326-5495-9531-f8ba40743529")
 		(property "Reference" "D6"
 			(at 276.86 252.73 0)
 			(effects
@@ -17240,10 +17479,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "06ba881e-6f5a-560e-8747-13596fec8352")
+			(uuid "18a590f1-d2e9-59fa-9873-7000883bb1d2")
 		)
 		(pin "2"
-			(uuid "ff896352-c8ec-58b3-a249-9d9e9fc806a0")
+			(uuid "9b143c5a-ad1e-59ff-b0ac-e894668c24ba")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -17263,7 +17502,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "ce301ec9-4e31-554a-aff1-c6e7fd0c540c")
+		(uuid "47c50112-87d7-537a-aeda-f69f5cdc5ad8")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:GND")
@@ -17273,8 +17512,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "bde0dc8f-4ca5-55bc-8576-674d74984c35")
-		(property "Reference" "#PWR86"
+		(uuid "80239394-a957-5782-8bbe-1e9ea7f19ef8")
+		(property "Reference" "#PWR88"
 			(at 267.97 251.46 0)
 			(effects
 				(font
@@ -17319,12 +17558,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "94f6c55b-8bc3-54e2-98e6-3ef59f966c2e")
+			(uuid "85e610c3-1e81-59f9-99bc-fbc96711a10f")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR86")
+					(reference "#PWR88")
 					(unit 1)
 				)
 			)
@@ -17339,7 +17578,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "a0907cc7-c041-542b-8c5d-69adcaada879")
+		(uuid "211996be-eaf4-5765-830c-1f1050772267")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:-12V")
@@ -17349,8 +17588,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "1adcddbb-39e0-5343-9980-d2b1c00ddb01")
-		(property "Reference" "#PWR87"
+		(uuid "0e7b6070-a0b6-5c5f-ac26-8af81ef28f86")
+		(property "Reference" "#PWR89"
 			(at 290.83 251.46 0)
 			(effects
 				(font
@@ -17395,12 +17634,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "f37c094d-c2ef-5373-b163-5fe422845109")
+			(uuid "46193a5a-0f3c-5dd8-8241-abf1f20dd8b9")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR87")
+					(reference "#PWR89")
 					(unit 1)
 				)
 			)
@@ -17414,7 +17653,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "4a90ae4a-9326-5495-9531-f8ba40743529")
+		(uuid "b1b4bcf7-4385-5a71-abc8-cf22313b25f3")
 		(property "Reference" "D7"
 			(at 287.02 252.73 0)
 			(effects
@@ -17468,10 +17707,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "18a590f1-d2e9-59fa-9873-7000883bb1d2")
+			(uuid "2e996beb-c0e1-5f26-8068-0bae789fb4b9")
 		)
 		(pin "2"
-			(uuid "9b143c5a-ad1e-59ff-b0ac-e894668c24ba")
+			(uuid "be4542f7-df6a-5d8c-b3af-64628132a82c")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -17491,7 +17730,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "47c50112-87d7-537a-aeda-f69f5cdc5ad8")
+		(uuid "76087ff8-ca13-5a2f-9c7d-0afeeceb5650")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:GND")
@@ -17501,8 +17740,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "80239394-a957-5782-8bbe-1e9ea7f19ef8")
-		(property "Reference" "#PWR88"
+		(uuid "90462718-58e9-5664-97e5-f8af64433fb4")
+		(property "Reference" "#PWR90"
 			(at 278.13 251.46 0)
 			(effects
 				(font
@@ -17547,12 +17786,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "85e610c3-1e81-59f9-99bc-fbc96711a10f")
+			(uuid "99e95e3b-06de-5436-80e7-0669d49e8ac5")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR88")
+					(reference "#PWR90")
 					(unit 1)
 				)
 			)
@@ -17567,7 +17806,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "211996be-eaf4-5765-830c-1f1050772267")
+		(uuid "7e7840c4-ce06-5edb-a7f9-3482f627ea1d")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:-12V")
@@ -17577,8 +17816,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "0e7b6070-a0b6-5c5f-ac26-8af81ef28f86")
-		(property "Reference" "#PWR89"
+		(uuid "2b300046-7eb0-5081-b513-856b41594b78")
+		(property "Reference" "#PWR91"
 			(at 300.99 251.46 0)
 			(effects
 				(font
@@ -17623,12 +17862,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "46193a5a-0f3c-5dd8-8241-abf1f20dd8b9")
+			(uuid "4a935ed6-c307-5e07-9825-5a50b215d27d")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR89")
+					(reference "#PWR91")
 					(unit 1)
 				)
 			)
@@ -17642,7 +17881,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "b1b4bcf7-4385-5a71-abc8-cf22313b25f3")
+		(uuid "5b5e7220-bc11-5cd3-b2a2-1427ad83ba7d")
 		(property "Reference" "R22"
 			(at 137.16 260.35 0)
 			(effects
@@ -17698,10 +17937,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "2e996beb-c0e1-5f26-8068-0bae789fb4b9")
+			(uuid "1fd797d7-7a22-50c8-b6c0-29b94a0775ca")
 		)
 		(pin "2"
-			(uuid "be4542f7-df6a-5d8c-b3af-64628132a82c")
+			(uuid "e80848f8-3046-50be-9656-13e1016997a6")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -17721,7 +17960,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "76087ff8-ca13-5a2f-9c7d-0afeeceb5650")
+		(uuid "fd4e924a-af99-59df-9db8-be7175c1255d")
 	)
 	(label "LEDN"
 		(at 134.62 255.27 90)
@@ -17731,7 +17970,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "90462718-58e9-5664-97e5-f8af64433fb4")
+		(uuid "9c8ee138-e905-5253-994b-53eef317ea79")
 	)
 	(wire
 		(pts
@@ -17742,7 +17981,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "99e95e3b-06de-5436-80e7-0669d49e8ac5")
+		(uuid "00b3afc9-8bde-5238-aecb-aca51be1f9f2")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:-12V")
@@ -17752,8 +17991,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "7e7840c4-ce06-5edb-a7f9-3482f627ea1d")
-		(property "Reference" "#PWR90"
+		(uuid "c2a1f3c2-2c09-56f6-981b-7109f2eb2666")
+		(property "Reference" "#PWR92"
 			(at 137.16 262.89 0)
 			(effects
 				(font
@@ -17798,12 +18037,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "2b300046-7eb0-5081-b513-856b41594b78")
+			(uuid "c7bd33c5-4b76-5d7a-ac49-3b069646307b")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR90")
+					(reference "#PWR92")
 					(unit 1)
 				)
 			)
@@ -17817,7 +18056,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "4a935ed6-c307-5e07-9825-5a50b215d27d")
+		(uuid "894a738f-d6ad-5748-ac50-e530f2f234c7")
 		(property "Reference" "D8"
 			(at 134.62 242.57 0)
 			(effects
@@ -17871,10 +18110,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "5b5e7220-bc11-5cd3-b2a2-1427ad83ba7d")
+			(uuid "51dd9b1e-dc2d-5d62-89c7-6f3af059a115")
 		)
 		(pin "2"
-			(uuid "1fd797d7-7a22-50c8-b6c0-29b94a0775ca")
+			(uuid "698bae32-e3a5-5d3f-9dc6-bf8df9830b43")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -17894,7 +18133,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "e80848f8-3046-50be-9656-13e1016997a6")
+		(uuid "b998386d-290d-5b0d-afea-3563c3a22897")
 	)
 	(label "LEDN"
 		(at 128.27 246.38 180)
@@ -17904,7 +18143,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "fd4e924a-af99-59df-9db8-be7175c1255d")
+		(uuid "9ed42a66-721a-5deb-993f-773b219c66cf")
 	)
 	(wire
 		(pts
@@ -17915,7 +18154,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "9c8ee138-e905-5253-994b-53eef317ea79")
+		(uuid "490e12d4-302e-501b-aeea-da2f024eb503")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:GND")
@@ -17925,8 +18164,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "00b3afc9-8bde-5238-aecb-aca51be1f9f2")
-		(property "Reference" "#PWR91"
+		(uuid "28f66e8d-2698-5edd-9974-e9d58ac76509")
+		(property "Reference" "#PWR93"
 			(at 148.59 241.3 0)
 			(effects
 				(font
@@ -17971,12 +18210,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "c2a1f3c2-2c09-56f6-981b-7109f2eb2666")
+			(uuid "0148402f-a2a6-543b-bd26-5a3196c4c03d")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR91")
+					(reference "#PWR93")
 					(unit 1)
 				)
 			)
@@ -17990,7 +18229,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "c7bd33c5-4b76-5d7a-ac49-3b069646307b")
+		(uuid "f9168dc6-7438-53d3-92f3-896e9654f3f2")
 		(property "Reference" "J2"
 			(at 391.16 168.91 0)
 			(effects
@@ -18035,22 +18274,22 @@
 			)
 		)
 		(pin "1"
-			(uuid "894a738f-d6ad-5748-ac50-e530f2f234c7")
+			(uuid "bdea8ffd-e087-5cd5-8cba-a9d3aa1a2025")
 		)
 		(pin "2"
-			(uuid "51dd9b1e-dc2d-5d62-89c7-6f3af059a115")
+			(uuid "ecde5a26-cccf-51ca-9856-07bed240bac0")
 		)
 		(pin "3"
-			(uuid "698bae32-e3a5-5d3f-9dc6-bf8df9830b43")
+			(uuid "4bbc25ca-328e-5444-a9d1-b43dedf4cb86")
 		)
 		(pin "4"
-			(uuid "b998386d-290d-5b0d-afea-3563c3a22897")
+			(uuid "06c035c3-65af-5ad6-a5c0-556c162d1867")
 		)
 		(pin "5"
-			(uuid "9ed42a66-721a-5deb-993f-773b219c66cf")
+			(uuid "3a191f43-79f8-5fb1-8dec-cc49fdb4c7f3")
 		)
 		(pin "6"
-			(uuid "490e12d4-302e-501b-aeea-da2f024eb503")
+			(uuid "c557d57b-4177-5c6f-8953-b399b4181afa")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -18070,7 +18309,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "28f66e8d-2698-5edd-9974-e9d58ac76509")
+		(uuid "42949ba2-e791-5674-8513-202977a14baa")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:+5V")
@@ -18080,8 +18319,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "0148402f-a2a6-543b-bd26-5a3196c4c03d")
-		(property "Reference" "#PWR92"
+		(uuid "c44e4b65-3a69-55aa-be79-4ab27c7ad17a")
+		(property "Reference" "#PWR94"
 			(at 381 167.64 0)
 			(effects
 				(font
@@ -18126,12 +18365,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "f9168dc6-7438-53d3-92f3-896e9654f3f2")
+			(uuid "3672b968-6dcd-5fd8-bedd-22e1eaf4d995")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR92")
+					(reference "#PWR94")
 					(unit 1)
 				)
 			)
@@ -18146,7 +18385,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "bdea8ffd-e087-5cd5-8cba-a9d3aa1a2025")
+		(uuid "29275d66-ac55-5ef7-b084-2fb6da836fcc")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:+5V")
@@ -18156,8 +18395,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "ecde5a26-cccf-51ca-9856-07bed240bac0")
-		(property "Reference" "#PWR93"
+		(uuid "742ff3fe-5268-5d2a-ad73-89e8056e2c40")
+		(property "Reference" "#PWR95"
 			(at 375.92 170.18 0)
 			(effects
 				(font
@@ -18202,12 +18441,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "4bbc25ca-328e-5444-a9d1-b43dedf4cb86")
+			(uuid "d9713130-d717-5e5c-873b-2f7e146d4e6b")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR93")
+					(reference "#PWR95")
 					(unit 1)
 				)
 			)
@@ -18222,7 +18461,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "06c035c3-65af-5ad6-a5c0-556c162d1867")
+		(uuid "492c89bc-aad9-5c0f-9574-d7037c092429")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:GND")
@@ -18232,8 +18471,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "3a191f43-79f8-5fb1-8dec-cc49fdb4c7f3")
-		(property "Reference" "#PWR94"
+		(uuid "93962a42-50db-5de8-ae2e-7b3bd4f06302")
+		(property "Reference" "#PWR96"
 			(at 381 172.72 0)
 			(effects
 				(font
@@ -18278,12 +18517,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "c557d57b-4177-5c6f-8953-b399b4181afa")
+			(uuid "fc75c4ba-7275-5e09-8a22-463ccebf734d")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR94")
+					(reference "#PWR96")
 					(unit 1)
 				)
 			)
@@ -18298,7 +18537,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "42949ba2-e791-5674-8513-202977a14baa")
+		(uuid "be3994ca-2442-5c6c-8aae-e685d01bf331")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:GND")
@@ -18308,8 +18547,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "c44e4b65-3a69-55aa-be79-4ab27c7ad17a")
-		(property "Reference" "#PWR95"
+		(uuid "4b1729a9-3475-5ae2-a8e7-85c2ddc6d30f")
+		(property "Reference" "#PWR97"
 			(at 375.92 175.26 0)
 			(effects
 				(font
@@ -18354,12 +18593,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "3672b968-6dcd-5fd8-bedd-22e1eaf4d995")
+			(uuid "5fa1d25b-7996-5334-ad65-1666584a5aa9")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR95")
+					(reference "#PWR97")
 					(unit 1)
 				)
 			)
@@ -18374,7 +18613,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "29275d66-ac55-5ef7-b084-2fb6da836fcc")
+		(uuid "2a52dedc-ec31-5bc8-9825-c473c2085e0b")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:+12V")
@@ -18384,8 +18623,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "742ff3fe-5268-5d2a-ad73-89e8056e2c40")
-		(property "Reference" "#PWR96"
+		(uuid "96fe34d2-1dae-5c47-8f2c-09e3392aa62a")
+		(property "Reference" "#PWR98"
 			(at 381 177.8 0)
 			(effects
 				(font
@@ -18430,12 +18669,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "d9713130-d717-5e5c-873b-2f7e146d4e6b")
+			(uuid "93906436-aab9-5e41-81be-cbd2c596d411")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR96")
+					(reference "#PWR98")
 					(unit 1)
 				)
 			)
@@ -18450,7 +18689,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "492c89bc-aad9-5c0f-9574-d7037c092429")
+		(uuid "a451743d-4fbc-5b9e-8c79-00ebb6d2e419")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:-12V")
@@ -18460,8 +18699,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "93962a42-50db-5de8-ae2e-7b3bd4f06302")
-		(property "Reference" "#PWR97"
+		(uuid "9c0b6f90-fd26-5429-9416-b325aaba6703")
+		(property "Reference" "#PWR99"
 			(at 375.92 180.34 0)
 			(effects
 				(font
@@ -18506,12 +18745,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "fc75c4ba-7275-5e09-8a22-463ccebf734d")
+			(uuid "754f2c43-92af-593c-a3d9-982a5256fbd4")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR97")
+					(reference "#PWR99")
 					(unit 1)
 				)
 			)
@@ -18525,7 +18764,7 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "be3994ca-2442-5c6c-8aae-e685d01bf331")
+		(uuid "5eba7ddf-61a1-5de3-bb69-065d186f8605")
 		(property "Reference" "#FLG01"
 			(at 342.9 17.78 0)
 			(effects
@@ -18571,7 +18810,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "4b1729a9-3475-5ae2-a8e7-85c2ddc6d30f")
+			(uuid "c4c90028-466e-57fc-8d15-840a7d83d98f")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -18590,8 +18829,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "5fa1d25b-7996-5334-ad65-1666584a5aa9")
-		(property "Reference" "#PWR98"
+		(uuid "54e44d0d-5e76-5368-95fe-36b1893c1125")
+		(property "Reference" "#PWR100"
 			(at 342.9 17.78 0)
 			(effects
 				(font
@@ -18636,12 +18875,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "2a52dedc-ec31-5bc8-9825-c473c2085e0b")
+			(uuid "563b4cc6-43e0-592f-8d38-3dcb2d8acb8f")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR98")
+					(reference "#PWR100")
 					(unit 1)
 				)
 			)
@@ -18655,7 +18894,7 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "96fe34d2-1dae-5c47-8f2c-09e3392aa62a")
+		(uuid "c8f428a5-048b-536e-86ac-f08ea8bc69db")
 		(property "Reference" "#FLG02"
 			(at 353.06 17.78 0)
 			(effects
@@ -18701,7 +18940,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "93906436-aab9-5e41-81be-cbd2c596d411")
+			(uuid "158288af-eabd-5608-a70f-ca2ed8767f1e")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -18720,8 +18959,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "a451743d-4fbc-5b9e-8c79-00ebb6d2e419")
-		(property "Reference" "#PWR99"
+		(uuid "e82fd18f-5870-5d4e-b9ec-b11f003b5e8f")
+		(property "Reference" "#PWR101"
 			(at 353.06 17.78 0)
 			(effects
 				(font
@@ -18766,12 +19005,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "9c0b6f90-fd26-5429-9416-b325aaba6703")
+			(uuid "786cec4b-7110-5708-a52e-1d0f3710bd5c")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR99")
+					(reference "#PWR101")
 					(unit 1)
 				)
 			)
@@ -18785,7 +19024,7 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "754f2c43-92af-593c-a3d9-982a5256fbd4")
+		(uuid "d7dcba0d-8f2f-515f-8dde-de69c656f49e")
 		(property "Reference" "#FLG03"
 			(at 363.22 17.78 0)
 			(effects
@@ -18831,7 +19070,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "5eba7ddf-61a1-5de3-bb69-065d186f8605")
+			(uuid "43bfbf99-9ad1-58dd-a52a-967e3ac53ab5")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -18851,7 +19090,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "c4c90028-466e-57fc-8d15-840a7d83d98f")
+		(uuid "8e2ad6ec-501f-5026-96b7-89aa2e522e28")
 	)
 	(label "5V_BUCK"
 		(at 360.68 25.4 270)
@@ -18861,7 +19100,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "54e44d0d-5e76-5368-95fe-36b1893c1125")
+		(uuid "cbd7a90b-8775-54a9-8848-cb9f4a2f14a9")
 	)
 	(symbol
 		(lib_id "AMIGA_PD_PSU:PWR_FLAG")
@@ -18871,7 +19110,7 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "563b4cc6-43e0-592f-8d38-3dcb2d8acb8f")
+		(uuid "f306fcd2-3c35-5315-9d12-35f4522c6592")
 		(property "Reference" "#FLG04"
 			(at 373.38 17.78 0)
 			(effects
@@ -18917,7 +19156,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "c8f428a5-048b-536e-86ac-f08ea8bc69db")
+			(uuid "f7050626-f84b-5da4-903f-94112e8cafa6")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -18936,8 +19175,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "158288af-eabd-5608-a70f-ca2ed8767f1e")
-		(property "Reference" "#PWR100"
+		(uuid "c9b17bea-63b7-57ff-80a6-1e484cb1458b")
+		(property "Reference" "#PWR102"
 			(at 373.38 17.78 0)
 			(effects
 				(font
@@ -18982,12 +19221,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "e82fd18f-5870-5d4e-b9ec-b11f003b5e8f")
+			(uuid "ab52c620-0429-50d7-bfe6-a160beba28e7")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR100")
+					(reference "#PWR102")
 					(unit 1)
 				)
 			)
@@ -19001,7 +19240,7 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "786cec4b-7110-5708-a52e-1d0f3710bd5c")
+		(uuid "36ee3f27-daa1-55f6-8911-66986575b55d")
 		(property "Reference" "#FLG05"
 			(at 383.54 17.78 0)
 			(effects
@@ -19047,7 +19286,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "d7dcba0d-8f2f-515f-8dde-de69c656f49e")
+			(uuid "ed09928b-20eb-51b2-a295-e4b75f147f9a")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
@@ -19066,8 +19305,8 @@
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "43bfbf99-9ad1-58dd-a52a-967e3ac53ab5")
-		(property "Reference" "#PWR101"
+		(uuid "1fa2e2c2-ca52-581a-8fde-9b3e003f8322")
+		(property "Reference" "#PWR103"
 			(at 383.54 17.78 0)
 			(effects
 				(font
@@ -19112,18 +19351,18 @@
 			)
 		)
 		(pin "1"
-			(uuid "8e2ad6ec-501f-5026-96b7-89aa2e522e28")
+			(uuid "1dda04dd-48e6-50f4-bbb7-27d7a6b4fc1d")
 		)
 		(instances
 			(project "Amiga USB-C PD Power Supply"
 				(path "/21878804-2437-5542-8ff1-c339ad723cc7"
-					(reference "#PWR101")
+					(reference "#PWR103")
 					(unit 1)
 				)
 			)
 		)
 	)
-	(text "Amiga USB-C PD Power Supply v1.1  -  Amiga 500 / 600 / 1200 (and other +5/+12/-12 V machines)\nNeeds a USB-C PD charger that offers 15 V at 3 A (45 W or more). U1 (CH224A) requests 15 V via R1 = 56k.\nU2/U4 run only while the PD contract holds (PG low -> Q1 off) and VBUS > ~11.5 V (R3/R4).\n+5 V: U2 TPS56637 -> U3 eFuse (5.64 V OVLO, ~6 A limit): 5 A continuous.  +12 V: U4, 12.36 V.  -12 V: U5 inverting, from +12 V.\nBudget: 45 W in, about 40 W out, e.g. 5 V 5 A + 12 V 1 A + -12 V 0.2 A.\nOriginal design. Spec targets only from Commodore PSU ratings and the SnCMuseum V2 board; no circuitry copied."
+	(text "Amiga USB-C PD Power Supply v1.2  -  Amiga 500 / 600 / 1200 (and other +5/+12/-12 V machines)\nNeeds a USB-C PD charger that offers 15 V at 3 A (45 W or more). U1 (CH224A) requests 15 V via R1 = 56k.\nU2/U4 run only while the PD contract holds (PG low -> Q1 off) and VBUS > ~11.5 V (R3/R4).\n+5 V: U2 SY8205 -> U3 eFuse (5.64 V OVLO, ~5.4 A limit): 4.5 A continuous.  +12 V: U4, 12.36 V.  -12 V: U5 inverting, from +12 V.\nBudget: 45 W in, about 37 W out, e.g. 5 V 4.5 A + 12 V 1 A + -12 V 0.2 A.\nOriginal design. Spec targets only from Commodore PSU ratings and the SnCMuseum V2 board; no circuitry copied."
 		(exclude_from_sim no)
 		(at 25.4 22.86 0)
 		(effects
@@ -19132,7 +19371,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "cbd7a90b-8775-54a9-8848-cb9f4a2f14a9")
+		(uuid "f3ade171-74f1-51e9-9d49-be42f3b0582c")
 	)
 	(sheet_instances
 		(path "/"
