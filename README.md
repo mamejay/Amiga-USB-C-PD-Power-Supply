@@ -42,7 +42,7 @@ so a 5 V-only or non-PD source never powers the Amiga.
 
 ## Status
 Rev 1.1 (slim 76 × 32 mm re-layout of rev 1.0) – routed, ERC 0 / DRC 0 (only 2 cosmetic USB-C silk-at-edge marks),
-JLC files generated with checked CPL rotations, **not yet built**. Parts ≈ US$8.50 per board at 10 boards (JLC prices 2026-11-03), 7 extended parts.
+JLC files generated with checked CPL rotations, **not yet built**. Parts ≈ US$7.30 per board at 10 boards (JLC prices 2026-11-03), 8 extended parts.
 Rev 1.0 (64 × 46 mm) is tagged `v1.0`. See `docs/DESIGN.md` for the calculations and the bring-up checklist.
 
 ## Licence
