@@ -1,0 +1,47 @@
+(version 1)
+# JLCPCB standard 2-layer, 1oz, 1.6mm FR4 (https://jlcpcb.com/capabilities/pcb-capabilities)
+# Min values are the fab limits; netclass defaults in Board Setup are what you'll actually route with.
+
+(rule "JLC: track width"
+	(constraint track_width (min 0.127mm)))
+
+(rule "JLC: copper clearance"
+	(condition "A.Type != 'Zone' && B.Type != 'Zone'")
+	(constraint clearance (min 0.127mm)))
+
+(rule "JLC: zone clearance"
+	(condition "A.Type == 'Zone' || B.Type == 'Zone'")
+	(constraint clearance (min 0.15mm)))
+
+(rule "JLC: via"
+	(condition "A.Type == 'Via'")
+	(constraint hole_size (min 0.3mm))
+	(constraint via_diameter (min 0.5mm))
+	(constraint annular_width (min 0.1mm)))
+
+(rule "JLC: PTH annular ring"
+	(condition "A.Type == 'Pad' && A.isPlated()")
+	(constraint annular_width (min 0.15mm)))
+
+(rule "JLC: hole to hole"
+	(constraint hole_to_hole (min 0.5mm)))
+
+(rule "JLC: copper to hole"
+	(constraint hole_clearance (min 0.254mm)))
+
+(rule "JLC: copper to board edge"
+	(constraint edge_clearance (min 0.25mm)))
+
+# JLC recommend 1.0 mm text; 0.8 mm with a 0.15 mm stroke still prints legibly (used for the J2 labels)
+(rule "JLC: silkscreen text"
+	(layer "?.Silkscreen")
+	(constraint text_height (min 0.8mm))
+	(constraint text_thickness (min 0.15mm)))
+
+(rule "JLC: via hole to via hole"
+	(condition "A.Type == 'Via' && B.Type == 'Via'")
+	(constraint hole_to_hole (min 0.254mm)))
+
+(rule "JLC: via hole to copper"
+	(condition "A.Type == 'Via'")
+	(constraint hole_clearance (min 0.2mm)))
