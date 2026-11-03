@@ -44,9 +44,9 @@ with open(f'{OUT}/{N} - BOM.csv', 'w', newline='') as f:
         assert lcsc, (val, refs)
         w.writerow([val, ','.join(sorted(refs, key=nat)), fp, lcsc])
 
-# JLC rotation corrections (their part models vs KiCad zero orientation). None applied yet: CHECK THE JLC 3D PREVIEW,
-# especially U1 (ESSOP-10), U2 (VQFN-HR-10), U3 (eFuse), U4/U5 (SOT-23-6), J1, D1-D8, and add offsets here.
-JLC_ROT_FIX = {}
+# JLC rotation corrections (their part models vs KiCad zero orientation), checked in JLC's 3D preview 2026-11-03:
+# U1/U4/U5 -90 (set by the user), Q1 +180 (SOT-23 model had its two legs on the wrong side). U2, U3, J1, D1-D8 raw.
+JLC_ROT_FIX = {'U1': -90, 'U4': -90, 'U5': -90, 'Q1': 180}
 raw = f'{OUT}/pos_raw.csv'
 run('kicad-cli', 'pcb', 'export', 'pos', '-o', raw, '--format', 'csv', '--units', 'mm', '--side', 'both', PCB)
 with open(raw) as f, open(f'{OUT}/{N} - CPL.csv', 'w', newline='') as g:
