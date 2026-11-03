@@ -209,8 +209,8 @@ PARTS = [
     C('C14', '10uF/25V', (157.48, 177.8), 'VBUS', 'GND', 'U4 input'),
     C('C15', '100nF/50V', (167.64, 177.8), 'VBUS', 'GND', 'U4 input HF'),
     C('C16', '100nF/50V', (220.98, 160.02), 'BOOT12', 'SW12', 'U4 bootstrap'),
-    ('L2', 'L', '12uH', FP('L_FH_FNR8040'), (226.06, 177.8), two('SW12', '+12V'),
-     {'LCSC': 'C168128', 'Description': 'Fenghua FNR8040S120MT 12 uH, 3 A rated / 4 A sat, 53 mOhm (TI table: 12 uH for 12 V)'}),
+    ('L2', 'L', '12uH', FP('L_FH_FNR6045'), (226.06, 177.8), two('SW12', '+12V'),
+     {'LCSC': 'C168077', 'Description': 'Fenghua FNR6045S120MT 12 uH, 2.4 A rated / 3 A sat, 75 mOhm, 6x6 mm (TI table: 12 uH for 12 V)'}),
     C('C17', '22uF/25V', (246.38, 193.04), '+12V', 'GND', 'U4 output'),
     C('C18', '22uF/25V', (256.54, 193.04), '+12V', 'GND', 'U4 output'),
     C('C19', '22uF/25V', (266.7, 193.04), '+12V', 'GND', 'U4 output (TI table: 3 x 22 uF)'),
@@ -230,8 +230,8 @@ PARTS = [
     R('R18', '100k', (172.72, 261.62), '+12V', 'ENN', 'U5 EN top (referenced to -12V): on once +12 V is up'),
     R('R19', '20k', (172.72, 276.86), 'ENN', '-12V', 'U5 EN bottom'),
     C('C23', '100nF/50V', (220.98, 223.52), 'BOOTN', 'SWN', 'U5 bootstrap'),
-    ('L3', 'L', '12uH', FP('L_FH_FNR8040'), (226.06, 241.30), two('SWN', 'GND'),
-     {'LCSC': 'C168128', 'Description': 'Fenghua FNR8040S120MT 12 uH (same part as L2)'}),
+    ('L3', 'L', '12uH', FP('L_FH_FNR6045'), (226.06, 241.30), two('SWN', 'GND'),
+     {'LCSC': 'C168077', 'Description': 'Fenghua FNR6045S120MT 12 uH (same part as L2)'}),
     C('C24', '22uF/25V', (246.38, 256.54), 'GND', '-12V', 'U5 output'),
     C('C25', '22uF/25V', (256.54, 256.54), 'GND', '-12V', 'U5 output'),
     C('C26', '22uF/25V', (266.7, 256.54), 'GND', '-12V', 'U5 output'),
@@ -243,9 +243,9 @@ PARTS = [
     R('R22', '4.7k', (134.62, 261.62), 'LEDN', '-12V', '-12 V LED'),
     LED('D8', 'GREEN', 'C2297', (134.62, 246.38), 'GND', 'LEDN', '-12 V good, green 0805'),
     # ---- Amiga cable: solder pads (ready-made square DIN-5 cable)
-    ('J2', 'Conn_01x06', 'AMIGA OUT', FP('WirePads_1x06_P3.81mm_D1.4mm'), (391.16, 177.8),
+    ('J2', 'Conn_01x06', 'AMIGA OUT', FP('WirePads_2x03_P3.81mm_D1.4mm'), (391.16, 177.8),
      {'1': '+5V', '2': '+5V', '3': 'GND', '4': 'GND', '5': '+12V', '6': '-12V'},
-     {'Description': 'solder pads for the Amiga DIN cable: 1+2 = +5 V, 3+4 = GND, 5 = +12 V, 6 = -12 V. Hand-soldered, not assembled'}),
+     {'Description': 'solder pads (2x3) for the Amiga DIN cable: 1+2 = +5 V, 3+4 = GND, 5 = +12 V, 6 = -12 V. Hand-soldered, not assembled'}),
 ]
 ROT = {}
 items, libsyms = [], {}
@@ -369,7 +369,7 @@ for i, net in enumerate(['VBUS', 'GND', '5V_BUCK', '-12V', '+12V']):   # +5V is 
                       ['stroke', ['width', 0], ['type', 'default']], ['uuid', uid()]])
         label(net, x, y + 2.54, (0, 1))
 
-NOTE = ('Amiga USB-C PD Power Supply v1.0  -  Amiga 500 / 600 / 1200 (and other +5/+12/-12 V machines)\n'
+NOTE = ('Amiga USB-C PD Power Supply v1.1  -  Amiga 500 / 600 / 1200 (and other +5/+12/-12 V machines)\n'
         'Needs a USB-C PD charger that offers 15 V at 3 A (45 W or more). U1 (CH224A) requests 15 V via R1 = 56k.\n'
         'U2/U4 run only while the PD contract holds (PG low -> Q1 off) and VBUS > ~11.5 V (R3/R4).\n'
         '+5 V: U2 TPS56637 -> U3 eFuse (5.64 V OVLO, ~6 A limit): 5 A continuous.  +12 V: U4, 12.36 V.  -12 V: U5 inverting, from +12 V.\n'
@@ -380,7 +380,7 @@ items.append(['text', Q(NOTE), ['exclude_from_sim', 'no'], ['at', 25.4, 22.86, 0
 
 sch = ['kicad_sch', ['version', 20250114], ['generator', Q('eeschema')], ['generator_version', Q('10.0')],
        ['uuid', Q(ROOT)], ['paper', Q('A3')],
-       ['title_block', ['title', Q(NAME)], ['date', Q('2026-11-03')], ['rev', Q('1.0')],
+       ['title_block', ['title', Q(NAME)], ['date', Q('2026-11-03')], ['rev', Q('1.1')],
         ['comment', 1, Q('USB-C PD 15 V -> Amiga +5 V 5 A (eFuse protected), +12 V, -12 V')]],
        ['lib_symbols'] + [[s[0], Q(LIBNICK + ':' + s[1])] + s[2:] for s in libsyms.values()]] + items + \
       [['sheet_instances', ['path', Q('/'), ['page', Q('1')]]], ['embedded_fonts', 'no']]

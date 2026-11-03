@@ -43,8 +43,8 @@ write('TI_RPA0010A_VQFN-HR-10_3x3mm', 'TI RPA0010A VQFN-HR-10 3x3 mm (TPS56637),
       pads_of(f'{SRC}/VQFN-HR-10_L3.0-W3.0_RPA.kicad_mod'), (3.0, 3.0), extra=pin1)
 write('L_Chilisin_CMLO0650H', 'Chilisin CMLO0650H 7.1x6.6 mm molded power inductor, pads per EasyEDA C439008',
       pads_of(f'{SRC}/IND-SMD_L7.1-W6.6.kicad_mod'), (7.1, 6.6))
-write('L_FH_FNR8040', 'Fenghua FNR8040S 8x8 mm shielded power inductor, pads per EasyEDA C168128',
-      pads_of(f'{SRC}/IND-SMD_L8.0-W8.0_FNR80XXS.kicad_mod'), (8.0, 8.0))
+write('L_FH_FNR6045', 'Fenghua FNR6045S 6x6 mm shielded power inductor, pads per EasyEDA C168077',
+      pads_of(f'{SRC}/IND-SMD_L6.0-W6.0_FNR60XXS.kicad_mod'), (6.0, 6.0))
 P = 3.81
-write('WirePads_1x06_P3.81mm_D1.4mm', 'Amiga output cable wire pads, 1.4 mm holes for up to 18 AWG',
-      [(str(i + 1), (i - 2.5) * P, 0.0, 2.6, 2.6, 1.4) for i in range(6)], (6 * P, 3.2), tht=True)
+write('WirePads_2x03_P3.81mm_D1.4mm', 'Amiga output cable wire pads 2x3 (rows: +5V +5V / GND GND / +12V -12V), 1.4 mm holes',
+      [(str(r * 2 + c + 1), (c - 0.5) * P, (r - 1) * P, 2.6, 2.6, 1.4) for r in range(3) for c in range(2)], (2 * P, 3 * P), tht=True)

@@ -7,7 +7,7 @@
 	(title_block
 		(title "Amiga USB-C PD Power Supply")
 		(date "2026-11-03")
-		(rev "1.0")
+		(rev "1.1")
 		(comment 1 "USB-C PD 15 V -> Amiga +5 V 5 A (eFuse protected), +12 V, -12 V")
 	)
 	(lib_symbols
@@ -12715,7 +12715,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "AMIGA_PD_PSU:L_FH_FNR8040"
+		(property "Footprint" "AMIGA_PD_PSU:L_FH_FNR6045"
 			(at 226.06 177.8 0)
 			(effects
 				(font
@@ -12733,7 +12733,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Fenghua FNR8040S120MT 12 uH, 3 A rated / 4 A sat, 53 mOhm (TI table: 12 uH for 12 V)"
+		(property "Description" "Fenghua FNR6045S120MT 12 uH, 2.4 A rated / 3 A sat, 75 mOhm, 6x6 mm (TI table: 12 uH for 12 V)"
 			(at 226.06 177.8 0)
 			(effects
 				(font
@@ -12742,7 +12742,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C168128"
+		(property "LCSC" "C168077"
 			(at 226.06 177.8 0)
 			(effects
 				(font
@@ -15990,7 +15990,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "AMIGA_PD_PSU:L_FH_FNR8040"
+		(property "Footprint" "AMIGA_PD_PSU:L_FH_FNR6045"
 			(at 226.06 241.3 0)
 			(effects
 				(font
@@ -16008,7 +16008,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Fenghua FNR8040S120MT 12 uH (same part as L2)"
+		(property "Description" "Fenghua FNR6045S120MT 12 uH (same part as L2)"
 			(at 226.06 241.3 0)
 			(effects
 				(font
@@ -16017,7 +16017,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C168128"
+		(property "LCSC" "C168077"
 			(at 226.06 241.3 0)
 			(effects
 				(font
@@ -18007,7 +18007,7 @@
 				)
 			)
 		)
-		(property "Footprint" "AMIGA_PD_PSU:WirePads_1x06_P3.81mm_D1.4mm"
+		(property "Footprint" "AMIGA_PD_PSU:WirePads_2x03_P3.81mm_D1.4mm"
 			(at 391.16 177.8 0)
 			(effects
 				(font
@@ -18025,7 +18025,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "solder pads for the Amiga DIN cable: 1+2 = +5 V, 3+4 = GND, 5 = +12 V, 6 = -12 V. Hand-soldered, not assembled"
+		(property "Description" "solder pads (2x3) for the Amiga DIN cable: 1+2 = +5 V, 3+4 = GND, 5 = +12 V, 6 = -12 V. Hand-soldered, not assembled"
 			(at 391.16 177.8 0)
 			(effects
 				(font
@@ -19123,7 +19123,7 @@
 			)
 		)
 	)
-	(text "Amiga USB-C PD Power Supply v1.0  -  Amiga 500 / 600 / 1200 (and other +5/+12/-12 V machines)\nNeeds a USB-C PD charger that offers 15 V at 3 A (45 W or more). U1 (CH224A) requests 15 V via R1 = 56k.\nU2/U4 run only while the PD contract holds (PG low -> Q1 off) and VBUS > ~11.5 V (R3/R4).\n+5 V: U2 TPS56637 -> U3 eFuse (5.64 V OVLO, ~6 A limit): 5 A continuous.  +12 V: U4, 12.36 V.  -12 V: U5 inverting, from +12 V.\nBudget: 45 W in, about 40 W out, e.g. 5 V 5 A + 12 V 1 A + -12 V 0.2 A.\nOriginal design. Spec targets only from Commodore PSU ratings and the SnCMuseum V2 board; no circuitry copied."
+	(text "Amiga USB-C PD Power Supply v1.1  -  Amiga 500 / 600 / 1200 (and other +5/+12/-12 V machines)\nNeeds a USB-C PD charger that offers 15 V at 3 A (45 W or more). U1 (CH224A) requests 15 V via R1 = 56k.\nU2/U4 run only while the PD contract holds (PG low -> Q1 off) and VBUS > ~11.5 V (R3/R4).\n+5 V: U2 TPS56637 -> U3 eFuse (5.64 V OVLO, ~6 A limit): 5 A continuous.  +12 V: U4, 12.36 V.  -12 V: U5 inverting, from +12 V.\nBudget: 45 W in, about 40 W out, e.g. 5 V 5 A + 12 V 1 A + -12 V 0.2 A.\nOriginal design. Spec targets only from Commodore PSU ratings and the SnCMuseum V2 board; no circuitry copied."
 		(exclude_from_sim no)
 		(at 25.4 22.86 0)
 		(effects

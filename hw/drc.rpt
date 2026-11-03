@@ -1,16 +1,16 @@
 ** Drc report for Amiga USB-C PD Power Supply.kicad_pcb **
-** Created on 2026-11-03T20:16:02 **
+** Created on 2026-11-03T21:14:50 **
 ** Report includes: Errors, Warnings **
 
 ** Found 2 DRC violations **
 [silk_edge_clearance]: Silkscreen clipped by board edge
     Rule: board setup constraints silk; warning
-    @(100.0000 mm, 144.0000 mm): Segment on Edge.Cuts
-    @(101.6000 mm, 109.3000 mm): Segment of J1 on F.Silkscreen
+    @(100.0000 mm, 130.0000 mm): Segment on Edge.Cuts
+    @(101.6000 mm, 110.8000 mm): Segment of J1 on F.Silkscreen
 [silk_edge_clearance]: Silkscreen clipped by board edge
     Rule: board setup constraints silk; warning
-    @(100.0000 mm, 144.0000 mm): Segment on Edge.Cuts
-    @(101.6000 mm, 118.7000 mm): Segment of J1 on F.Silkscreen
+    @(100.0000 mm, 130.0000 mm): Segment on Edge.Cuts
+    @(101.6000 mm, 120.2000 mm): Segment of J1 on F.Silkscreen
 
 ** Found 0 unconnected pads **
 

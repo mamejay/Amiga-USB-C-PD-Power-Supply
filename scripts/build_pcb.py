@@ -73,8 +73,9 @@ for c, st in (((X0 + R, Y0 + R), (X0, Y0 + R)), ((X1 - R, Y0 + R), (X1 - R, Y0))
     a = pcbnew.PCB_SHAPE(board); a.SetShape(pcbnew.SHAPE_T_ARC); a.SetLayer(pcbnew.Edge_Cuts); a.SetWidth(mm(0.1))
     a.SetCenter(V(*c)); a.SetStart(V(*st)); a.SetArcAngleAndEnd(pcbnew.EDA_ANGLE(90, pcbnew.DEGREES_T), True); board.Add(a)
 
-for txt, x, y, size, ang in SILK:
-    t = pcbnew.PCB_TEXT(board); t.SetText(txt); t.SetLayer(pcbnew.F_SilkS)
+for txt, x, y, size, ang, side in SILK:
+    t = pcbnew.PCB_TEXT(board); t.SetText(txt); t.SetLayer(pcbnew.F_SilkS if side == 'F' else pcbnew.B_SilkS)
+    if side == 'B': t.SetMirrored(True)
     t.SetPosition(V(x, y)); t.SetTextSize(V(size, size)); t.SetTextThickness(mm(0.15)); t.SetTextAngleDegrees(ang)
     board.Add(t)
 

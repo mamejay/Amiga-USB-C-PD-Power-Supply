@@ -2,6 +2,16 @@
 usage: stitch_gnd.py board.kicad_pcb"""
 import sys, os, pcbnew
 b = pcbnew.LoadBoard(sys.argv[1]); mm = pcbnew.FromMM
+def clear_of_others(pt, r=0.65):
+    # no copper of another net within r mm of the via centre, on either layer (tracks, vias, pads)
+    for t in b.GetTracks():
+        if t.GetNetname() != 'GND' and t.HitTest(pt, mm(r)):
+            return False
+    for f in b.GetFootprints():
+        for p in f.Pads():
+            if p.GetNetname() != 'GND' and p.HitTest(pt, mm(r)):
+                return False
+    return True
 gnd = b.FindNet('GND')
 Z = {L: [z for z in b.Zones() if not z.GetIsRuleArea() and z.GetNetname() == 'GND' and z.GetLayer() == L][0] for L in (pcbnew.F_Cu, pcbnew.B_Cu)}
 VIA_R = 0.45
@@ -27,7 +37,8 @@ for _ in range(3):
                     pt = pcbnew.VECTOR2I(ix * 100000, iy * 100000)
                     if all(isl.Contains(pcbnew.VECTOR2I(pt.x + dx, pt.y + dy)) and fo.Contains(pcbnew.VECTOR2I(pt.x + dx, pt.y + dy))
                            for dx in (-mm(VIA_R), 0, mm(VIA_R)) for dy in (-mm(VIA_R), 0, mm(VIA_R))):
-                        best = pt; break
+                        if clear_of_others(pt):
+                            best = pt; break
                 if best: break
             if best is None:
                 print('island no via spot', 'F' if L == pcbnew.F_Cu else 'B', round(bb.GetLeft() / 1e6, 2), round(bb.GetTop() / 1e6, 2)); continue
@@ -46,7 +57,7 @@ for x in range(bb.GetLeft() + mm(2.5), bb.GetRight(), mm(5)):
         if any(abs(v.x - x) < mm(1.5) and abs(v.y - y) < mm(1.5) for v in vias):
             continue
         if all(ff.Contains(pcbnew.VECTOR2I(x + dx, y + dy)) and fb.Contains(pcbnew.VECTOR2I(x + dx, y + dy))
-               for dx in (-mm(0.6), 0, mm(0.6)) for dy in (-mm(0.6), 0, mm(0.6))):
+               for dx in (-mm(0.6), 0, mm(0.6)) for dy in (-mm(0.6), 0, mm(0.6))) and clear_of_others(pt):
             v = pcbnew.PCB_VIA(b); v.SetPosition(pt); v.SetWidth(mm(0.6)); v.SetDrill(mm(0.3)); v.SetNet(gnd)
             v.SetLayerPair(pcbnew.F_Cu, pcbnew.B_Cu); b.Add(v); grid += 1
 pcbnew.ZONE_FILLER(b).Fill(b.Zones())

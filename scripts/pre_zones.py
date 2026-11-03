@@ -19,8 +19,13 @@ def zone(net, pts, prio, ko=True, clr=0.15):
     z = pcbnew.ZONE(b); z.SetLayer(pcbnew.F_Cu); z.SetNet(b.FindNet(net)); poly(z.Outline(), pts)
     z.SetLocalClearance(mm(clr)); z.SetMinThickness(mm(0.2)); z.SetPadConnection(pcbnew.ZONE_CONNECTION_FULL)
     z.SetIslandRemovalMode(pcbnew.ISLAND_REMOVAL_MODE_ALWAYS); z.SetAssignedPriority(prio); b.Add(z)
-zone('/SW5', [(120.42, 101.4), (127.3, 101.4), (127.3, 107.8), (124.9, 107.8), (124.9, 104.9), (120.85, 104.9),
-              (120.85, 105.6), (120.42, 105.6)], 4)
+u2 = next(f for f in b.GetFootprints() if f.GetReference() == 'U2').GetPosition()
+dy = u2.y / 1e6 - 107.0      # polygon drawn for U2 at y = 107.0 (rev 1.0); follows U2 vertically
+zone('/SW5', [(x, y + dy) for x, y in [(120.42, 101.8), (127.3, 101.8), (127.3, 107.8), (124.9, 107.8), (124.9, 104.9),
+              (120.85, 104.9), (120.85, 105.6), (120.42, 105.6)]], 4)
+# +5 V: eFuse OUT stub (above U3) -> C12 / D1 -> corridor -> cable pads 1/2 (R13 +5 V pad sits on the corridor edge)
+zone('+5V', [(146.4, 100.3), (158.0, 100.3), (158.0, 100.3), (169.8, 100.3), (169.8, 108.6), (174.6, 108.6), (174.6, 113.3),
+             (158.0, 113.3), (158.0, 104.5), (150.2, 104.5), (150.2, 102.9), (146.4, 102.9)], 4)
 P = lambda x, y: pcbnew.VECTOR2I(mm(x), mm(y))
 def trk(pts, net, w):
     for (x0, y0), (x1, y1) in zip(pts, pts[1:]):
@@ -29,12 +34,14 @@ def trk(pts, net, w):
 pad = lambda r, n: next(p for f in b.GetFootprints() if f.GetReference() == r for p in f.Pads() if p.GetNumber() == n).GetPosition()
 c2, c13 = pad('C2', '1'), pad('C13', '1')
 # VBUS bus: both USB-C VBUS pad groups -> 1 mm spine at x = 111.0 -> C2 (U2 input) and C13 (U4 input)
-trk([(107.9, 111.55), (111.0, 111.55)], 'VBUS', 0.6)
-trk([(107.9, 116.45), (111.0, 116.45)], 'VBUS', 0.6)
-trk([(111.0, 111.55), (111.0, c13.y / 1e6), (c13.x / 1e6, c13.y / 1e6)], 'VBUS', 1.0)
+vb = sorted({round(pad('J1', n).y / 1e6, 2) for n in ('A4', 'A9')})      # the two USB-C VBUS pad groups
+for y in vb:
+    trk([(107.9, y), (111.0, y)], 'VBUS', 0.6)
+# spine down the left side, then jog right past the run-control parts (Q1/R2-R4) to the U4 input caps
+trk([(111.0, min(vb + [c2.y / 1e6])), (111.0, max(vb) + 0.3), (113.4, max(vb) + 2.7), (113.4, c13.y / 1e6), (c13.x / 1e6, c13.y / 1e6)], 'VBUS', 1.0)
 trk([(c2.x / 1e6, c2.y / 1e6), (111.0, c2.y / 1e6)], 'VBUS', 1.0)
 u18 = pad('U1', '8')
-trk([(111.0, c13.y / 1e6), (112.0, c13.y / 1e6 + 1.0), (112.0, u18.y / 1e6), (u18.x / 1e6, u18.y / 1e6)], 'VBUS', 0.4)
+trk([(u18.x / 1e6, u18.y / 1e6), (118.4, u18.y / 1e6)], 'VBUS', 0.4)     # CH224A VBUS pin -> VBUS pour
 # LMR51430 switch nodes: SW pin (U4/U5 rotated 180 deg, SW faces the inductor) straight to the inductor pad
 for u, l, net in (('U4', 'L2', '/SW12'), ('U5', 'L3', '/SWN')):
     s, e = pad(u, '2'), pad(l, '1')

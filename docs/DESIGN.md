@@ -1,4 +1,4 @@
-# Design notes – Amiga USB-C PD Power Supply rev 1.0
+# Design notes – Amiga USB-C PD Power Supply rev 1.1
 
 ## Block diagram
 
@@ -50,14 +50,15 @@ USB-C ─┬─ CH224A (R1 56k = request 15 V) ── PG ──> Q1 2N7002 ─�
 
 ### +12 V – U4 LMR51430X (500 kHz, PFM)
 * FB 100 k / 5.1 k → 12.36 V. TI Table 9-1 at 12 V: 12 µH, 3 × 22 µF.
-* L2: FNR8040S120MT, 12 µH, 3 A / 4 A sat.
+* L2: FNR6045S120MT, 12 µH, 2.4 A rated / 3 A sat, 75 mΩ (6 × 6 mm; rev 1.0 used the 8 × 8 FNR8040). It carries the
+  Amiga +12 V load plus the −12 V converter's input, about 1.1 A typical, so +12 V is rated 1.5 A continuous.
 * Duty at 14.25 V = 0.87. With 150 ns minimum off-time at 500 kHz, about 92 % is available, so it regulates.
 
 ### −12 V – U5 LMR51430X inverting buck-boost, powered from +12 V
 * The IC ground is the −12 V rail and the inductor (L3, 12 µH) returns to system GND.
 * IC VIN − GND = 12.36 + 12.36 = 24.7 V (36 V max). CIN is 10 µF **50 V** (1206).
 * D = 0.5. IL_avg = Iout / (1 − D) = 2 × Iout. Ripple = 12.36 × 0.5 / (12 µH × 500 kHz) ≈ 1.0 A p-p.
-  The high-side limit is 3.67 A min, so roughly 1.3 A of −12 V is possible. The Amiga needs < 0.1 A.
+  L3 (FNR6045, 3 A sat) gives about 0.7 A of −12 V; the original Commodore PSU gives 0.1 A, and the Amiga needs < 0.1 A.
 * RHP zero ≈ (1 − D)² × R / (2π × D × L) ≈ 200 kHz at 0.5 A, well above the internal loop crossover.
 * EN: 100 k / 20 k from +12 V to −12 V: 2.06 V at start, 4.1 V running.
 * D6 (B5819W, anode −12 V, cathode GND) stops the rail from being dragged positive at start-up and power-down.
@@ -76,7 +77,7 @@ The **extended** parts below each cost about $3 per order:
 | TPS259470ARPWR | C3662799 | 5 V eFuse |
 | LMR51430XDDCR | C5185863 | +12 V and −12 V (one part number) |
 | CMLO0650H3R3MTT | C439008 | L1 |
-| FNR8040S120MT | C168128 | L2 and L3 (one part number) |
+| FNR6045S120MT | C168077 | L2 and L3 (one part number) |
 
 Run `scripts/bom_cost.py "fab/Amiga USB-C PD Power Supply - BOM.csv" <boards>` for current stock and prices.
 
@@ -96,7 +97,8 @@ Run `scripts/bom_cost.py "fab/Amiga USB-C PD Power Supply - BOM.csv" <boards>` f
 6. Only then connect the Amiga. **Meter the DIN cable pinout against the Amiga socket first.**
 
 ## Open items
-* JLC CPL rotations: check every IC, the diodes, the LEDs and J1 in JLC's 3D preview before ordering, and record the
-  offsets in `scripts/make_fab.py` (`JLC_ROT_FIX`).
+* JLC CPL rotations were checked in JLC's 3D preview (rev 1.0, same footprints and rotations in rev 1.1): U1/U4/U5 −90,
+  Q1 +180, in `scripts/make_fab.py` `JLC_ROT_FIX`.
 * The TPS56637 RPA land pattern comes from EasyEDA (LCSC C841386). Compare it with TI's RPA0010A drawing before the first order.
-* Case: not designed yet. The four M3 holes are at (4, 3.5), (4, 42.5), (60.5, 4), (60.5, 42) mm from the board's top-left corner.
+* Case: not designed yet. Board 76 × 32 mm; the four M3 holes are at (3.5, 3.5), (3.5, 28.5), (72.5, 3.5), (72.5, 28.5) mm
+  from the board's top-left corner.
