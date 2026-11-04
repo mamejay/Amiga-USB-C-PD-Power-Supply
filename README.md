@@ -33,18 +33,29 @@ so a 5 V-only or non-PD source never powers the Amiga.
 
 * LEDs: green +5 V, green +12 V, green −12 V, red = 5 V eFuse fault.
 
+## Two versions
+
+| | **Rev 1.2** (repo root, recommended) | **Rev 1.1** (`rev1.1/` folder, higher capacity) |
+|---|---|---|
+| 5 V buck | SY8205, 5 A | TPS56637, 6 A |
+| +5 V rating | 4.5 A continuous | **5 A continuous** |
+| Parts per board (10 off) | about US$5.37 | about US$7.30 |
+
+Everything else (board size, cable pads, ±12 V) is the same. Rev 1.1 suits heavily expanded machines; see `rev1.1/README.md`.
+
 ## Files
 * `hw/` – KiCad 10 project (schematic, PCB, project symbol + footprint libraries, DRC/ERC reports).
 * `fab/` – JLCPCB order files: Gerbers zip, BOM, CPL and `ORDER NOTES.md`.
 * `scripts/` – the generators: `gen_sch.py` (schematic), `place.py` + `build_pcb.py` (placement/board),
   `full.sh` (net classes → Freerouting → pours → GND stitching → DRC loop), `make_fab.py`, `bom_cost.py`.
+* `rev1.1/` – complete rev 1.1 (5 A) KiCad project, JLC files and design notes.
 * `datasheets/` – not committed (vendor copyright); see the links in `docs/DESIGN.md`.
 
 ## Status
 Rev 1.2 (cost-down of the slim 76 × 32 mm rev 1.1: SY8205 5 V buck, Fojan 22 µF caps) – routed, ERC 0 / DRC 0
 (only 2 cosmetic USB-C silk-at-edge marks), JLC files generated, **not yet built**.
 Parts ≈ US$5.37 per board at 10 boards (JLC prices 2026-11-03), 8 extended parts, every part Economic-PCBA eligible.
-Older revisions are tagged `v1.0` (64 × 46 mm) and `v1.1` (slim, TPS56637, 5 A). See `docs/DESIGN.md` for the calculations and the bring-up checklist.
+Rev 1.1 (5 A) is in `rev1.1/` and tagged `v1.1`; rev 1.0 (64 × 46 mm) is tagged `v1.0`. See `docs/DESIGN.md` for the calculations and the bring-up checklist.
 
 ## Licence
 Copyright © 2026 mamejay. All rights reserved (commercial product). See `LICENSE` and `NOTICE.md`.
