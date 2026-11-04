@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "AMIGA_PD_PSU")(type "KiCad")(uri "${KIPRJMOD}/AMIGA_PD_PSU.kicad_sym")(options "")(descr ""))
+)
